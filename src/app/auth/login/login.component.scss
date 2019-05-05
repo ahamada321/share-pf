@@ -1,0 +1,22 @@
+.division {
+    float: none;
+    margin: 0 auto;
+    overflow: hidden;
+    margin: 20px 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    // color: $font-color;
+    .line {
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 10px;
+        width: 40%;
+        &.l{
+            left: 0;
+        }
+        &.r{
+            right: 0;
+        }
+    }
+}

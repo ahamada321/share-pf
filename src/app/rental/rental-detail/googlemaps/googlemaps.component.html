@@ -1,0 +1,31 @@
+<div class="map">
+  <agm-map
+  (mapReady)="mapReadyHandler()" 
+  [latitude]="lat" 
+  [longitude]="lng"
+  [zoom]="13"
+  >
+    <agm-circle *ngIf="!isPositionError && lat && lng"
+                [latitude]="lat" 
+                [longitude]="lng"
+                [radius]="800"
+                [fillColor]="'#F44336'"
+                [fillOpacity]="0.4"
+                >
+    </agm-circle>
+
+    <agm-info-window *ngIf="isPositionError"
+                      [latitude]="0" 
+                      [longitude]="0"
+                      [mawWidth]="300"
+                      [isOpen]=true
+                      >
+                      商品の住所情報が正しく取得できていません。
+                      商品オーナーは住所が正しく入力できているか確認をお願いいたします。
+                      もし解決が難しい場合はサポートフォームにお問い合わせください。
+    </agm-info-window>
+  </agm-map>
+</div>
+
+
+    <!-- <div id="regularMap" class="map"></div> -->

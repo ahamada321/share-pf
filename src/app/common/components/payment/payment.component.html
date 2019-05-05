@@ -1,0 +1,60 @@
+<!-- Want to change to appear form when click change credit-card button. -->
+<!-- 1.User already registerd credit card before? yes -> show change button. no -> show form  -->
+
+<!-- Maybe can refer to editable form source code. -->
+
+<!--
+<span *ngIf="!isActiveInput && customer.id.is.exist" class="inline {{className}}"> Display current credit card number? </span>
+<button *ngIf="!isActiveInput && customer.id.is.exist" 
+        (click)="isActiveInput=true" 
+        class="btn btn-sm btn-warning btn-editable">Edit
+</button>
+
+
+<form *ngIf="isActiveInput || !customer.id.is.exist">
+ Show stripe form here.
+
+
+
+<button *ngIf="isActiveInput" 
+        (click)="updateEntity()" 
+        class="btn btn-sm btn-success btn-editable">Save
+</button>
+<button *ngIf="isActiveInput || !customer.id.is.exist" 
+        (click)="canselUpdate()" 
+        class="btn btn-sm btn-danger btn-editable">Cansel
+</button>
+
+</form>
+
+
+
+-->
+
+
+
+<form [ngClass]="validatingCardFlag ? 'loading' : '' ">
+  <div class="group">
+    <label>
+      <span>Card Number</span>
+      <div #cardNumber class='field'></div>
+    </label>
+    <label>
+      <span>Expiry Date</span>
+      <div #cardExpiry class='field'></div>
+    </label>
+    <label>
+      <span>CVC</span>
+      <div #cardCvc class='field'></div>
+    </label>
+  </div>
+  <div class='outcome'>
+    <div *ngIf="error" class='error'>
+      {{error}}
+    </div>
+    <div *ngIf="token" class="success alert alert-success">
+      Card accepted successfully.
+    </div>
+  </div>
+  <button [disabled]="!isCardValid() || token" type='button' (click)="onSubmit()">クレジットカードを登録/変更</button>
+</form>

@@ -1,0 +1,107 @@
+{
+    "rentals": [
+        {
+            "lastLogin": "2018/11/30",
+            "createdAt": "2018/11/10",
+
+            "rentalname": "商品A",
+            "age": 18,
+            "height": "148",
+            "bust": "C-cup",
+            "weight": "標準的",
+            "image": "assets/img/room1.jpg",
+            "video": "",
+
+            "province": "東京",
+            "nearStation": "新宿",
+            "hourlyPrice": 18000,
+            "description": "こちらの商品は人気です☆",
+                            
+            "rating": 4,
+            "shared": true
+        },
+        {
+            "lastLogin": "2018/11/30",
+            "createdAt": "2018/11/10",
+
+            "rentalname": "商品B",
+            "age": 18,
+            "height": "148",
+            "bust": "C-cup",
+            "weight": "標準的",
+            "image": "assets/img/room2.jpg",
+            "video": "",
+
+            "province": "東京",
+            "nearStation": "新宿",
+            "hourlyPrice": 18000,
+            "description": "初めまして商品Bです。",
+                            
+            "rating": 4,
+            "shared": true
+        },
+        {
+            "lastLogin": "2018/11/30",
+            "createdAt": "2018/11/10",
+
+            "rentalname": "商品C",
+            "age": 18,
+            "height": "148",
+            "bust": "C-cup",
+            "weight": "標準的",
+            "image": "assets/img/room3.jpg",
+            "video": "",
+
+            "province": "東京",
+            "nearStation": "新宿",
+            "hourlyPrice": 18000,
+            "description": "初めまして商品Cです。",
+                            
+            "rating": 4,
+            "shared": true
+        },
+        {
+            "lastLogin": "2018/11/30",
+            "createdAt": "2018/11/10",
+
+            "rentalname": "商品D",
+            "age": 18,
+            "height": "148",
+            "bust": "C-cup",
+            "weight": "標準的",
+            "image": "assets/img/room4.jpg",
+            "video": "",
+
+            "province": "東京",
+            "nearStation": "新宿",
+            "hourlyPrice": 18000,
+            "description": "初めまして商品Dです。",
+                            
+            "rating": 4,
+            "shared": true
+        }
+    ],
+    "users": [
+        {
+            "username": "Hamada",
+            "email": "a.hamada21@gmail.com",
+            "password": "test1",
+            "isVerified": "true",
+            "userRole": "Owner"
+        },
+        {
+            "username": "Test user",
+            "email": "test1@test.com",
+            "password": "test1",
+            "isVerified": "true"
+
+        },
+        {
+            "username": "Free",
+            "email": "a.hamada.free@gmail.com",
+            "password": "test1",
+            "isVerified": "true"
+
+        }
+    ]
+}

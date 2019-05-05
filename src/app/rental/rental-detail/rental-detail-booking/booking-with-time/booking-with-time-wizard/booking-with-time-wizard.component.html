@@ -1,0 +1,155 @@
+<div class="row">
+  <div class="col-sm-8 col-md-6 col-lg-5 mr-auto ml-auto">
+    <!--      Wizard container        -->
+    <div class="wizard-container">
+      <div class="card card-wizard" data-color="rose" id="wizardProfile">
+          <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+          <div class="card-header text-center">
+            <h3 class="card-title">
+              予約申し込みページ
+            </h3>
+            <h5 class="card-description">このページから予約申し込みができます</h5>
+          </div>
+          <div class="wizard-navigation">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" href="#startTime" data-toggle="tab" role="tab">
+                  開始時刻
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#account" data-toggle="tab" role="tab">
+                  合計金額
+                </a>
+              </li>
+              <!--
+              <li class="nav-item">
+                <a class="nav-link" href="#address" data-toggle="tab" role="tab">
+                  コース/オプション
+                </a>
+              </li>
+              -->
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="startTime">
+                <h5 class="info-text">希望する開始時刻を選択してください</h5>
+                <div class="row justify-content-center" *ngIf="rental">
+
+                  <mat-form-field>
+                    <input matInput 
+                            [min]="minDate" 
+                            [max]="maxDate"
+                            [matDatepicker]="picker" 
+                            placeholder="右アイコンをタップしてください" 
+                            [formControl]="defaultDate" 
+                            (dateChange)="changedDateTables($event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-select [(value)]="selectedCourseTime" [formControl]="defaultCourseTime" (selectionChange)="courseChanged($event)">
+                      <mat-option value="30">コース時間:３０分</mat-option>
+                      <mat-option value="60">コース時間：１時間</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div *ngIf="timeTables.length > 0">
+                    <p *ngFor="let timeTable of timeTables">
+                      {{ timeTable.format('M月D日 HH:mm') }} スタート
+                      <button mat-raised-button 
+                              [disabled]="!isValidBooking(timeTable, calEndtime(timeTable, selectedCourseTime))"
+                              [class]="isValidBooking(timeTable, calEndtime(timeTable, selectedCourseTime)) ? 'btn btn-danger' : 'btn'" 
+                              (click)="selectDateTime(timeTable, calEndtime(timeTable, selectedCourseTime), selectedCourseTime)" 
+                              >
+                      <i class="material-icons">date_range</i> {{isValidBooking(timeTable, calEndtime(timeTable, selectedCourseTime)) ? "予約する" : "完売"}}
+                      </button>
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="tab-pane" id="account">
+                <h5 class="info-text"> 合計金額： {{newBooking.totalPrice}} 円 </h5>
+                <div class="row justify-content-center">
+
+                  <!--
+                    <div *ngIf="!isAutoBooking">
+                      <app-payment (paymentComfirmed)="onPaymentConfirmed($event)"></app-payment>
+                      <p>予約申込しますか？</p>
+                      <p>申込後、30分以内に商品オーナーが受理しなかった場合は自動キャンセルになります。</p>
+                      <p>その場合、費用が発生することはありません。</p>
+                    </div>
+                  -->
+
+                    <div *ngIf="isAutoBooking">
+                      <h4>予約申し込みしますか？</h4>
+                    </div>
+                    <div *ngIf="errors.length>0" class="alert alert-danger modal-error">
+                      <p *ngFor="let error of errors">
+                        {{error.detail}}
+                      </p>
+                    </div>
+
+                </div>
+              </div>
+
+              <!--
+              <div class="tab-pane" id="address">
+                <div class="row justify-content-center">
+                  
+                  <div class="col-sm-4">
+                    <div class="choice" data-toggle="wizard-checkbox">
+                      <input type="checkbox" name="jobb" value="Design">
+                      <div class="icon">
+                        <i class="fa fa-pencil"></i>
+                      </div>
+                      <h6>Design</h6>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="choice" data-toggle="wizard-checkbox">
+                      <input type="checkbox" name="jobb" value="Code">
+                      <div class="icon">
+                        <i class="fa fa-terminal"></i>
+                      </div>
+                      <h6>Code</h6>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="choice" data-toggle="wizard-checkbox">
+                      <input type="checkbox" name="jobb" value="Develop">
+                      <div class="icon">
+                        <i class="fa fa-laptop"></i>
+                      </div>
+                      <h6>Develop</h6>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              -->
+            </div>
+          </div>
+
+          
+          <div class="card-footer">
+            <div class="mr-auto">
+              <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="戻る">
+              <a *ngIf="rental" class="btn btn-start btn-fill btn-default btn-wd" routerLink="/rentals/{{rental._id}}">戻る</a>
+            </div>
+            <div class="ml-auto">
+              <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+              <!-- <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;"> -->
+              <button [disabled]="isAutoBooking ? false : !newBooking.paymentToken" type="button" class="btn btn-finish btn-fill btn-rose btn-wd" (click)="createBooking(); ">予約申込する</button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+      </div>
+    </div>
+    <!-- wizard container -->
+  </div>
+</div>
