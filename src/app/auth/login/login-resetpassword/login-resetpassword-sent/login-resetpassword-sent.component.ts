@@ -11,6 +11,9 @@ export class LoginResetpasswordSentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let navbar = document.getElementsByTagName('nav')[0];
+        navbar.classList.add('navbar-transparent');
+
   }
 
 }

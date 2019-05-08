@@ -19,6 +19,9 @@ export class LoginNewPasswordComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    let navbar = document.getElementsByTagName('nav')[0];
+        navbar.classList.add('navbar-transparent');
+
     this.route.params.subscribe(
       (params) => {
         this.verifyToken = params['verifyToken']

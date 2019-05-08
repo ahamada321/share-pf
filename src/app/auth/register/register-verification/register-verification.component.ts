@@ -21,6 +21,9 @@ export class RegisterVerificationComponent implements OnInit {
               private route: ActivatedRoute ) { }
 
   ngOnInit() {
+    let navbar = document.getElementsByTagName('nav')[0];
+        navbar.classList.add('navbar-transparent');
+
     this.route.params.subscribe(
       (params) => {
         if(params['registered'] == 'success') {

@@ -19,6 +19,9 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    let navbar = document.getElementsByTagName('nav')[0];
+        navbar.classList.add('navbar-transparent');
+
   }
 
   register() {
