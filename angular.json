@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SharePF": {
+    "share-pf": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SharePF",
+            "outputPath": "dist/share-pf",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "SharePF:build"
+            "browserTarget": "share-pf:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "SharePF:build:production"
+              "browserTarget": "share-pf:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SharePF:build"
+            "browserTarget": "share-pf:build"
           }
         },
         "test": {
@@ -115,7 +115,7 @@
         }
       }
     },
-    "SharePF-e2e": {
+    "share-pf-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -124,11 +124,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "SharePF:serve"
+            "devServerTarget": "share-pf:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "SharePF:serve:production"
+              "devServerTarget": "share-pf:serve:production"
             }
           }
         },
@@ -144,5 +144,5 @@
       }
     }
   },
-  "defaultProject": "SharePF"
+  "defaultProject": "share-pf"
 }
