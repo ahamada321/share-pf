@@ -1,8 +1,23 @@
 <section id="rentalListing">
-  <h2 class="catchphrase">レンタル一覧</h2>
-  <div class="row">
-    <div class='col-md-3 col-xs-6' *ngFor="let rental of rentals">
-      <app-rental-list-item [rental]="rental"></app-rental-list-item>
+  <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/fabio-mangione.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+        <div class="motto text-center">
+            <h1>Personal Trainers</h1>
+            <h3>Here are the professionals of personal training.</h3>
+            <br />
+        </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section text-center">
+      <div class="container">
+        <div class="row">
+          <div class='col-md-3 col-xs-6' *ngFor="let rental of rentals">
+            <app-rental-list-item [rental]="rental"></app-rental-list-item>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -1,18 +1,21 @@
 <a routerLink="{{rental._id}}">
-  <div class="card card-product">
-    <div class="card-header card-header-image" data-header-animation="false">
+  <div class="card">
+    <div class="card-image">
       <img class="img" src="{{rental.image}}">
     </div>
     <div class="card-body">
-      <h4 class="card-title">{{ rental.rentalname }}</h4>
+      <label class="label label-warning">{{ rental.province }}</label>
+      <h5 class="card-title">{{ rental.rentalname }}</h5>
       <div class="card-description">{{rental.description}}</div>
-    </div>
-    <div class="card-footer">
-      <div class="price">
-        <h4>{{ rental.hourlyPrice }}円/時間</h4>
-      </div>
-      <div class="stats">
-        <p class="card-category"><i class="material-icons">place</i>{{ rental.province }}</p>
+      <hr />
+      <div class="card-footer">
+        <div class="author">
+          <!-- <img src="assets/img/rihanna.jpg" alt="..." class="avatar img-raised"> -->
+          <span>{{ rental.hourlyPrice }}JPY/HOUR</span>
+        </div>
+        <div class="stats">
+          <i class="fa fa-heart" aria-hidden="true"></i> 5.3k
+        </div>
       </div>
     </div>
   </div>

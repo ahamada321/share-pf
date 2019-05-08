@@ -9,7 +9,6 @@ import { Booking } from '../rental-detail-booking/services/booking.model';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
-
 import * as moment from 'moment-timezone'
 import Swal from 'sweetalert2'
 import { BookingService } from '../rental-detail-booking/services/booking.service';

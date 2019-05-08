@@ -9,6 +9,9 @@ import { Router } from '@angular/router'
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  focus: any;
+  focus1: any;
+  focus2: any;
 
   formData: any = {}
   errors: any[] = []
@@ -21,7 +24,7 @@ export class RegisterComponent implements OnInit {
   register() {
     this.auth.register(this.formData).subscribe(
       () => {
-        this.router.navigate(['/login', {registered: 'pre-success'}])
+        this.router.navigate(['/thanks'])
       },
       (errorResponse: HttpErrorResponse) => {
         this.errors = errorResponse.error.errors

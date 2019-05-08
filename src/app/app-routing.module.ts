@@ -7,12 +7,17 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LandingComponent } from './landing/landing.component';
 import { RentalModule } from './rental/rental.module';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { ThanksComponent } from './thanks-page/thanks.component';
+import { PresentationModule } from './presentation/presentation.module';
+import { PresentationComponent } from './presentation/presentation.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'user-profile',     component: ProfileComponent },
   { path: 'landing',          component: LandingComponent },
+  { path: 'thanks',          component: ThanksComponent },
+  { path: 'presentation',         component: PresentationComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
@@ -22,7 +27,7 @@ const routes: Routes = [
     SweetAlert2Module.forRoot(),
     AuthModule,
     RentalModule,
-    FullCalendarModule
+    PresentationModule
   ],
   exports: [RouterModule]
 })

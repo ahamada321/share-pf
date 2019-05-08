@@ -14,7 +14,6 @@ import { RegisterVerificationComponent } from './register/register-verification/
 
 import { AuthService } from './service/auth.service';
 import { TokenInterceptor } from './service/token.interceptor';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 const routes: Routes = [
@@ -42,7 +41,6 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    //SweetAlert2Module
   ],
   exports: [RouterModule],
   providers: [

@@ -1,8 +1,120 @@
 <section id="register">
+    <div class="wrapper">
+        <div class="page-header" style="background-image: url('./assets/img/top-banner.jpg');">
+            <div class="filter"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-7 col-12 ml-auto">
+                            <div class="info info-horizontal"> <!--Need to check css-->
+                                <div class="icon">
+                                    <i class="fa fa-umbrella"></i>
+                                </div>
+                                <div class="description">
+                                    <h3> We've got you covered </h3>
+                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. Everything you need in a single case.</p>
+                                </div>
+                            </div>
+                            <div class="info info-horizontal">
+                                <div class="icon">
+                                    <i class="fa fa-map-signs"></i>
+                                </div>
+                                <div class="description">
+                                    <h3> Clear Directions </h3>
+                                    <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.</p>
+                                </div>
+                            </div>
+                            <div class="info info-horizontal">
+                                <div class="icon">
+                                    <i class="fa fa-user-secret"></i>
+                                </div>
+                                <div class="description">
+                                    <h3> We value your privacy </h3>
+                                    <p>Completely synergize resource taxing relationships via premier niche markets.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-5 col-12 mr-auto">
+                            <div class="card card-register">
+                                <h3 class="title">Register</h3>
+                                <div class="social-line text-center">
+                                    <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
+                                        <i class="fa fa-facebook-square"></i>
+                                    </a>
+                                    <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                    <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </div>
+                                <div class="division">
+                                    <div class="line l"></div>
+                                    <span>or</span>
+                                    <div class="line r"></div>
+                                </div>
+                                <div *ngIf="errors.length > 0" class="alert alert-danger">
+                                    <p *ngFor="let error of errors">{{error.detail}}</p>
+                                </div>
+                                <form class="register-form" #registarForm="ngForm">
+                                    <label>Email</label>
+                                    <div class="form-group">
+                                        <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="nc-icon nc-email-85"></i>
+                                                </span>
+                                            </div>
+                                            <input [(ngModel)]="formData.email"
+                                                    name="email"
+                                                    type="email"
+                                                    class="form-control"
+                                                    id="email"
+                                                    placeholder="Email" (focus)="focus=true" (blur)="focus=false"
+                                                    required>
+                                            </div>
+                                    </div>
+
+                                    <label>Password</label>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="formData.password"
+                                                name="password"
+                                                type="password"
+                                                class="form-control"
+                                                id="password"
+                                                placeholder="Password" (focus)="focus1=true" (blur)="focus1=false"
+                                                required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input [(ngModel)]="formData.passwordConfirmation"
+                                                name="passwordConfirmation"
+                                                type="password"
+                                                class="form-control"
+                                                id="passwordConfirmation"
+                                                placeholder="Confirm Password" (focus)="focus2=true" (blur)="focus2=false"
+                                                required>
+                                    </div>
+                                    <button [disabled]="!registarForm.valid" type="submit" class="btn btn-danger btn-block btn-round"  (click)="register()">Become Member</button>
+                                </form>
+                                <div class="forgot">
+                                    <a routerLink="/login" class="btn btn-link btn-danger">Already have an account?</a>
+                                </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!--
   <div class="bwm-form">
     <div class="row">
       <div class="col-md-5">
         <h2>Member Registration</h2>
+
         <form #registarForm="ngForm">
           <div class="form-group">
             <label for="username">ユーザー名</label>
@@ -56,7 +168,7 @@
                    required>
           </div>
 
-          <!--
+
           <div class="form-group">
             <div class="form-check">
               <label class="form-check-label">
@@ -68,22 +180,14 @@
               </label>
             </div>
           </div>
-          -->
+
 
           <button [disabled]="!registarForm.form.valid" (click)="register()" type="submit" class="btn btn-bwm">Submit</button>
         </form>
-        <div *ngIf="errors.length > 0" class="alert alert-danger">
-          <p *ngFor="let error of errors">
-            {{error.detail}}
-          </p>
-        </div>
       </div>
-      <div class="col-md-6 ml-auto">
-        <div class="image-container">
-          <h2 class="catchphrase">メンバー登録すると、電話を使わずネットで予約が完結できます</h2>
-          <img src="assets/images/register-image.jpg" alt="">
-        </div>
-      </div>
+
     </div>
   </div>
+-->
+
 </section>

@@ -14,6 +14,7 @@ import { FooterComponent } from './common/footer/footer.component';
 import { HomeModule } from './home/home.module';
 import { LandingComponent } from './landing/landing.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ThanksComponent } from './thanks-page/thanks.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
     FooterComponent,
     LandingComponent,
     ProfileComponent,
+    ThanksComponent,
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +33,7 @@ import { ProfileComponent } from './profile/profile.component';
     AppRoutingModule,
     RouterModule,
     NgbModule.forRoot(),
-    HomeModule
+    HomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

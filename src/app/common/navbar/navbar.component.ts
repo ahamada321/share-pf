@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-navbar',
@@ -10,9 +12,15 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element : ElementRef) {
-        this.sidebarVisible = false;
-    }
+    constructor(
+            public location: Location, 
+            private element : ElementRef,
+            public auth: AuthService,
+            private router: Router
+        ) 
+        {
+            this.sidebarVisible = false;
+        }
 
     ngOnInit() {
         const navbar: HTMLElement = this.element.nativeElement;
@@ -65,5 +73,10 @@ export class NavbarComponent implements OnInit {
         else {
             return false;
         }
+    }
+
+    logout() {
+        this.auth.logout()
+        this.router.navigate(['/login'])
     }
 }

@@ -10,6 +10,10 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  test : Date = new Date();
+
+  focus: any;
+  focus1: any;
 
   loginForm: FormGroup
   errors: any[] = []

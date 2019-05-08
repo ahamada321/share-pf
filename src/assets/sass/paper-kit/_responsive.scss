@@ -267,6 +267,19 @@
             }
         }
     }
+    .presentation-page .components-container .card{
+        margin-bottom: 40px !important;
+    }
+    .btn-wd{
+        min-width: 280px;
+    }
+    .presentation-page .title-brand .type{
+        font-size: 16px;
+        transform: translateY(-28px);
+        -webkit-transform: translateY(-28px);
+        -moz-transform: translateY(-28px);
+        -o-transform: translateY(-28px);
+    }
     .presentation-page{
         .section-cards,
         .section-components{
@@ -339,6 +352,23 @@
                 .nc-icon:not(.ninth-left-icon):not(.seventh-left-icon):not(.third-left-icon){
                     display: none !important;
                 }
+            }
+        }
+    }
+        .presentation-page{
+        .fog-low{
+            margin-bottom: -35px;
+        }
+        .presentation-title{
+            font-size: 5em;
+        }
+        .presentation-subtitle{
+            margin-top: 40px;
+        }
+        .title-brand{
+            max-width: 450px;
+            .type{
+                font-size: 16px;
             }
         }
     }

@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login-resetpassword.component.scss']
 })
 export class LoginResetpasswordComponent implements OnInit {
-
+  test : Date = new Date();
   loginForm: FormGroup
   errors: any[] = []
   notifyMessage: string = ''
