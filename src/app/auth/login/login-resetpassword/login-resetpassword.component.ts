@@ -11,6 +11,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LoginResetpasswordComponent implements OnInit {
   test : Date = new Date();
+
+  focus: any;
+  focus1: any;
   loginForm: FormGroup
   errors: any[] = []
   notifyMessage: string = ''
