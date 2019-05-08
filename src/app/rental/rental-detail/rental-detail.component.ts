@@ -31,6 +31,9 @@ export class RentalDetailComponent implements OnInit {
                 ) { }
 
     ngOnInit() {
+      let navbar = document.getElementsByTagName('nav')[0];
+          navbar.classList.add('navbar-transparent');
+
       this.route.params.subscribe(
         (params) => {
           this.getRental(params['rentalId'])
