@@ -1,4 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
+import { AuthService } from '../auth/service/auth.service';
+import { HttpErrorResponse } from '@angular/common/http'
+import { Router } from '@angular/router';
 
 declare const $: any;
 
@@ -16,10 +19,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         right: false
     };
 
-    focus;
-    focus1;
-
-    constructor(public el: ElementRef) { }
+    focus: any;
+    focus1: any;
+    focus2: any;
+  
+    formData: any = {}
+    errors: any[] = []
+  
+    constructor(
+        public el: ElementRef,
+        private auth: AuthService, 
+        private router: Router) { }
+  
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
        const componentPosition = document.getElementsByClassName('add-animation');
@@ -68,4 +79,15 @@ export class HomeComponent implements OnInit, OnDestroy {
        var navbar = document.getElementsByTagName('nav')[0];
        navbar.classList.remove('navbar-transparent');
    }
+
+   register() {
+    this.auth.register(this.formData).subscribe(
+      () => {
+        this.router.navigate(['/thanks'])
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errors = errorResponse.error.errors
+      }
+    )
+  }
 }

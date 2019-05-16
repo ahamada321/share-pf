@@ -32,29 +32,33 @@
 -->
 
 
-
-<form [ngClass]="validatingCardFlag ? 'loading' : '' ">
-  <div class="group">
-    <label>
-      <span>Card Number</span>
-      <div #cardNumber class='field'></div>
-    </label>
-    <label>
-      <span>Expiry Date</span>
-      <div #cardExpiry class='field'></div>
-    </label>
-    <label>
-      <span>CVC</span>
-      <div #cardCvc class='field'></div>
-    </label>
-  </div>
-  <div class='outcome'>
-    <div *ngIf="error" class='error'>
-      {{error}}
-    </div>
-    <div *ngIf="token" class="success alert alert-success">
-      Card accepted successfully.
-    </div>
-  </div>
-  <button [disabled]="!isCardValid() || token" type='button' (click)="onSubmit()">クレジットカードを登録/変更</button>
-</form>
+<!-- <ng-container *ngIf="stripeCustomerId.length > 0">
+登録ずみな場合
+</ng-container>
+<ng-container *ngIf="!stripeCustomerId.length == 0"> -->
+  <form [ngClass]="validatingCardFlag ? 'loading' : '' ">
+      <div class="group">
+        <label>
+          <span>Card Number</span>
+          <div #cardNumber class='field'></div>
+        </label>
+        <label>
+          <span>Expiry Date</span>
+          <div #cardExpiry class='field'></div>
+        </label>
+        <label>
+          <span>CVC</span>
+          <div #cardCvc class='field'></div>
+        </label>
+      </div>
+      <div class='outcome'>
+        <div *ngIf="error" class='error'>
+          {{error}}
+        </div>
+        <div *ngIf="token" class="success alert alert-success">
+          Card accepted successfully.
+        </div>
+      </div>
+      <button [disabled]="!isCardValid() || token" type='button' (click)="onSubmit()">クレジットカードを登録/変更</button>
+    </form>
+<!-- </ng-container> -->

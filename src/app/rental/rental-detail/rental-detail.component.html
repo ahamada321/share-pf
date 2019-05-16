@@ -10,7 +10,7 @@
                                 <div class="space-110"></div>
                                 <div class="row">
                                     <div class="col-md-6 text-left motto">
-                                        <h1 class="title">Nishino Trainer</h1>
+                                        <h1 class="title">{{ rental.rentalname }} Trainer</h1>
                                         <h3>Now you have no excuses, it's time to surprise your clients, your competitors, and why not, the world.</h3>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                         <h2 class="title">Let's talk product</h2>
                         <h5 class="description">This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise he wouldn't scroll to get here. Add a button if you want the user to see more.</h5>
                         <br>
-                        <a href="#paper-kit" class="btn btn-danger btn-round">See Details</a>
+                        <a (click)="smoothScroll('blog-1')" class="btn btn-danger btn-round">See Details</a>
                     </div>
                 </div>
                 <br/><br/>
@@ -310,7 +310,7 @@
                                 <h3 class="card-title">$199</h3>
 
                                 <p class="card-description">
-                                    This is good if your company size is between 5 and 20 employees.
+                                    Trial Pass for first trial. You can try this trainer.
                                 </p>
                                 <div class="card-footer">
                                     <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
@@ -328,7 +328,7 @@
                                 <h3 class="card-title">$249</h3>
 
                                 <p class="card-description">
-                                    This is good if your company size is between 21 and 59 employees.
+                                    One time pass for every members. You can book with your schedule.
                                 </p>
                                 <div class="card-footer">
                                     <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
@@ -346,7 +346,7 @@
                                 <h3 class="card-title">$359</h3>
 
                                 <p class="card-description">
-                                    This is good if your company size is between 60 and 159 employees.
+                                    10 times tickets for every members.
                                 </p>
                                 <div class="card-footer">
                                     <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
@@ -364,7 +364,7 @@
                                 <h3 class="card-title">$599</h3>
 
                                 <p class="card-description">
-                                    This is good if your company size is between 160 and 299 employees.
+                                    Monthly subscription plan for every members.
                                 </p>
                                 <div class="card-footer">
                                     <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>

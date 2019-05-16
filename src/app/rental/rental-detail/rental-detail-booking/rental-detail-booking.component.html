@@ -17,13 +17,23 @@
                         <div class="card-icon">
                             <span class="icon-simple"><i class="nc-icon nc-basket"></i></span>
                         </div>
-                        <h3 class="card-title">$199</h3>
+                        <h3 class="card-title">$99</h3>
 
                         <p class="card-description">
                             This is good if your company size is between 5 and 20 employees.
                         </p>
-                        <div class="card-footer">
-                            <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
+                        <!-- <div class="card-footer">
+                            <a (click)="chooseCourse(1)" class="btn btn-neutral btn-round">Choose Plan</a>
+                        </div> -->
+
+                        <div class="form-check-radio">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" (input)="chooseCourse(1)">
+                                <span class="form-check-sign"></span>
+                                <div class="icon">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -35,13 +45,23 @@
                         <div class="card-icon">
                             <span class="icon-simple"><i class="nc-icon nc-watch-time"></i></span>
                         </div>
-                        <h3 class="card-title">$249</h3>
+                        <h3 class="card-title">$150</h3>
 
                         <p class="card-description">
                             This is good if your company size is between 21 and 59 employees.
                         </p>
-                        <div class="card-footer">
-                            <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
+                        <!-- <div class="card-footer">
+                            <a (click)="chooseCourse(2)" class="btn btn-neutral btn-round">Choose Plan</a>
+                        </div> -->
+
+                        <div class="form-check-radio">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" (input)="chooseCourse(2)">
+                                <span class="form-check-sign"></span>
+                                <div class="icon">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -53,13 +73,24 @@
                         <div class="card-icon">
                             <span class="icon-simple"><i class="nc-icon nc-settings"></i></span>
                         </div>
-                        <h3 class="card-title">$359</h3>
+                        <h3 class="card-title">$200</h3>
 
                         <p class="card-description">
                             This is good if your company size is between 60 and 159 employees.
                         </p>
-                        <div class="card-footer">
-                            <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
+                        <!-- <div class="card-footer">
+                            <a (click)="chooseCourse(3)" class="btn btn-neutral btn-round">Choose Plan</a>
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" >
+                        </div> -->
+
+                        <div class="form-check-radio">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" (input)="chooseCourse(3)">
+                                <span class="form-check-sign"></span>
+                                <div class="icon">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -71,13 +102,23 @@
                         <div class="card-icon">
                             <span class="icon-simple"><i class="nc-icon nc-istanbul"></i></span>
                         </div>
-                        <h3 class="card-title">$599</h3>
+                        <h3 class="card-title">$500</h3>
 
                         <p class="card-description">
                             This is good if your company size is between 160 and 299 employees.
                         </p>
-                        <div class="card-footer">
-                            <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
+                        <!-- <div class="card-footer">
+                            <a (click)="chooseCourse(4)" class="btn btn-neutral btn-round">Choose Plan</a>
+                        </div> -->
+
+                        <div class="form-check-radio">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4" (input)="chooseCourse(4)">
+                                <span class="form-check-sign"></span>
+                                <div class="icon">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -87,7 +128,7 @@
 </div>
 
 <!--     *********    Select Date and Time     *********      -->
-<div class="pricing-1 section">
+<div class="pricing-1 section" id="select-date">
     <div class="container">
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto text-center">
@@ -126,59 +167,48 @@
         <div class="row">
             <div class="ccol-sm-7 ml-auto mr-auto text-center">
                 <div *ngIf="timeTables.length > 0">
-                    <p *ngFor="let timeTable of timeTables">
-                        {{ timeTable.format('M月D日 HH:mm') }} スタート
-                        <button mat-raised-button 
-                                [disabled]="!isValidBooking(timeTable, calEndtime(timeTable, selectedCourseTime))"
-                                [class]="isValidBooking(timeTable, calEndtime(timeTable, selectedCourseTime)) ? 'btn btn-danger' : 'btn'" 
-                                (click)="selectDateTime(timeTable, calEndtime(timeTable, selectedCourseTime), selectedCourseTime)" 
-                                >
-                                {{isValidBooking(timeTable, calEndtime(timeTable, selectedCourseTime)) ? "予約する" : "完売"}}
-                        </button>
-                    </p>
+                    <div *ngFor="let timeTable of timeTables">
+                        <p *ngIf="!isPastDateTime(timeTable)">
+                            {{ timeTable.format('M月D日 HH:mm') }} スタート
+                            <button *ngIf="isValidBooking(timeTable)" class="btn btn-danger" (click)="selectDateTime(timeTable)" >
+                                予約する
+                            </button>
+                            <button  *ngIf="!isValidBooking(timeTable)" class="btn"  [disabled]="true">
+                                完売
+                            </button>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!--
-        <div class="col-md-8">
-            <mat-form-field>
-                <mat-select [(value)]="selectedCourseTime" [formControl]="defaultCourseTime" (selectionChange)="courseChanged($event)">
-                    <mat-option value="30">コース時間:３０分</mat-option>
-                    <mat-option value="60">コース時間：１時間</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        -->
-
     </div>
 </div>
 
 <!--     *********    Choose your Paying Method     *********      -->
-<div class="pricing-1 section">
+<div class="pricing-1 section" id="paying-method">
     <div class="container">
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto text-center">
                 <h2 class="title">Check total price</h2>
-                <h5 class="description">You can choose PayPal or Credit card</h5>
+                <!-- <h5 class="description">You can choose PayPal or Credit card</h5> -->
             </div>
         </div>
         <div class="space-top"></div>
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <ngb-tabset [justify]="'center'">
-                    <ngb-tab title="PayPal">
+                    <!-- <ngb-tab title="PayPal">
                         <ng-template ngbTabContent >
                             <h3 class="text-muted">Total price</h3>
                             <div class="space-top"></div>
                         </ng-template>
-                    </ngb-tab>
+                    </ngb-tab> -->
                     <ngb-tab title="CreditCard">
                         <ng-template ngbTabContent>
                                 <h3 class="text-muted">Total price</h3>
                                 <app-payment (paymentComfirmed)="onPaymentConfirmed($event)"></app-payment>
                             <br>
-                            <button [disabled]="!courseSelected" class="btn btn-warning btn-round" (click)="createBooking()">Book Now!</button>
+                            <button [disabled]="!chosenDateTime && !chosenCourse" class="btn btn-warning btn-round" (click)="createBooking()">Book Now!</button>
                             <div class="space-top"></div>
                         </ng-template>
                     </ngb-tab>

@@ -1,0 +1,52 @@
+<section id="userBookings">
+        <h1 class="page-title">My Bookings</h1>
+      
+        <div class="row">
+            <ng-container *ngIf="bookings.length > 0">
+            <div *ngFor="let booking of bookings" class="col-md-4">
+      
+                  <div class="card card-product">
+                    <div class="card-header card-header-image" data-header-animation="false">
+                      <a routerLink="/rentals/{{booking.rental._id}}">
+                        <img class="img" src="{{booking.rental.image}}">
+                      </a>
+                    </div>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                          {{ booking.rental.rentalname }}
+                      </h4>
+                      <div class="card-description">
+                        <div>予約日：{{ booking.startAt | formatDate }}</div>
+                        <div>開始時刻：{{ booking.startAt | formatTime }}</div>
+                        <div>コース時間：{{ booking.courseTime }}min</div>
+                        <!-- <app-review></app-review> -->
+                        <button type="button" class="btn btn-danger" (click)="deleteBooking(booking._id)">キャンセルする</button>
+      
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      Created {{booking.createdAt | formatDate}}
+                      <div class="stats">
+                        <p class="card-category"><i class="material-icons">place</i>{{ booking.rental.province }}</p>
+                      </div>
+                    </div>
+                  </div>
+      
+            </div>
+          </ng-container>
+          <div *ngIf="bookings.length==0" class="alert alert-warning">
+              まだ予約中の商品はありません。商品を探しに行きますか？
+            <a class="btn btn-bwm" routerLink="/rentals">商品を見に行く</a>
+          </div>
+        </div>
+        <br>
+      
+        <ng-container *ngIf="bookings.length > 0">
+          <h1 class="page-title">Finished Bookings</h1>
+          <div class="row">
+            Going to Add finished bookings.
+          </div>
+        </ng-container>
+      
+      </section>
+        

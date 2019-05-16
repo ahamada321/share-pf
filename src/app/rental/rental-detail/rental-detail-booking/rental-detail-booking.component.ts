@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import * as moment from 'moment-timezone';
 import { RentalService } from '../../service/rental.service';
@@ -8,31 +8,40 @@ import { AuthService } from 'src/app/auth/service/auth.service';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { Rental } from '../../service/rental.model';
 import { Booking } from './services/booking.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2'
 import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 
 
+//t = current time
+//b = start value
+//c = change in value
+//d = duration
+var easeInOutQuad = function(t, b, c, d) {
+    t /= d/2;
+    if (t < 1) return c/2*t*t + b;
+    t--;
+    return -c/2 * (t*(t-2) - 1) + b;
+};
 @Component({
   selector: 'app-rental-detail-booking',
   templateUrl: './rental-detail-booking.component.html',
   styleUrls: ['./rental-detail-booking.component.scss']
 })
 export class RentalDetailBookingComponent implements OnInit {
-    @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
+    chosenCourse: number = 0
+    chosenDateTime: boolean = false // have to change name to datetimeSelected
+
+    chosenCourseTime: number = 60
     timeTables: any = []
-    courseSelected: boolean = false
 
     // Date picker params
+    @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
     selectedDate: NgbDateStruct
     minDate: NgbDateStruct
     maxDate: NgbDateStruct 
-
-    defaultCourseTime = new FormControl('30')
-    selectedCourseTime: number = 30
-
 
     rental: Rental
     newBooking: Booking
@@ -56,7 +65,33 @@ export class RentalDetailBookingComponent implements OnInit {
             this.selectedDate = calendar.getToday()
             this.minDate = calendar.getToday()
             this.maxDate = calendar.getNext(calendar.getToday(), 'd', 14 - 1 )
+
+            router.events.subscribe(s => {
+                if (s instanceof NavigationEnd) {
+                    const tree = router.parseUrl(router.url);
+                    if (tree.fragment) {
+                        const element = document.querySelector("#" + tree.fragment);
+                        if (element) { element.scrollIntoView(); }
+                    }
+                }
+            });
          }
+    
+    @HostListener('window:scroll', ['$event'])
+    updateNavigation() {
+        // const contentSections = document.getElementsByClassName('cd-section') as HTMLCollectionOf<any>;
+        // const navigationItems = document.getElementById('cd-vertical-nav').getElementsByTagName('a');
+
+        // for (let i = 0; i < contentSections.length; i++) {
+        //     const activeSection: any = parseInt(navigationItems[i].getAttribute('data-number')) - 1;
+
+        //     if ( ( contentSections[i].offsetTop - window.innerHeight/2 < window.pageYOffset ) && ( contentSections[i].offsetTop + contentSections[i].scrollHeight - window.innerHeight/2 > window.pageYOffset ) ) {
+        //         navigationItems[activeSection].classList.add('is-selected');
+        //     }else {
+        //         navigationItems[activeSection].classList.remove('is-selected');
+        //     }
+        // }
+    }
 
     ngOnInit() {
         this.initDateTables()
@@ -68,35 +103,6 @@ export class RentalDetailBookingComponent implements OnInit {
             })
     }
 
-    initDateTables() {
-        this.timeTables = [
-            moment({ hour:9, minute:0 }),
-            moment({ hour:9, minute:30 }),
-            moment({ hour:10, minute:0 }),
-            moment({ hour:10, minute:30 }),
-            moment({ hour:11, minute:0 }),
-            moment({ hour:11, minute:30 }),
-            moment({ hour:12, minute:0 }),
-            moment({ hour:12, minute:30 }),
-            moment({ hour:13, minute:0 }),
-            moment({ hour:13, minute:30 }),
-            moment({ hour:14, minute:0 }),
-            moment({ hour:14, minute:30 }),
-            moment({ hour:15, minute:0 }),
-            moment({ hour:15, minute:30 }),
-            moment({ hour:16, minute:0 }),
-            moment({ hour:16, minute:30 }),
-            moment({ hour:17, minute:0 }),
-            moment({ hour:17, minute:30 }),
-            moment({ hour:18, minute:0 }),
-            moment({ hour:18, minute:30 }),
-            moment({ hour:19, minute:0 }),
-            moment({ hour:19, minute:30 }),
-            moment({ hour:20, minute:0 }),
-            moment({ hour:20, minute:30 }),
-        ]
-    }
-
     getRental(rentalId: string) {
         this.rentalService.getRentalById(rentalId).subscribe(
             (rental: Rental) => {
@@ -105,76 +111,97 @@ export class RentalDetailBookingComponent implements OnInit {
         )
     }
 
+    chooseCourse(courseName) {
+        this.chosenCourse = courseName
+        if(courseName === 1) this.chosenCourseTime = 30
+        else if(courseName === 2) this.chosenCourseTime = 60
+        else if(courseName === 3) this.chosenCourseTime = 60
+        else if(courseName === 4) this.chosenCourseTime = 60
+
+        this.smoothScroll('select-date')
+    }
+
+    smoothScroll(target) {
+        const targetScroll = document.getElementById(target);
+        this.scrollTo(document.documentElement, targetScroll.offsetTop, 1250);
+    }
+    scrollTo(element, to, duration) {
+        const start = element.scrollTop
+        const change = to - start
+        let currentTime = 0
+        const increment = 20;
+
+        let animateScroll = function(){
+            currentTime += increment;
+            element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
+            if(currentTime < duration) {
+                setTimeout(animateScroll, increment);
+            }
+        };
+        animateScroll();
+    }
+
+    ngAfterViewInit(){
+        this.updateNavigation();
+    }
+
+    initDateTables() {
+        const tempDates = []
+        const mEndAt = moment({ hour:20, minute:30 })
+        let mStartAt = moment({ hour:9, minute:0 })
+
+        while(mStartAt < mEndAt) {
+            tempDates.push(moment(mStartAt))
+            mStartAt = mStartAt.add(30, 'minutes')
+        }
+        tempDates.push(mEndAt)
+
+        this.timeTables = tempDates
+    }
+
     onDateSelect(event: NgbDateStruct) {
         const selectedMonth = event.month - 1
         const selectedDate = event.day
 
-        this.timeTables = [
-            moment({ hour:9, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:9, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:10, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:10, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:11, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:11, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:12, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:12, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:13, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:13, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:14, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:14, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:15, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:15, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:16, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:16, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:17, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:17, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:18, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:18, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:19, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:19, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:20, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-            moment({ hour:20, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate}),
-        ]
+        const tempDates = []
+        const mEndAt = moment({ hour:20, minute:30 }).set({ 'month': selectedMonth, 'date': selectedDate})
+        let mStartAt = moment({ hour:9, minute:0 }).set({ 'month': selectedMonth, 'date': selectedDate})
 
-        this.courseSelected = false
+        while(mStartAt < mEndAt) {
+            tempDates.push(moment(mStartAt))
+            mStartAt = mStartAt.add(30, 'minutes')
+        }
+        tempDates.push(mEndAt)
+
+        this.timeTables = tempDates
+        this.chosenDateTime = false
     }
 
-    courseChanged(event) {
-        this.courseSelected = false
-    }
+    selectDateTime(startAt){
+        const endAt = moment(startAt).add(this.chosenCourseTime, 'minute')
 
-    calEndtime(startAt, courseTime: number) {
-        return moment(startAt).add(courseTime, 'minute')
-    }
-
-    selectDateTime(startAt, endAt, selectedCourseTime){
-        // this.newBooking.startAt = moment(startAt, "HH").tz("Asia/Tokyo").format()
-        // this.newBooking.endAt = moment(endAt, "HH").subtract(1, 'seconds').tz("Asia/Tokyo").format()
-        this.newBooking.startAt = startAt.format()
+        this.newBooking.startAt = moment(startAt).format()
         this.newBooking.endAt = endAt.subtract(1, 'seconds').format()
 
-        this.newBooking.courseTime = selectedCourseTime
-        this.newBooking.totalPrice = this.rental.hourlyPrice * (selectedCourseTime / 60)
+        this.newBooking.courseTime = this.chosenCourseTime
+        this.newBooking.totalPrice = this.rental.hourlyPrice * (this.chosenCourseTime / 60)
 
-        //this.newBooking.totalPrice = this.newBooking.days * this.rental.hourlyPrice
-
-        // Toggle to next tab
-        // $('#wizardProfile a[href="#account"]').tab('show'); // Due to merge paper-kit
-
-        this.courseSelected = true
+        this.chosenDateTime = true
+        this.smoothScroll('paying-method')
     }
 
-    isValidBooking(startAt, endAt) {
+    isPastDateTime(startAt) {
+        return moment(startAt).diff(moment()) < 0 // Attention: just "moment()" is already applied timezone!
+    }
+
+    isValidBooking(startAt) {
         let isValid = false
         const rentalBookings = this.rental.bookings
 
         const reqStart = moment(startAt)
-        const reqEnd = moment(endAt).subtract(1, 'seconds')
+        const endAt = moment(startAt).add(this.chosenCourseTime, 'minute')
+        const reqEnd = endAt.subtract(1, 'seconds')
 
-        const isPastDateTime = reqStart.diff(moment()) < 0 // Attention: just "moment()" is already applied timezone!
-        if(isPastDateTime) {
-            return false
-        }
         if(rentalBookings && rentalBookings.length == 0) {
             return true
         } 
@@ -189,6 +216,15 @@ export class RentalDetailBookingComponent implements OnInit {
         return isValid
         }
     }
+
+
+
+
+
+
+
+
+
 
     onPaymentConfirmed(paymentToken: any) {
         this.newBooking.paymentToken = paymentToken

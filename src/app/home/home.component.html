@@ -97,7 +97,6 @@
                             Now UI Kit comes with 100 custom icons made by our friends from NucleoApp. The official package contains over 2.100 thin icons which are looking great in combination with Now UI Kit Make sure you check all of them and use those that you like the most.
                         </p><br/>
                         <a [routerLink]="['/nucleoicons']" class="btn btn-danger btn-round">View Demo Icons</a>
-                        <a href="https://nucleoapp.com/?ref=1712" class="btn btn-outline-danger btn-round" target="_blank">View All Icons</a>
                     </div>
 
                     <div class="col-lg-6 col-md-12">
@@ -135,9 +134,9 @@
         <div class="section section-image section-login" style="background-image: url('assets/img/login-image.jpg');">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12 ml-auto mr-auto">
+                    <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                         <div class="card card-register">
-                            <h3 class="title">Welcome</h3>
+                            <h3 class="title">Register</h3>
                             <div class="social-line text-center">
                                 <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
                                     <i class="fa fa-facebook-square"></i>
@@ -149,35 +148,60 @@
                                     <i class="fa fa-twitter"></i>
                                 </a>
                             </div>
-                            <form class="register-form">
+                            <div class="division">
+                                <div class="line l"></div>
+                                <span>or</span>
+                                <div class="line r"></div>
+                            </div>
+                            <div *ngIf="errors.length > 0" class="alert alert-danger">
+                                <p *ngFor="let error of errors">{{error.detail}}</p>
+                            </div>
+                            <form class="register-form" #registarForm="ngForm">
                                 <label>Email</label>
-                                <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="nc-icon nc-email-85"></i>
-                                    </span>
-                                  </div>
-
-                                    <input type="text" class="form-control" placeholder="Email" (focus)="focus=true" (blur)="focus=false" >
+                                <div class="form-group">
+                                    <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="nc-icon nc-email-85"></i>
+                                            </span>
+                                        </div>
+                                        <input [(ngModel)]="formData.email"
+                                                name="email"
+                                                type="email"
+                                                class="form-control"
+                                                id="email"
+                                                placeholder="Email" (focus)="focus=true" (blur)="focus=false"
+                                                required>
+                                        </div>
                                 </div>
 
                                 <label>Password</label>
-                                <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="nc-icon nc-key-25"></i>
-                                    </span>
-                                  </div>
-                                    <input type="text" class="form-control" placeholder="Password" (focus)="focus1=true" (blur)="focus1=false" >
+                                <div class="form-group">
+                                    <input [(ngModel)]="formData.password"
+                                            name="password"
+                                            type="password"
+                                            class="form-control"
+                                            id="password"
+                                            placeholder="Password" (focus)="focus1=true" (blur)="focus1=false"
+                                            required>
                                 </div>
-                                <button class="btn btn-danger btn-block btn-round">Register</button>
+                                <div class="form-group">
+                                    <input [(ngModel)]="formData.passwordConfirmation"
+                                            name="passwordConfirmation"
+                                            type="password"
+                                            class="form-control"
+                                            id="passwordConfirmation"
+                                            placeholder="Confirm Password" (focus)="focus2=true" (blur)="focus2=false"
+                                            required>
+                                </div>
+                                <button [disabled]="!registarForm.valid" type="submit" class="btn btn-danger btn-block btn-round"  (click)="register()">Request to become Member</button>
                             </form>
                             <div class="forgot">
-                                <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
+                                <a routerLink="/login" class="btn btn-link btn-danger">Already have an account?</a>
                             </div>
                         </div>
                         <div class="col text-center" routerLinkActive="active">
-                            <a [routerLink]="['/signup']" class="btn btn-outline-neutral btn-round btn-lg">View Register Page</a>
+                            <a [routerLink]="['/login']" class="btn btn-outline-neutral btn-round btn-lg">Go to Login Page</a>
                         </div>
                     </div>
                 </div>
@@ -206,14 +230,13 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">Do you like what you see?</h2>
+                        <h2 class="title">Become Personal Trainer?</h2>
                         <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 download-area ml-auto mr-auto">
-                        <a routerLink="/rentals" class="btn btn-warning btn-round">Download free HTML</a>
-                        <a routerLink="/rentals" class="btn btn-danger btn-round">Download free Angular</a>
+                        <a routerLink="/register" class="btn btn-warning btn-round">Become Personal Trainer</a>
                     </div>
                 </div>
                 <div class="row justify-content-md-center sharing-area text-center">
@@ -229,9 +252,6 @@
                         </a>
                         <a href="#pablo" class="btn btn-facebook-bg facebook-sharrre btn-round" rel="tooltip" title="Share!">
                             <i class="fa fa-facebook-square"></i> Facebook
-                        </a>
-                        <a href="#" class="btn btn-github-bg btn-github sharrre btn-round" rel="tooltip" title="Star on Github">
-                            <i class="fa fa-github"></i> Star
                         </a>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Rental } from '../service/rental.model';
 import { Booking } from './rental-detail-booking/services/booking.model';
 import { RentalService } from '../service/rental.service';
@@ -9,7 +9,16 @@ import { BookingService } from './rental-detail-booking/services/booking.service
 import * as moment from 'moment-timezone'
 import timeGridPlugin from '@fullcalendar/timegrid';
 
-
+//t = current time
+//b = start value
+//c = change in value
+//d = duration
+var easeInOutQuad = function (t, b, c, d) {
+  t /= d/2;
+	if (t < 1) return c/2*t*t + b;
+	t--;
+	return -c/2 * (t*(t-2) - 1) + b;
+};
 @Component({
     selector: 'app-rental-detail',
     templateUrl: './rental-detail.component.html',
@@ -22,13 +31,26 @@ export class RentalDetailComponent implements OnInit {
     newBooking: Booking
     calendarPlugins = [timeGridPlugin]; // important!
 
+    headerOffset: number = 75; // want to replace like DEFINE HEADER_OFFSET
     
     // reviews: Review[] = []
 
-    constructor(private route: ActivatedRoute,
-                private rentalService: RentalService,
-                // private reviewService: ReviewService,
-                ) { }
+    constructor(
+      private route: ActivatedRoute,
+      private rentalService: RentalService,
+      // private reviewService: ReviewService,
+      public router: Router
+    ) {
+      router.events.subscribe(s => {
+        if (s instanceof NavigationEnd) {
+            const tree = router.parseUrl(router.url);
+            if (tree.fragment) {
+                const element = document.querySelector("#" + tree.fragment);
+                if (element) { element.scrollIntoView(); }
+            }
+        }
+    });
+    }
 
     ngOnInit() {
       let navbar = document.getElementsByTagName('nav')[0];
@@ -93,7 +115,48 @@ export class RentalDetailComponent implements OnInit {
         return events
     }
 
-    formatDate(date: string): string {
-        return `${moment(date).fromNow()}`
+    // formatDate(date: string): string {
+    //     return `${moment(date).fromNow()}`
+    // }
+
+
+    @HostListener('window:scroll', ['$event'])
+    updateNavigation() {
+        // var contentSections = document.getElementsByClassName('cd-section') as HTMLCollectionOf<any>;
+        // var navigationItems = document.getElementById('cd-vertical-nav').getElementsByTagName('a');
+
+        // for (let i = 0; i < contentSections.length; i++) {
+        //     var activeSection: any = parseInt(navigationItems[i].getAttribute('data-number')) - 1;
+
+        //     if ( ( contentSections[i].offsetTop - window.innerHeight/2 < window.pageYOffset ) && ( contentSections[i].offsetTop + contentSections[i].scrollHeight - window.innerHeight/2 > window.pageYOffset ) ) {
+        //         navigationItems[activeSection].classList.add('is-selected');
+        //     }else {
+        //         navigationItems[activeSection].classList.remove('is-selected');
+        //     }
+        // }
     }
+
+    smoothScroll(target) {
+      let targetScroll = document.getElementById(target);
+      this.scrollTo(document.documentElement, targetScroll.offsetTop - this.headerOffset, 1250);
+    }
+    scrollTo(element, to, duration) {
+      var start = element.scrollTop,
+          change = to - start,
+          currentTime = 0,
+          increment = 20;
+
+      var animateScroll = function(){
+          currentTime += increment;
+          var val = easeInOutQuad(currentTime, start, change, duration);
+          element.scrollTop = val;
+          if(currentTime < duration) {
+              setTimeout(animateScroll, increment);
+          }
+      };
+      animateScroll();
+  }
+
+
+  
 }

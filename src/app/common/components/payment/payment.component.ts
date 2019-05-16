@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/auth/service/auth.service';
 
 
 @Component({
@@ -11,6 +12,9 @@ export class PaymentComponent implements OnInit {
 
   stripe: any
   elements: any
+
+  stripeCustomerId: string = ""
+
   
 
   @ViewChild('cardNumber') cardNumRef: ElementRef
@@ -27,7 +31,9 @@ export class PaymentComponent implements OnInit {
   validatingCardFlag: boolean = false
   token: any
 
-  constructor() {
+  constructor(
+    private auth: AuthService,
+  ) {
     this.stripe = Stripe(environment.STRIPE_PUBLISH_KEY);
     this.elements = this.stripe.elements();
 
@@ -35,6 +41,8 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getStripeCustomerInfo()
+    
     this.cardNumber = this.elements.create('cardNumber', {style})
     this.cardNumber.mount(this.cardNumRef.nativeElement)
 
@@ -60,16 +68,36 @@ export class PaymentComponent implements OnInit {
 
   }
 
-  isCardValid(): boolean {
-    return this.cardNumber._complete && this.cardExpiry._complete && this.cardCvc._complete
-  }
-
   onChange({error}) {
     if(error) {
       this.error = error.message
     } else {
       this.error = ""
     }
+  }
+
+  getStripeCustomerInfo() {
+    const userId = this.auth.getUserId()
+    this.auth.getUserById(userId).subscribe(
+        (user) => {
+            this.stripeCustomerId = user.stripeCustomerId
+            this.getUserLast4()
+        },
+        (err) => { }
+    )
+  }
+
+  async getUserLast4() {
+    const {customer, error} = await this.stripe.customers.retrieve(
+      this.stripeCustomerId, {
+      expand: ['default_source'],
+    })
+debugger
+    this.stripeCustomerId = customer.default_source
+  }
+
+  isCardValid(): boolean {
+    return this.cardNumber._complete && this.cardExpiry._complete && this.cardCvc._complete
   }
 
   async onSubmit() {

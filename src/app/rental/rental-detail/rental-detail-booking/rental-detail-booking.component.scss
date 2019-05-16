@@ -1,0 +1,43 @@
+.choice{
+    text-align: center;
+    cursor: pointer;
+    margin-top: 20px;
+
+    &[disabled]{
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: .26;
+    }
+
+    .icon{
+        text-align: center;
+        vertical-align: middle;
+        height: 116px;
+        width: 116px;
+        border-radius: 50%;
+        //color: $medium-gray;
+        margin: 0 auto 20px;
+        border: 4px solid #CCCCCC;
+        transition: all 0.2s;
+        -webkit-transition: all 0.2s;
+    }
+
+    i{
+        font-size: 40px;
+        line-height: 111px;
+    }
+
+    &:hover,
+    &.active{
+        .icon{
+            border-color: #2ca8ff;
+        }
+    }
+
+    input[type="radio"],
+    input[type="checkbox"]{
+        position: absolute;
+        left: -10000px;
+        z-index: -1;
+    }
+}
