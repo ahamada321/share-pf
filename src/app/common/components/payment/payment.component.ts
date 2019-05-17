@@ -42,7 +42,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit() {
     this.getStripeCustomerInfo()
-    
+
     this.cardNumber = this.elements.create('cardNumber', {style})
     this.cardNumber.mount(this.cardNumRef.nativeElement)
 
@@ -81,7 +81,8 @@ export class PaymentComponent implements OnInit {
     this.auth.getUserById(userId).subscribe(
         (user) => {
             this.stripeCustomerId = user.stripeCustomerId
-            this.getUserLast4()
+            //this.getUserLast4()
+            this.paymentComfirmed.emit(this.stripeCustomerId)
         },
         (err) => { }
     )

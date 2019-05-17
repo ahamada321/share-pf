@@ -1,0 +1,37 @@
+<section id="booking-selecter" *ngIf="rental">
+<form>
+    <div class="form-group">
+        <div class="input-group date" [ngClass]="{'input-group-focus':focus===true}">
+            <input class="form-control" 
+                placeholder="Choose date"
+                name="dp" 
+                [(ngModel)]="selectedDate" 
+                (dateSelect)="onDateSelect($event)"
+                [minDate]="minDate" 
+                [maxDate]="maxDate"
+                ngbDatepicker #d="ngbDatepicker" 
+                (click)="d.toggle()" 
+                (focus)="focus=true" 
+                (blur)="focus=false" />
+            <div class="input-group-append">
+                <span class="glyphicon glyphicon-calendar input-group-text">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="space-top"></div>
+<div *ngIf="timeTables && timeTables.length > 0">
+    <div *ngFor="let timeTable of timeTables">
+        <p>{{ timeTable.format('M月D日 HH:mm') }} スタート
+            <button *ngIf="isValidBooking(timeTable)" class="btn btn-danger" (click)="selectDateTime(timeTable)" >
+                予約する
+            </button>
+            <button  *ngIf="!isValidBooking(timeTable)" class="btn"  [disabled]="true">
+                完売
+            </button>
+        </p>
+    </div>
+</div>
+</section>

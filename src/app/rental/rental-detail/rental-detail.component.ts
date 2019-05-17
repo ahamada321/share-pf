@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Rental } from '../service/rental.model';
-import { Booking } from './rental-detail-booking/services/booking.model';
+import { Booking } from '../rental-booking/services/booking.model';
 import { RentalService } from '../service/rental.service';
-import { BookingService } from './rental-detail-booking/services/booking.service';
+import { BookingService } from '../rental-booking/services/booking.service';
 // import { Review } from 'src/app/review/service/review.model';
 // import { ReviewService } from 'src/app/review/service/review.service';
 import * as moment from 'moment-timezone'

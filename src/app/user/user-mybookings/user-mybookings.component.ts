@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Booking } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.model';
-import { BookingService } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.service';
+import { Booking } from 'src/app/rental/rental-booking/services/booking.model';
+import { BookingService } from 'src/app/rental/rental-booking/services/booking.service';
 
 
 @Component({

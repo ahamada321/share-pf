@@ -9,8 +9,7 @@ import { RentalComponent } from './rental.component';
 import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list/rental-list-item/rental-list-item.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
-import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
-import { RentalDetailCalendarComponent } from './rental-detail/rental-detail-calendar/rental-detail-calendar.component';
+import { RentalBookingComponent } from './rental-booking/rental-booking.component';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
 import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
 
@@ -19,15 +18,16 @@ import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.mod
 
 
 import { EditableModule } from '../common/components/editable/editable.module';
-import { BookingWithTimeComponent } from './rental-detail/rental-detail-booking/booking-with-time/booking-with-time';
-import { BookingWithTimeWizardComponent } from './rental-detail/rental-detail-booking/booking-with-time/booking-with-time-wizard/booking-with-time-wizard.component';
+import { BookingWithTimeComponent } from './rental-booking/booking-with-time/booking-with-time';
+import { BookingWithTimeWizardComponent } from './rental-booking/booking-with-time/booking-with-time-wizard/booking-with-time-wizard.component';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { RentalService } from './service/rental.service';
-import { BookingService } from './rental-detail/rental-detail-booking/services/booking.service';
-import { BookingHelperService } from './rental-detail/rental-detail-booking/services/booking.helper.service';
+import { BookingService } from './rental-booking/services/booking.service';
+import { BookingHelperService } from './rental-booking/services/booking.helper.service';
 import { PaymentModule } from '../common/components/payment/payment.module';
+import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -39,7 +39,7 @@ const routes: Routes = [{
         { path: 'new', component: RentalCreateComponent },
         { path: ':rentalId', component: RentalDetailComponent },
         // { path: ':rentalId/booking', component: BookingWithTimeWizardComponent },
-        { path: ':rentalId/booking', component: RentalDetailBookingComponent },
+        { path: ':rentalId/booking', component: RentalBookingComponent },
         { path: ':rentalId/edit', component: RentalDetailUpdateComponent }
 
     ]
@@ -51,8 +51,7 @@ const routes: Routes = [{
         RentalListComponent,
         RentalListItemComponent,
         RentalDetailComponent,
-        RentalDetailBookingComponent,
-        RentalDetailCalendarComponent,
+        RentalBookingComponent,
         RentalCreateComponent,
         RentalDetailUpdateComponent,
         BookingWithTimeComponent,
@@ -69,6 +68,7 @@ const routes: Routes = [{
           EditableModule,
           GoogleMapsModule,
           PaymentModule,
+          BookingSelecterModule,
           // ImageUploadModule
           FullCalendarModule
         ],
