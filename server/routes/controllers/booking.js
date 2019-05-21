@@ -178,7 +178,6 @@ exports.createBooking = function(req, res) {
 exports.deleteBooking = function(req, res) { // Under development! Not working yet!
     const user = res.locals.user
 
-
     // Rental.findById(rental._id)
     //                 .populate('bookings')
     //                 .populate('user')

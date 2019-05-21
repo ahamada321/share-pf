@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RentalService } from '../service/rental.service';
 import { Rental } from '../service/rental.model';
 
@@ -7,7 +7,7 @@ import { Rental } from '../service/rental.model';
   templateUrl: './rental-list.component.html',
   styleUrls: ['./rental-list.component.scss']
 })
-export class RentalListComponent implements OnInit {
+export class RentalListComponent implements OnInit, OnDestroy {
 
   rentals: Rental[] = []
 
@@ -25,5 +25,10 @@ export class RentalListComponent implements OnInit {
       },
       (err) => { }
     )
+  }
+
+  ngOnDestroy() {
+    let navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
   }
 }

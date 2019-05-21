@@ -5,8 +5,8 @@
                 <div class="container">
                     <div class="space-110"></div>
                     <div class="row">
-                        <div class="col-md-6 col-sm-7 col-12 ml-auto">
-                            <div class="info info-horizontal"> <!--Need to check css-->
+                        <div class="col-md-6 col-sm-6 col-12 ml-auto">
+                            <div class="info info-horizontal">
                                 <div class="icon">
                                     <i class="fa fa-id-card "></i>
                                 </div>
@@ -24,7 +24,7 @@
                                     <p>気に入ったトレーナーを見つけてから予約まで、最短3クリックで完了します.</p>
                                 </div>
                             </div>
-                            <div class="info info-horizontal">
+                            <!-- <div class="info info-horizontal">
                                 <div class="icon">
                                     <i class="fa fa-user-secret"></i>
                                 </div>
@@ -32,9 +32,9 @@
                                     <h3> Elected community. </h3>
                                     <p>会員登録は審査制になります. 選ばれしトレーナーと選ばれし会員がマッチングできる特別なサービスです.</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="col-md-4 col-sm-5 col-12 mr-auto">
+                        <div class="col-md-6 col-sm-6 col-12 mr-auto">
                             <div class="card card-register">
                                 <h3 class="title">Register</h3>
                                 <div class="social-line text-center">
@@ -57,7 +57,7 @@
                                     <p *ngFor="let error of errors">{{error.detail}}</p>
                                 </div>
                                 <form class="register-form" #registarForm="ngForm">
-                                    <label>Email</label>
+                                    <!-- <label>Email</label> -->
                                     <div class="form-group">
                                         <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
                                             <div class="input-group-prepend">
@@ -75,7 +75,7 @@
                                             </div>
                                     </div>
 
-                                    <label>Password</label>
+                                    <!-- <label>Password</label> -->
                                     <div class="form-group">
                                         <input [(ngModel)]="formData.password"
                                                 name="password"

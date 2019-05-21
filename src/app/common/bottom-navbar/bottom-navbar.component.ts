@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Rental } from 'src/app/rental/service/rental.model';
 
 @Component({
     selector: 'app-bottom-navbar',
@@ -7,6 +8,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
     styleUrls: ['./bottom-navbar.component.scss']
 })
 export class BottomNavbarComponent implements OnInit {
+    @Input() rental: Rental;
     private toggleButton: any;
     private sidebarVisible: boolean;
 

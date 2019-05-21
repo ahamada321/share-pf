@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 
 
 @Component({
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core'
   templateUrl: './login-resetpassword-sent.component.html',
   styleUrls: ['./login-resetpassword-sent.component.scss']
 })
-export class LoginResetpasswordSentComponent implements OnInit {
+export class LoginResetpasswordSentComponent implements OnInit, OnDestroy {
 
   constructor() { }
 
@@ -14,6 +14,11 @@ export class LoginResetpasswordSentComponent implements OnInit {
     let navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.add('navbar-transparent');
 
+  }
+
+  ngOnDestroy() {
+    let navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
   }
 
 }

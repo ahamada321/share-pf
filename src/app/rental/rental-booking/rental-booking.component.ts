@@ -1,16 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import { RentalService } from '../service/rental.service';
-import { BookingHelperService } from './services/booking.helper.service';
-import { BookingService } from './services/booking.service';
 import { AuthService } from 'src/app/auth/service/auth.service';
+import { RentalService } from '../service/rental.service';
+import { BookingService } from './services/booking.service';
+import { BookingHelperService } from './services/booking.helper.service';
 // import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { Rental } from '../service/rental.model';
 import { Booking } from './services/booking.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import * as moment from 'moment-timezone'
 
 import { MatStepper } from '@angular/material';
 import Swal from 'sweetalert2'
@@ -39,8 +37,6 @@ export class RentalBookingComponent implements OnInit, OnDestroy {
     paymentToken: string
     stripeCustomerId: string = ""
     errors: any[] = []
-
-    calendarPlugins = [timeGridPlugin]; // important!
 
 
     constructor(
@@ -135,11 +131,19 @@ export class RentalBookingComponent implements OnInit, OnDestroy {
     }
 
     showSwalSuccess() {
-        Swal.fire({
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-danger btn-lg',
+              cancelButton: 'btn btn-lg'
+            },
+            buttonsStyling: false,
+          })
+
+        swalWithBootstrapButtons.fire({
             title: '予約申込完了！',
             text: '商品オーナーからのお返事をお待ちください',
             type: 'success',
-            showConfirmButton: false,
+            // showConfirmButton: false,
             timer: 5000
         }).then((result) => {
             //this.newBookingCreated.emit(newBooking)

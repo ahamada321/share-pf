@@ -1,7 +1,12 @@
 <nav class="navbar navbar-expand-lg fixed-top" color-on-scroll="500">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" routerLink="/rentals">Anytime Peasonal Trainer</a>
+            <ng-container *ngIf="auth.isAuthenticated()">
+                <a class="navbar-brand" routerLink="/rentals">Anytime Peasonal Trainer</a>
+            </ng-container>
+            <ng-container *ngIf="!auth.isAuthenticated()">
+                <a class="navbar-brand" routerLink="/">Anytime Peasonal Trainer</a>
+            </ng-container>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
@@ -58,14 +63,12 @@
                         </div>
                         </li>
                     </ng-container>
-                    <li class="nav-item clickable">
-                        <div ngbDropdown class="d-inline-block dropdown">
-                            <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle><i class="nc-icon nc-single-02"></i> {{auth.getUsername()}}さん</a>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-primary">
-                                <a class="dropdown-item" routerLink="/user/mybookings">My bookings</a>
-                            </div>
+                    <div ngbDropdown class="nav-item clickable dropdown">
+                        <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; {{auth.getUsername()}}さん</div>
+                        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
+                            <a class="dropdown-item" [routerLink]="['/user/mybookings']" fragment="headers"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; My bookings</a>
                         </div>
-                    </li>
+                    </div>
                     <li class="nav-item clickable">
                         <a class="nav-link" (click)="logout()"><i class="nc-icon nc-lock-circle-open"></i> Logout</a>
                     </li>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../../service/auth.service'
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './login-resetpassword.component.html',
   styleUrls: ['./login-resetpassword.component.scss']
 })
-export class LoginResetpasswordComponent implements OnInit {
+export class LoginResetpasswordComponent implements OnInit, OnDestroy {
   test : Date = new Date();
 
   focus: any;
@@ -36,6 +36,11 @@ export class LoginResetpasswordComponent implements OnInit {
           this.notifyMessage = "アクティベーションが完了しました！ご登録いただいたEメールアドレスとパスワードでログインできます！"
         }
     })
+  }
+
+  ngOnDestroy() {
+    let navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
   }
 
   initForm() {

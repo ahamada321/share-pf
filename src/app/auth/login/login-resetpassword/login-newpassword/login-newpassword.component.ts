@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { AuthService } from '../../../service/auth.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { Router, ActivatedRoute } from '@angular/router'
@@ -8,7 +8,12 @@ import { Router, ActivatedRoute } from '@angular/router'
   templateUrl: './login-newpassword.component.html',
   styleUrls: ['./login-newpassword.component.scss']
 })
-export class LoginNewPasswordComponent implements OnInit {
+export class LoginNewPasswordComponent implements OnInit, OnDestroy {
+  test: Date = new Date();
+
+  focus: any;
+  focus1: any;
+  focus2: any;
 
   formData: any = {}
   errors: any[] = []
@@ -26,6 +31,11 @@ export class LoginNewPasswordComponent implements OnInit {
       (params) => {
         this.verifyToken = params['verifyToken']
     })
+  }
+
+  ngOnDestroy() {
+    let navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
   }
 
   setNewPassword(token: any) {
