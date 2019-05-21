@@ -7,10 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserMyBookingsComponent } from './user-mybookings/user-mybookings.component';
+
 import { FormatDatePipe } from '../common/pipes/format-date.pipe';
 import { FormatTimePipe } from '../common/pipes/format-time.pipe';
-
-
 
 
 const routes: Routes = [{
@@ -30,7 +29,7 @@ const routes: Routes = [{
         UserProfileComponent,
         UserMyBookingsComponent,   
         FormatDatePipe,
-        FormatTimePipe,     
+        FormatTimePipe,         
       ],
       imports: [
           CommonModule,

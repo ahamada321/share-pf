@@ -45,7 +45,7 @@
                         <h2 class="title">Let's talk product</h2>
                         <h5 class="description">This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise he wouldn't scroll to get here. Add a button if you want the user to see more.</h5>
                         <br>
-                        <a (click)="smoothScroll('blog-1')" class="btn btn-danger btn-round">See Details</a>
+                        <button (click)="smoothScroll('detail-of-lessons')" class="btn btn-danger btn-round">See Details</button>
                     </div>
                 </div>
                 <br/><br/>
@@ -103,7 +103,7 @@
         </div>
 
         <!--     *********     Detail of lessons      *********      -->
-        <div class="blog-1" id="blog-1">
+        <div class="blog-1" id="detail-of-lessons">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 ml-auto mr-auto">
@@ -290,111 +290,8 @@
             </div>
         </div>
 
-        <!--     *********    PRICING 1     *********      -->
-        <div class="pricing-1 section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto text-center">
-                        <h2 class="title">Pick the best plan for you</h2>
-                        <h5 class="description">You have Free Unlimited Updates and Premium Support on each package.</h5>
-                    </div>
-                </div>
-                <div class="space-top"></div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card card-pricing" data-color="orange">
-                            <div class="card-body">
-                                <div class="card-icon">
-                                    <span class="icon-simple"><i class="nc-icon nc-basket"></i></span>
-                                </div>
-                                <h3 class="card-title">$199</h3>
-
-                                <p class="card-description">
-                                    Trial Pass for first trial. You can try this trainer.
-                                </p>
-                                <div class="card-footer">
-                                    <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="card card-pricing" data-color="yellow">
-                            <div class="card-body">
-                                <div class="card-icon">
-                                    <span class="icon-simple"><i class="nc-icon nc-watch-time"></i></span>
-                                </div>
-                                <h3 class="card-title">$249</h3>
-
-                                <p class="card-description">
-                                    One time pass for every members. You can book with your schedule.
-                                </p>
-                                <div class="card-footer">
-                                    <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="card card-pricing" data-color="green">
-                            <div class="card-body">
-                                <div class="card-icon">
-                                    <span class="icon-simple"><i class="nc-icon nc-settings"></i></span>
-                                </div>
-                                <h3 class="card-title">$359</h3>
-
-                                <p class="card-description">
-                                    10 times tickets for every members.
-                                </p>
-                                <div class="card-footer">
-                                    <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="card card-pricing" data-color="blue">
-                            <div class="card-body">
-                                <div class="card-icon">
-                                    <span class="icon-simple"><i class="nc-icon nc-istanbul"></i></span>
-                                </div>
-                                <h3 class="card-title">$599</h3>
-
-                                <p class="card-description">
-                                    Monthly subscription plan for every members.
-                                </p>
-                                <div class="card-footer">
-                                    <a href="#pablo" class="btn btn-neutral btn-round">Choose Plan</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--     *********     Call to action      *********      -->
-        <div class="section">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">Let's book</h2>
-                        <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 download-area ml-auto mr-auto">
-                        <a routerLink="booking" class="btn btn-danger btn-lg">Go to booking page</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!--     *********     Callendar      *********      -->
-        <div class="section landing-section">
+        <div class="section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 mr-auto ml-auto">
@@ -410,6 +307,23 @@
                                         [allDaySlot]="false"
                                         [nowIndicator]="true"
                                         ></full-calendar>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--     *********     Call to action      *********      -->
+        <div class="section text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto text-center">
+                        <h2 class="title">Let's book</h2>
+                        <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 download-area ml-auto mr-auto">
+                        <a routerLink="booking" class="btn btn-danger btn-lg">Go to booking</a>
                     </div>
                 </div>
             </div>

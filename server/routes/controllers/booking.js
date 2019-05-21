@@ -51,16 +51,20 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
 
 async function createPayment(booking, toUser, paymentToken) {
     const { user } = booking
+    let customer
 
-    // Store booking user paymentToken and email to charge later.
-    const customer = await stripe.customers.create({
-        source: paymentToken.id,
-        email: user.email
-    })
+    if (paymentToken) {
+        // Store booking user paymentToken and email to charge later.
+        customer = await stripe.customers.create({
+            source: paymentToken.id,
+            email: user.email
+        })
+        User.updateMany({_id: user.id}, {$set: {stripeCustomerId: customer.id}}, () => {})
+    } else {
+        customer.id = user.stripeCustomerId
+    }
 
     if(customer) {
-        User.updateMany({_id: user.id}, {$set: {stripeCustomerId: customer.id}}, () => {})
-    
         const payment = new Payment({
             fromUser: user,
             toUser,

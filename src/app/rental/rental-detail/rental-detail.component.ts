@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Rental } from '../service/rental.model';
 import { Booking } from '../rental-booking/services/booking.model';
@@ -24,8 +24,7 @@ var easeInOutQuad = function (t, b, c, d) {
     templateUrl: './rental-detail.component.html',
     styleUrls: ['./rental-detail.component.scss']
 })
-export class RentalDetailComponent implements OnInit {
-
+export class RentalDetailComponent implements OnInit, OnDestroy {
     currentId: string
     rental: Rental
     newBooking: Booking
@@ -60,6 +59,11 @@ export class RentalDetailComponent implements OnInit {
         (params) => {
           this.getRental(params['rentalId'])
         })
+    }
+
+    ngOnDestroy() {
+      let navbar = document.getElementsByTagName('nav')[0];
+      navbar.classList.remove('navbar-transparent');
     }
 
     getRental(rentalId: string) {
@@ -119,7 +123,6 @@ export class RentalDetailComponent implements OnInit {
     //     return `${moment(date).fromNow()}`
     // }
 
-
     @HostListener('window:scroll', ['$event'])
     updateNavigation() {
         // var contentSections = document.getElementsByClassName('cd-section') as HTMLCollectionOf<any>;
@@ -156,7 +159,6 @@ export class RentalDetailComponent implements OnInit {
       };
       animateScroll();
   }
-
 
   
 }

@@ -13,6 +13,8 @@ declare const $: any;
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
+    test : Date = new Date();
+    
     model = {
         left: true,
         middle: false,

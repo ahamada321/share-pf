@@ -14,6 +14,7 @@ import { FooterComponent } from './common/footer/footer.component';
 import { HomeModule } from './home/home.module';
 import { LandingComponent } from './landing/landing.component';
 import { ThanksComponent } from './thanks-page/thanks.component';
+import { Page404Component } from './page404/page404.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ThanksComponent } from './thanks-page/thanks.component';
     FooterComponent,
     LandingComponent,
     ThanksComponent,
+    Page404Component
   ],
   imports: [
     HttpClientModule,

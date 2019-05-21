@@ -21,12 +21,11 @@ export class BookingSelecterComponent implements OnInit {
   maxDate: NgbDateStruct 
 
   @Input() rental: Rental
-  @Input() chosenCourse: number
+  @Input() chosenCourseTime: number
   @Output() newBookingInfo = new EventEmitter()
   @Output() chosenDateTime = new EventEmitter()
 
   timeTables: any = []
-  chosenCourseTime: number = 60
 
   newBooking: Booking
 
@@ -46,10 +45,6 @@ export class BookingSelecterComponent implements OnInit {
     this.timeTables = this.initTimeTable()
     this.newBooking = new Booking()
 
-    if(this.chosenCourse === 1) this.chosenCourseTime = 60
-    else if(this.chosenCourse === 2) this.chosenCourseTime = 90
-    else if(this.chosenCourse === 3) this.chosenCourseTime = 60
-    else if(this.chosenCourse === 4) this.chosenCourseTime = 90
   }
 
   isPastDateTime(startAt) {

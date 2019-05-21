@@ -4,13 +4,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { LandingComponent } from './landing/landing.component';
 import { RentalModule } from './rental/rental.module';
 import { UserModule } from './user/user.module';
 import { ThanksComponent } from './thanks-page/thanks.component';
 import { PresentationModule } from './presentation/presentation.module';
 import { PresentationComponent } from './presentation/presentation.component';
+import { Page404Component } from './page404/page404.component';
 
 
 const routes: Routes = [
@@ -18,7 +18,8 @@ const routes: Routes = [
   { path: 'landing',          component: LandingComponent },
   { path: 'thanks',          component: ThanksComponent },
   { path: 'presentation',         component: PresentationComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // { path: '**', component: Page404Component }
 ];
 
 @NgModule({

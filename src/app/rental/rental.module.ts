@@ -28,6 +28,7 @@ import { BookingService } from './rental-booking/services/booking.service';
 import { BookingHelperService } from './rental-booking/services/booking.helper.service';
 import { PaymentModule } from '../common/components/payment/payment.module';
 import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
+import { WizardModule } from './wizard/wizard.module';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -40,7 +41,7 @@ const routes: Routes = [{
         { path: ':rentalId', component: RentalDetailComponent },
         // { path: ':rentalId/booking', component: BookingWithTimeWizardComponent },
         { path: ':rentalId/booking', component: RentalBookingComponent },
-        { path: ':rentalId/edit', component: RentalDetailUpdateComponent }
+        { path: ':rentalId/edit', component: RentalDetailUpdateComponent },
 
     ]
 }];
@@ -70,7 +71,8 @@ const routes: Routes = [{
           PaymentModule,
           BookingSelecterModule,
           // ImageUploadModule
-          FullCalendarModule
+          FullCalendarModule,
+          WizardModule
         ],
       providers: [
           RentalService,

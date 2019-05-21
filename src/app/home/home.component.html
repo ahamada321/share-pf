@@ -4,7 +4,10 @@
         <div class="content-center">
             <div class="container">
                 <div class="title-brand">
-                    <h1 class="presentation-title">Personal Training</h1>
+                    <div class="anytime-pt-logo">
+                        <img src="assets/img/anytime-pt-logo2.png" alt="">
+                    </div>
+                    <!-- <h1 class="presentation-title">Personal Training</h1> -->
                     <!--
                     <div class="fog-low">
                         <img src="assets/img/fog-low.png" alt="">
@@ -19,12 +22,9 @@
             </div>
         </div>
         <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
-        <h6 class=" category-absolute ml-auto mr-auto">Surpported by
-        <!-- <h6 class="category category-absolute">Designed and coded by -->
 
-            <a routerLink="/rentals">
-                <img src="assets/img/creative-tim-white-slim2.png" class="creative-tim-logo">
-            </a>
+        <h6 class="category-absolute ml-auto mr-auto">
+            &copy;{{test | date: 'yyyy'}}, made with <i class="fa fa-heart heart"></i> Anytime Personal Trainer.inc
         </h6>
     </div>
     <div class="main">
@@ -201,13 +201,13 @@
                             </div>
                         </div>
                         <div class="col text-center" routerLinkActive="active">
-                            <a [routerLink]="['/login']" class="btn btn-outline-neutral btn-round btn-lg">Go to Login Page</a>
+                            <a [routerLink]="['/login']" class="btn btn-outline-neutral btn-round btn-lg">Go to Login</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="section section-dark">
+        <!-- <div class="section section-dark">
             <div class="container">
                 <div class="row example-page">
                     <div class="col-md-6 text-center" routerLinkActive="active">
@@ -225,8 +225,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="section">
+        </div> -->
+        <div class="section section-dark">
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
@@ -239,7 +239,7 @@
                         <a routerLink="/register" class="btn btn-warning btn-round">Become Personal Trainer</a>
                     </div>
                 </div>
-                <div class="row justify-content-md-center sharing-area text-center">
+                <!-- <div class="row justify-content-md-center sharing-area text-center">
                     <div class="text-center col-md-12 col-lg-8">
                         <h3>Thank you for supporting us!</h3>
                     </div>
@@ -247,14 +247,11 @@
                         <a href="#pablo" class="btn btn-twitter-bg twitter-sharrre btn-round" rel="tooltip" title="Tweet!">
                             <i class="fa fa-twitter"></i> Twitter
                         </a>
-                        <a href="#pablo" class="btn btn-google-bg linkedin-sharrre btn-round" rel="tooltip" title="Share!">
-                            <i class="fa fa-google-plus"></i> Google
-                        </a>
                         <a href="#pablo" class="btn btn-facebook-bg facebook-sharrre btn-round" rel="tooltip" title="Share!">
                             <i class="fa fa-facebook-square"></i> Facebook
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

@@ -36,10 +36,13 @@ export class AppComponent implements OnInit {
       });
       this.renderer.listenGlobal('window', 'scroll', (event) => {
           const number = window.scrollY;
+          var _location = this.location.path();
+          _location = _location.split('/')[3];
+
           if (number > 150 || window.pageYOffset > 150) {
               // add logic
               navbar.classList.remove('navbar-transparent');
-          } else {
+          } else if (_location !== 'booking') {
               // remove logic
               navbar.classList.add('navbar-transparent');
           }

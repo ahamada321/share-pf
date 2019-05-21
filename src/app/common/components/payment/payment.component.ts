@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/auth/service/auth.service';
 
@@ -8,28 +8,24 @@ import { AuthService } from 'src/app/auth/service/auth.service';
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent implements OnInit {
-
+export class PaymentComponent implements OnInit, OnDestroy {
   stripe: any
   elements: any
 
   stripeCustomerId: string = ""
-
-  
+  token: any
+  validatingCardFlag: boolean = false
+  error: string
 
   @ViewChild('cardNumber') cardNumRef: ElementRef
   @ViewChild('cardExpiry') cardExpiryRef: ElementRef
   @ViewChild('cardCvc') cardCvcRef: ElementRef
-
   @Output() paymentComfirmed = new EventEmitter()
 
   cardNumber: any
   cardExpiry: any
   cardCvc: any
 
-  error: string
-  validatingCardFlag: boolean = false
-  token: any
 
   constructor(
     private auth: AuthService,
@@ -41,8 +37,6 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getStripeCustomerInfo()
-
     this.cardNumber = this.elements.create('cardNumber', {style})
     this.cardNumber.mount(this.cardNumRef.nativeElement)
 
@@ -65,7 +59,6 @@ export class PaymentComponent implements OnInit {
     this.cardNumber.destroy()
     this.cardExpiry.destroy()
     this.cardCvc.destroy()
-
   }
 
   onChange({error}) {
@@ -76,24 +69,11 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  getStripeCustomerInfo() {
-    const userId = this.auth.getUserId()
-    this.auth.getUserById(userId).subscribe(
-        (user) => {
-            this.stripeCustomerId = user.stripeCustomerId
-            //this.getUserLast4()
-            this.paymentComfirmed.emit(this.stripeCustomerId)
-        },
-        (err) => { }
-    )
-  }
-
   async getUserLast4() {
     const {customer, error} = await this.stripe.customers.retrieve(
       this.stripeCustomerId, {
       expand: ['default_source'],
     })
-debugger
     this.stripeCustomerId = customer.default_source
   }
 
@@ -110,7 +90,6 @@ debugger
     res.token 
     res.error
     */
-    
     this.validatingCardFlag = false
 
     if(error) {
@@ -120,7 +99,6 @@ debugger
       this.paymentComfirmed.emit(token)
     }
   }
-  
 }
 
 

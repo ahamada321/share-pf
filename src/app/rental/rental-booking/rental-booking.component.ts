@@ -1,41 +1,43 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { RentalService } from '../service/rental.service';
 import { BookingHelperService } from './services/booking.helper.service';
 import { BookingService } from './services/booking.service';
 import { AuthService } from 'src/app/auth/service/auth.service';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
+// import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
 import { Rental } from '../service/rental.model';
 import { Booking } from './services/booking.model';
-import { FormBuilder, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment-timezone'
+
+import { MatStepper } from '@angular/material';
 import Swal from 'sweetalert2'
 
 
-//t = current time
-//b = start value
-//c = change in value
-//d = duration
-var easeInOutQuad = function(t, b, c, d) {
-    t /= d/2;
-    if (t < 1) return c/2*t*t + b;
-    t--;
-    return -c/2 * (t*(t-2) - 1) + b;
-};
+
 @Component({
   selector: 'app-rental-booking',
   templateUrl: './rental-booking.component.html',
   styleUrls: ['./rental-booking.component.scss']
 })
-export class RentalBookingComponent implements OnInit {
-    chosenCourse: number = 0
-    chosenDateTime: boolean = false
+export class RentalBookingComponent implements OnInit, OnDestroy {
+    isLinear = false;
+    firstFormGroup: FormGroup;
+    secondFormGroup: FormGroup;
+    @ViewChild('stepper') stepper: MatStepper;
+
+    selectedCourse: number = 1
+    isSelectedDateTime: boolean = false
     chosenCourseTime: number = 60
+
+    isChangeBtnClicked: boolean = false
   
     rental: Rental
     newBooking: Booking
-    stripeCustomerId: string
+    paymentToken: string
+    stripeCustomerId: string = ""
     errors: any[] = []
 
     calendarPlugins = [timeGridPlugin]; // important!
@@ -45,31 +47,31 @@ export class RentalBookingComponent implements OnInit {
         private route: ActivatedRoute,
         private rentalService: RentalService,
         private router: Router,
-        private formBuilder: FormBuilder,
+        private _formBuilder: FormBuilder,
         private helper: BookingHelperService,
         private bookingService: BookingService,
         private auth: AuthService,
 
-    ) {
-        // Animation part
-        router.events.subscribe(s => {
-            if (s instanceof NavigationEnd) {
-                const tree = router.parseUrl(router.url);
-                if (tree.fragment) {
-                    const element = document.querySelector("#" + tree.fragment);
-                    if (element) { element.scrollIntoView(); }
-                }
-            }
-        })
-    }
+    ) { }
 
     ngOnInit() {
+        this.getStripeCustomerInfo()
+
         // Think it is better to pass id from before page.
         this.route.params.subscribe(
             (params) => {
                 this.getRental(params['rentalId'])
         })
+
+        // Also adding exception logic in app.component.ts
+        var navbar = document.getElementsByTagName('nav')[0];
+        navbar.classList.remove('navbar-transparent');
     }
+
+    ngOnDestroy() {
+        var navbar = document.getElementsByTagName('nav')[0];
+        navbar.classList.add('navbar-transparent');
+      }
 
     getRental(rentalId: string) {
         this.rentalService.getRentalById(rentalId).subscribe(
@@ -79,43 +81,41 @@ export class RentalBookingComponent implements OnInit {
         )
     }
 
-    onSelectedDateTime(newBooking: Booking) {
+    getStripeCustomerInfo() {
+        const userId = this.auth.getUserId()
+        this.auth.getUserById(userId).subscribe(
+            (user) => {
+                this.stripeCustomerId = user.stripeCustomerId
+                //this.getUserLast4()
+            },
+            (err) => { }
+        )
+      }
+
+    onCourseSelected(course: number){
+        this.selectedCourse = course
+        if(course === 1) this.chosenCourseTime = 60
+        if(course === 2) this.chosenCourseTime = 90
+        this.stepper.next();
+    }
+
+    onBookingReady(newBooking: Booking) {
         this.newBooking = newBooking
-        this.smoothScroll('paying-method')
+        this.stepper.next();
     }
 
-
-    smoothScroll(target) {
-        const targetScroll = document.getElementById(target);
-        this.scrollTo(document.documentElement, targetScroll.offsetTop, 1250);
-    }
-    scrollTo(element, to, duration) {
-        const start = element.scrollTop
-        const change = to - start
-        let currentTime = 0
-        const increment = 20;
-
-        let animateScroll = function(){
-            currentTime += increment;
-            element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
-            if(currentTime < duration) {
-                setTimeout(animateScroll, increment);
-            }
-        };
-        animateScroll();
-    }
-
-    chooseCourse(chosenCourse) {
-        this.chosenCourse = chosenCourse
-        this.smoothScroll('select-date')
-    }
-
-    onPaymentConfirmed(stripeCustomerId: string) {
-        this.stripeCustomerId = stripeCustomerId
+    onPaymentConfirmed(paymentToken: string) {
+        this.paymentToken = paymentToken
+        this.isChangeBtnClicked = false
     }
 
     createBooking() {
-        this.newBooking.paymentToken = this.stripeCustomerId
+        if(this.stripeCustomerId) {
+            this.newBooking.paymentToken = null
+        } else {
+            this.newBooking.paymentToken = this.paymentToken
+        }
+
         this.newBooking.rental = this.rental
         this.bookingService.createBooking(this.newBooking).subscribe(
           (newBooking: any) => {
