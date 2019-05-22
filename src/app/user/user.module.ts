@@ -5,18 +5,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserComponent } from './user.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserMyBookingsComponent } from './user-mybookings/user-mybookings.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 import { FormatDatePipe } from '../common/pipes/format-date.pipe';
 import { FormatTimePipe } from '../common/pipes/format-time.pipe';
+import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 
 const routes: Routes = [{
     path: 'user',
     component: UserComponent,
     children: [
-        { path: 'profile', component: UserProfileComponent },
+        { path: 'settings', component: UserSettingsComponent },
     // { path: ':rentalId/edit', component: RentalDetailUpdateComponent }
         { path: 'mybookings', component: UserMyBookingsComponent },
         { path: '', redirectTo: 'profile', pathMatch: 'full' }
@@ -26,7 +28,7 @@ const routes: Routes = [{
 @NgModule({
     declarations: [
         UserComponent,
-        UserProfileComponent,
+        UserSettingsComponent,
         UserMyBookingsComponent,   
         FormatDatePipe,
         FormatTimePipe,         
@@ -37,6 +39,8 @@ const routes: Routes = [{
           FormsModule,
           ReactiveFormsModule,
           NgbModule,
+          JwBootstrapSwitchNg2Module,
+          ImageUploadModule
         ],
       providers: [
         ],

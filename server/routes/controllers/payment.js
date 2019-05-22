@@ -23,7 +23,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     if(sendMsg == REQUEST_DECLINED) {
         msg = {
             to: sendTo,
-            from: "test@example.com",
+            from: "info@ap-trainer.com",
             subject: "「" + booking.rental.rentalname + "」の予約リクエストは受理されませんでした",
             text: "商品名：" + booking.rental.rentalname + " \n\n"
                 + "日時：" + startAt + ' 〜 ' + endAt + " \n\n"
@@ -34,7 +34,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     } else if (sendMsg == REQUEST_ACCEPTED) {
         msg = {
             to: sendTo,
-            from: "test@example.com",
+            from: "info@ap-trainer.com",
             subject: "[予約確定]「" + booking.rental.rentalname + "」への予約リクエストが受理されました！",
             text: 'おめでとうございます！「' + booking.rental.rentalname + '」への予約リクエストが受理されました！\n\n' 
                 + '日時：' + startAt + ' 〜 ' + endAt + ' \n\n'

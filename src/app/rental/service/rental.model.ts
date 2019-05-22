@@ -14,6 +14,12 @@ export class Rental {
     weight: string;
 
     image: string;
+    image2: string;
+    gallery: string;
+    gallery2: string;
+    gallery3: string;
+    gallery4: string;
+    gallery5: string;
     video: string;
 
     province: string;
@@ -21,6 +27,8 @@ export class Rental {
 
     hourlyPrice: number;
     description: string;
+    headlinedescription1: string;
+    headlinedescription2: string;
 
     rating: number;
     shared: Boolean;

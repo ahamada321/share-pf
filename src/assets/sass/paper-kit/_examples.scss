@@ -1,3 +1,27 @@
+.space-top {
+    margin-top: 30px;
+}
+
+.space {
+    height: 130px;
+    display: block;
+}
+
+.space-110 {
+    height: 110px;
+    display: block;
+}
+
+.space-50 {
+    height: 50px;
+    display: block;
+}
+
+.space-70 {
+    height: 70px;
+    display: block;
+}
+
 .landing-alert{
     margin-bottom: 0;
 }
@@ -123,7 +147,24 @@
 .register-card .forgot{
     text-align: center;
 }
-
+.profile-background{
+    background-position: center center;
+    background-size: cover;
+    height: 300px;
+    position: relative;
+    // margin-top: -110px;
+}
+.profile-background .filter-black::after{
+    background-color: rgba(0, 0, 0, 0.5);
+    content: "";
+    display: block;
+    height: 300px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
 .profile-content{
     position: relative;
 }
@@ -158,6 +199,46 @@
 .alert h5{
     // margin-bottom: 10px;
 }
+
+// theme changes for settings page
+.settings,
+.profile{
+    .settings-form{
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+    .fileinput{
+        margin-top: -140px;
+        position:relative;
+        z-index: 3;
+    }
+    .form-group{
+        padding-bottom: 10px;
+    }
+}
+.notifications{
+    list-style: none;
+    padding-left: 0;
+    padding-top: 20px;
+    .notification-item{
+        border-top: 1px solid #e8e7e3;
+        min-height: 60px;
+        padding-top: 20px;
+        padding-bottom: 15px;
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+        -webkit-justify-content: space-between; /* Safari 6.1+ */
+        justify-content: space-between;
+        .switch{
+            float: right;
+        }
+    }
+}
+
+
 .title-brand{
     max-width: 730px;
     margin: 0 auto;

@@ -23,7 +23,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     if(sendMsg == REQUEST_SEND) {
         msg = {
             to: sendTo,
-            from: 'test@example.com',
+            from: 'info@ap-trainer.com',
             subject: '[仮予約完了]予約リクエストを送信しました！',
             text: '現時点では予約は確定していません。「' + booking.rental.rentalname + '」オーナーがリクエストを受理された場合に正式予約が完了します。\n\n'
                 + '予約が確定しない限りクレジットカードに請求されることはありません。'
@@ -31,7 +31,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     } else if (sendMsg == REQUEST_RECIEVED) {
         msg = {
             to: sendTo,
-            from: 'test@example.com',
+            from: 'info@ap-trainer.com',
             subject: '「' + booking.rental.rentalname + '」への予約リクエストが来ています！',
             text: 'あなたの「' + booking.rental.rentalname + '」への予約リクエストが以下の日時で来ています。受理されますか？\n\n'
                 + '日時：' + startAt + ' 〜 ' + endAt + '\n\n'

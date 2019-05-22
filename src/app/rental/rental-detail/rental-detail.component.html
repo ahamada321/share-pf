@@ -5,13 +5,14 @@
             <ngb-carousel>
                 <ng-template ngbSlide>
                     <div class="page-header page-header-small" [ngStyle]="{'background-image' : 'url(' + rental.image + ')' }">
+                        <div class="filter"></div>
                         <div class="content-center">
                             <div class="container">
                                 <div class="space-110"></div>
                                 <div class="row">
-                                    <div class="col-md-6 text-left motto">
+                                    <div class="col-md-8 text-left motto">
                                         <h1 class="title">{{ rental.rentalname }} Trainer</h1>
-                                        <h3>Now you have no excuses, it's time to surprise your clients, your competitors, and why not, the world.</h3>
+                                        <h5>{{ rental.headlinedescription1 }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -19,14 +20,15 @@
                     </div>
                 </ng-template>
                 <ng-template ngbSlide>
-                    <div class="page-header page-header-small" style="background-image: url('./assets/img/faces/800x450profile-lady2.jpg')">
+                    <div class="page-header page-header-small" [ngStyle]="{'background-image' : 'url(' + rental.image2 + ')' }">
+                        <div class="filter"></div>
                         <div class="content-center">
                             <div class="container">
                                 <div class="space-110"></div>
                                 <div class="row">
                                     <div class="col-md-8 ml-auto mr-auto text-center motto">
-                                        <h1 class="title">Awesome Experiences</h1>
-                                        <h3>Now you have no excuses, it's time to surprise your clients, your competitors, and why not, the world.</h3>
+                                        <h1 class="title">{{ rental.rentalname }} Trainer</h1>
+                                        <h5>{{ rental.headlinedescription2 }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -42,58 +44,46 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 mr-auto ml-auto">
-                        <h2 class="title">Let's talk product</h2>
-                        <h5 class="description">This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise he wouldn't scroll to get here. Add a button if you want the user to see more.</h5>
+                        <h2 class="title">Greeting</h2>
+                        <h5 class="description">これはサンプルテキストです。このページを見てくれているユーザーに簡単な挨拶をここでします。あなたのパーソナルレッスンを受けることで得られる価値をアピールできます。</h5>
                         <br>
                         <button (click)="smoothScroll('detail-of-lessons')" class="btn btn-danger btn-round">See Details</button>
                     </div>
                 </div>
                 <br/><br/>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                                <i class="nc-icon nc-album-2"></i>
-                            </div>
-                            <div class="description">
-                                <h4 class="info-title">Beautiful Gallery</h4>
-                                <p class="description">Spend your time generating new ideas. You don't have to think of implementing.</p>
-                                <a href="#pkp" class="btn btn-link btn-danger">See more</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="info">
                             <div class="icon icon-danger">
                                 <i class="nc-icon nc-bulb-63"></i>
                             </div>
                             <div class="description">
                                 <h4 class="info-title">New Ideas</h4>
-                                <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient.</p>
+                                <p>顧客ベネフィット1顧客ベネフィット1顧客ベネフィット1</p>
                                 <a href="#pkp" class="btn btn-link btn-danger">See more</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="info">
                             <div class="icon icon-danger">
                                 <i class="nc-icon nc-chart-bar-32"></i>
                             </div>
                             <div class="description">
                                 <h4 class="info-title">Statistics</h4>
-                                <p>Choose from a veriety of many colors resembling sugar paper pastels.</p>
+                                <p>顧客ベネフィット2顧客ベネフィット2顧客ベネフィット2</p>
                                 <a href="#pkp" class="btn btn-link btn-danger">See more</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="info">
                             <div class="icon icon-danger">
                                 <i class="nc-icon nc-sun-fog-29"></i>
                             </div>
                             <div class="description">
                                 <h4 class="info-title">Delightful design</h4>
-                                <p>Find unique and handmade delightful designs related items directly from our sellers.</p>
+                                <p>顧客ベネフィット3顧客ベネフィット3顧客ベネフィット3</p>
                                 <a href="#pkp" class="btn btn-link btn-danger">See more</a>
                             </div>
                         </div>
@@ -123,11 +113,11 @@
                                             <a href="#pablo">The four waves of augmented reality</a>
                                         </h3>
                                         <p class="card-description">
-                                            Sharing processing, display and sensors across smartphones and tethered smartglasses gives you two batteries, each powering fewer individual systems. If they’re connected by a cable, this could give a healthy bump to battery life — and… <a href="#pablo"> Read More </a>
+                                            自慢の60minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章
                                         </p>
-                                        <p class="author">
+                                        <!-- <p class="author">
                                             by <a href="#pablo"><b>Tim Merel</b></a>, 11 hours ago
-                                        </p>
+                                        </p> -->
                                     </div>
 
                                 </div>
@@ -145,11 +135,11 @@
                                             <a href="#pablo">Okoli connects you with tour guides around the world</a>
                                         </h3>
                                         <p class="card-description">
-                                            Okoli is a new service by developer Jack Deneut that aims to replace those ugly little cards you find in tourist hotels. The web app, which currently works in Prague, Budapest, Berlin and Paris, lets you reserve a nearly private tour with a professional guid — and… <a href="#pablo"> Read More </a>
+                                            自慢の90minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章
                                         </p>
-                                        <p class="author">
+                                        <!-- <p class="author">
                                             by <a href="#pablo"><b>John Biggs</b></a>, 3 seconds ago
-                                        </p>
+                                        </p> -->
                                     </div>
                                 </div>
                                 <div class="col-md-5">
@@ -250,14 +240,14 @@
                 <h2 class="title text-center">Photo Gallery</h2>
                 <div class="row">
                     <div class="col-md-7">
-                        <div class="card" data-background="image" style="background-image: url('assets/img/gallery-sample/gallery1.jpg')">
+                        <div class="card" data-background="image" [ngStyle]="{'background-image' : 'url(' + rental.gallery + ')' }">
                             <div class="card-body">
 
                             </div>
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div class="card" data-background="image" style="background-image: url('assets/img/gallery-sample/gallery2.jpg')">
+                        <div class="card" data-background="image" [ngStyle]="{'background-image' : 'url(' + rental.gallery2 + ')' }">
                             <div class="card-body">
 
                             </div>
@@ -266,21 +256,21 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="card" data-background="image" style="background-image: url('assets/img/gallery-sample/gallery3.jpg')">
+                        <div class="card" data-background="image" [ngStyle]="{'background-image' : 'url(' + rental.gallery3 + ')' }">
                             <div class="card-body">
 
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card" data-background="image" style="background-image: url('assets/img/gallery-sample/gallery4.jpg')">
+                        <div class="card" data-background="image" [ngStyle]="{'background-image' : 'url(' + rental.gallery4 + ')' }">
                             <div class="card-body">
 
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card" data-background="image" style="background-image: url('assets/img/gallery-sample/gallery5.png')">
+                        <div class="card" data-background="image" [ngStyle]="{'background-image' : 'url(' + rental.gallery5 + ')' }">
                             <div class="card-body">
 
                             </div>
@@ -295,7 +285,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 mr-auto ml-auto">
-                        <h2 class="text-center">Her Schedule</h2>
+                        <h2 class="text-center">Available Time</h2>
                     </div>
                 </div>
                 <div class="space-top"></div>

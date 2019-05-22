@@ -1,22 +1,12 @@
-import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ImageUploadComponent } from './image-upload.component';
-import { ImageUploadService } from './image-upload.service';
-
 
 @NgModule({
-    declarations: [
-        ImageUploadComponent
-      ],
-    imports: [
-        CommonModule
-    ],
-    exports: [
-        ImageUploadComponent
-    ],
-    providers: [
-        ImageUploadService
-    ],
-    bootstrap: []
+  imports: [
+    CommonModule
+  ],
+  declarations: [ImageUploadComponent],
+  exports: [ImageUploadComponent ]
 })
 export class ImageUploadModule { }

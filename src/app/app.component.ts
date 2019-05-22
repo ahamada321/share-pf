@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
       });
       this.renderer.listenGlobal('window', 'scroll', (event) => {
           const number = window.scrollY;
-          var _location = this.location.path();
+          let _location = this.location.path();
           _location = _location.split('/')[3];
 
           if (number > 150 || window.pageYOffset > 150) {
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
 
   }
   removeFooter() { // For Footer
-      var titlee = this.location.prepareExternalUrl(this.location.path());
+      let titlee = this.location.prepareExternalUrl(this.location.path());
       titlee = titlee.slice( 1 );
       if(titlee === 'register' || titlee === 'login'){
           return false;

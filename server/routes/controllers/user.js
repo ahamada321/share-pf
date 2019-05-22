@@ -17,14 +17,14 @@ function sendEmailTo(sendTo, sendMsg, token, hostname) {
     if(sendMsg == VERIFICATION_EMAIL) {
         msg = {
             to: sendTo,
-            from: 'test@example.com',
+            from: 'info@ap-trainer.com',
             subject: '[アカウント発行メール]あなたのアカウントを有効化してください',
             text: "以下のリンクをクリックしてアカウントを有効化してください。\n\nhttp:\/\/" + hostname + '\/register\/' + token
         }
     } else if (sendMsg == PR_RESET_EMAIL) {
         msg = {
             to: sendTo,
-            from: 'test@example.com',
+            from: 'info@ap-trainer.com',
             subject: '[パスワードリセット]パスワードを再設定してください',
             text: "以下のリンクをクリックしてパスワードを再設定してください。\n\nhttp:\/\/" + hostname + '\/login\/reset\/newpassword\/' + token
         }

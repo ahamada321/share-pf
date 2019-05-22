@@ -1,16 +1,10 @@
-<label class="image-upload-container btn btn-bwm">
-    <input #imageInput
-        type="file"
-        accept="image/*"
-        (change)="processFile(imageInput)">
-
-    <div class="picture-container">
-    <div class="picture">
-        <img src="/assets/image/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
-        <input type="file" id="wizard-picture">
+<div class="fileinput text-center" >
+    <div [ngClass]="{'img-circle':isRound}" class="thumbnail img-no-padding">
+        <img src={{state.imagePreviewUrl}} alt="..." />
     </div>
-    <h6 class="description">Choose Picture</h6>
+    <div>
+        <button class="btn btn-outline-default btn-file btn-round" (click)="handleClick()" *ngIf="!this.state.file">Select image</button>
+        <button class="btn btn-outline-default btn-file btn-round" (click)="handleClick()" *ngIf="this.state.file">Change</button>
+        <button class="btn btn-link btn-danger" (click)="handleRemove()" *ngIf="this.state.file"><i class="fa fa-times"></i> Remove</button>
     </div>
-    
-    <img *ngIf="selectedFile" [src]="selectedFile.src" alt="">
-</label>
+</div>

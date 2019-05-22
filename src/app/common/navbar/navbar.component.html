@@ -2,10 +2,10 @@
     <div class="container">
         <div class="navbar-translate">
             <ng-container *ngIf="auth.isAuthenticated()">
-                <a class="navbar-brand" routerLink="/rentals">Anytime Peasonal Trainer</a>
+                <a class="navbar-brand" routerLink="/rentals">Anytime Pearonal Trainer</a>
             </ng-container>
             <ng-container *ngIf="!auth.isAuthenticated()">
-                <a class="navbar-brand" routerLink="/">Anytime Peasonal Trainer</a>
+                <a class="navbar-brand" routerLink="/">Anytime Personal Trainer</a>
             </ng-container>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar"></span>
@@ -67,6 +67,7 @@
                         <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; {{auth.getUsername()}}さん</div>
                         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
                             <a class="dropdown-item" [routerLink]="['/user/mybookings']" fragment="headers"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; My bookings</a>
+                            <a class="dropdown-item" [routerLink]="['/user/settings']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; Settings</a>
                         </div>
                     </div>
                     <li class="nav-item clickable">

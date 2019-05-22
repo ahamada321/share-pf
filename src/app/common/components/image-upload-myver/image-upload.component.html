@@ -1,0 +1,16 @@
+<label class="image-upload-container btn btn-bwm">
+    <input #imageInput
+        type="file"
+        accept="image/*"
+        (change)="processFile(imageInput)">
+
+    <div class="picture-container">
+    <div class="picture">
+        <img src="/assets/image/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
+        <input type="file" id="wizard-picture">
+    </div>
+    <h6 class="description">Choose Picture</h6>
+    </div>
+    
+    <img *ngIf="selectedFile" [src]="selectedFile.src" alt="">
+</label>
