@@ -15,7 +15,7 @@
       <div class="container">
         <div class="row">
           <ng-container *ngIf="bookings.length > 0">
-          <div class='col-md-3 col-xs-6' *ngFor="let booking of bookings">
+          <div class='col-md-3 col-xs-6' *ngFor="let booking of bookings; let i = index">
             <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
             <div class="card">
               <a routerLink="/rentals/{{booking.rental._id}}">
@@ -35,21 +35,31 @@
               </a>
               <div class="card-footer">
 
-                <button class="btn btn-danger" (click)="deleteBooking(booking._id)">キャンセルする</button>
+                <button *ngIf="!isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセルする</button>
+                <!-- <button *ngIf="isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">レビューする</button> -->
                 
                 <!-- <app-review></app-review> -->  
               </div>
             </div>
           </div>
           </ng-container>
-          <div *ngIf="bookings.length==0" class="alert alert-warning">
-            まだ予約中の商品はありません。商品を探しに行きますか？
-            <a class="btn btn-danger" routerLink="/rentals">商品を見に行く</a>
+          <div class="col-md-4">
+              <div *ngIf="bookings.length==0" class="card card-pricing">
+                <a routerLink="/rentals">
+                  <div class="card-body">
+                    <!-- <h3 class="card-category">No bookings found!</h3> -->
+                    <h3 class="card-title">No bookings found !</h3>
+                    <p class="card-description"></p>
+                    <div class="card-footer">
+                      <p class="btn btn-warning btn-round">Find my Trainer</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  </section>
+</section>
         

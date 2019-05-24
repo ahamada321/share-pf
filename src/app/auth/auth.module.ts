@@ -11,6 +11,7 @@ import { LoginResetpasswordSentComponent } from './login/login-resetpassword/log
 import { LoginNewPasswordComponent } from './login/login-resetpassword/login-newpassword/login-newpassword.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterVerificationComponent } from './register/register-verification/register-verification.component';
+import { RegisterSentComponent } from './register/register-sent/register-sent.component';
 
 import { AuthService } from './service/auth.service';
 import { TokenInterceptor } from './service/token.interceptor';
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'login/reset/sent', component: LoginResetpasswordSentComponent },
     { path: 'login/reset/newpassword/:verifyToken', component: LoginNewPasswordComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'register/sent', component: RegisterSentComponent },
     { path: 'register/:verifyToken', component: RegisterVerificationComponent }
 ];
 
@@ -34,6 +36,7 @@ const routes: Routes = [
     LoginResetpasswordSentComponent,
     LoginNewPasswordComponent,
     RegisterComponent,
+    RegisterSentComponent,
     RegisterVerificationComponent,
   ],
   imports: [

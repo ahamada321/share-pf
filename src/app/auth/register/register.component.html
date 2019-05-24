@@ -56,24 +56,42 @@
                                 <div *ngIf="errors.length > 0" class="alert alert-danger">
                                     <p *ngFor="let error of errors">{{error.detail}}</p>
                                 </div>
-                                <form class="register-form" #registarForm="ngForm">
-                                    <!-- <label>Email</label> -->
+                                <form class="register-form" #registerForm="ngForm" (ngSubmit)="register()">
+                                    <!-- <label>Username</label> -->
                                     <div class="form-group">
                                         <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                    <i class="nc-icon nc-email-85"></i>
+                                                    <i class="nc-icon nc-single-02"></i>
                                                 </span>
                                             </div>
-                                            <input [(ngModel)]="formData.email"
-                                                    name="email"
-                                                    type="email"
+                                            <input [(ngModel)]="formData.username"
+                                                    name="username"
+                                                    type="username"
                                                     class="form-control"
-                                                    id="email"
-                                                    placeholder="Email" (focus)="focus=true" (blur)="focus=false"
+                                                    id="username"
+                                                    placeholder="Username" (focus)="focus=true" (blur)="focus=false"
                                                     required>
                                             </div>
                                     </div>
+
+                                    <!-- <label>Email</label> -->
+                                    <div class="form-group">
+                                            <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="nc-icon nc-email-85"></i>
+                                                    </span>
+                                                </div>
+                                                <input [(ngModel)]="formData.email"
+                                                        name="email"
+                                                        type="email"
+                                                        class="form-control"
+                                                        id="email"
+                                                        placeholder="Email" (focus)="focus1=true" (blur)="focus1=false"
+                                                        required>
+                                                </div>
+                                        </div>
 
                                     <!-- <label>Password</label> -->
                                     <div class="form-group">
@@ -82,7 +100,7 @@
                                                 type="password"
                                                 class="form-control"
                                                 id="password"
-                                                placeholder="Password" (focus)="focus1=true" (blur)="focus1=false"
+                                                placeholder="Password" (focus)="focus2=true" (blur)="focus2=false"
                                                 required>
                                     </div>
                                     <div class="form-group">
@@ -91,10 +109,10 @@
                                                 type="password"
                                                 class="form-control"
                                                 id="passwordConfirmation"
-                                                placeholder="Confirm Password" (focus)="focus2=true" (blur)="focus2=false"
+                                                placeholder="Confirm Password" (focus)="focus3=true" (blur)="focus3=false"
                                                 required>
                                     </div>
-                                    <button [disabled]="!registarForm.valid" type="submit" class="btn btn-danger btn-block btn-round"  (click)="register()">Request to become Member</button>
+                                    <button [disabled]="!registerForm.valid" type="submit" class="btn btn-danger btn-block btn-round">Request to become Member</button>
                                 </form>
                                 <div class="forgot">
                                     <a routerLink="/login" class="btn btn-link btn-danger">Already have an account?</a>
@@ -106,89 +124,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-<!--
-  <div class="bwm-form">
-    <div class="row">
-      <div class="col-md-5">
-        <h2>Member Registration</h2>
-
-        <form #registarForm="ngForm">
-          <div class="form-group">
-            <label for="username">ユーザー名</label>
-            <input [(ngModel)]="formData.username"
-                   #username="ngModel"
-                   name="username"
-                   type="text"
-                   class="form-control"
-                   id="username"
-                   required>
-
-              <div *ngIf="username.invalid && (username.dirty || username.touched)"
-                  class="alert alert-danger">
-            
-                  <div *ngIf="username.errors.required">
-                      ユーザー名は必須です
-                  </div>
-                  <div *ngIf="username.errors.minlength">
-                      Name must be at least 4 characters long.
-                  </div>
-              </div>
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input [(ngModel)]="formData.email"
-                   name="email"
-                   type="email"
-                   class="form-control"
-                   id="email"
-                   required>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input [(ngModel)]="formData.password"
-                   name="password"
-                   type="password"
-                   class="form-control"
-                   id="password"
-                   required>
-          </div>
-
-          <div class="form-group">
-            <label for="passwordConfirmation">Password(確認)</label>
-            <input [(ngModel)]="formData.passwordConfirmation"
-                   name="passwordConfirmation"
-                   type="password"
-                   class="form-control"
-                   id="passwordConfirmation"
-                   required>
-          </div>
-
-
-          <div class="form-group">
-            <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" value="" checked="">
-                <span class="form-check-sign">
-                  <span class="check"></span>
-                </span>
-                <a href="#something">利用規約</a>に同意する
-              </label>
-            </div>
-          </div>
-
-
-          <button [disabled]="!registarForm.form.valid" (click)="register()" type="submit" class="btn btn-bwm">Submit</button>
-        </form>
-      </div>
-
-    </div>
-  </div>
--->
-
 </section>

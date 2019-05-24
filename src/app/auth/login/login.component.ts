@@ -78,20 +78,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   showSwalSuccess() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-danger btn-lg',
-        cancelButton: 'btn btn-lg'
-      },
-      buttonsStyling: false,
-    })
-
-    swalWithBootstrapButtons.fire({
+    Swal.fire({
         title: 'Password has been updated!',
         text: 'You can login with new password!',
         type: 'success',
-        // showConfirmButton: false,
+        confirmButtonClass: "btn btn-primary btn-round btn-lg",
+        buttonsStyling: false,
         timer: 5000
-    }).then(() => {})
+    })
   }
 }

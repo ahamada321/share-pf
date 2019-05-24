@@ -178,62 +178,40 @@ exports.createBooking = function(req, res) {
 exports.deleteBooking = function(req, res) { // Under development! Not working yet!
     const user = res.locals.user
 
-    // Rental.findById(rental._id)
-    //                 .populate('bookings')
-    //                 .populate('user')
-    //                 .exec(async function(err, foundRental) {
-
-    //     if(err) {
-    //         return res.status(422).send({errors: normalizeErrors(err.errors)})
-    //     }
-
-    //     if(foundRental.user.id == user.id){
-    //         return res.status(422).send({errors: [{title: "Invalid user!", detail: "Cannot make booking on your Rentals!"}]})
-    //     }
-                
-    // })
-
-
-//やること→　bookingIDを直で渡せる→　それを元にBookingを削除できる→　その前にrental.bookingも削除したい。←　booking.rental.idでfoundrentalして、bookingを削除？
-
-
     Booking.findById(req.params.id) 
-            .populate('user', '_id')
-            .populate('rental')
-             .populate({
-                path: 'bookings',
-                select: '_id',
-            // //     match: { startAt: { $gt: new Date()}} // &gt: greater than. <- Pick up future than now.
-             })
-            .exec(function(err, foundBooking) {
-                if(err) {
-                    return res.status(422).send({errors: normalizeErrors(err.errors)})
+    .populate('user')
+    .populate('rental')
+    // .populate('startAt')
+    .exec(function(err, foundBooking) {
+        if(err) {
+            return res.status(422).send({errors: normalizeErrors(err.errors)})
+        }
+        if(foundBooking.user.id != user.id) {
+            return res.status(422).send({
+                errors: {
+                    title: "Invalid request!",
+                    detail: "You cannot delete other users booking!"
                 }
-                if(user.id != foundBooking.user.id) {
-                    return res.status(422).send({
-                        errors: {
-                            title: "Invalid user!",
-                            detail: "You are not booking user!"
-                        }
-                    })
-                }
-
-
-                //foundBooking.rental.bookings
-
-                //foundRental.bookings.push(booking) //の逆をする
-                const index = foundBooking.rental.bookings.array.indexOf(req.params.id)
-                foundRental.bookings.splice(foundRental.bookings.array.indexOf(req.params.id), 1)
-
-
-
-                foundBooking.remove(function(err) {
-                    if (err) {
-                        return res.status(422).send({errors: normalizeErrors(err.errors)})
-                    }
-                    return res.json({"status": "booking deleted"})
-                })
             })
+        }
+        if(foundBooking.status == 'active') {
+            return res.status(422).send({
+                errors: {
+                    title: "Invalid request!",
+                    detail: "Cannot delete active booking!"
+                }
+            })
+        }
+        foundBooking.remove(function(err) {
+            if (err) {
+                return res.status(422).send({errors: normalizeErrors(err.errors)})
+            }
+            Rental.updateMany({_id: foundBooking.rental.id}, {$pull: {bookings: foundBooking.id}}, ()=>{}) // Delete Booking from Rental
+            User.updateMany({ _id: foundBooking.user.id}, {$pull: {bookings: foundBooking.id}}, ()=>{}) // Delete Booking from User
+    
+            return res.json({"status": "deleted"})
+        })
+    })
 }
 
 exports.getUserBookings = function(req,res) {

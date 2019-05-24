@@ -38,8 +38,8 @@ export class LoginNewPasswordComponent implements OnInit, OnDestroy {
     navbar.classList.remove('navbar-transparent');
   }
 
-  setNewPassword(token: any) {
-    this.auth.setNewPassword(this.formData, token).subscribe(
+  setNewPassword() {
+    this.auth.setNewPassword(this.formData, this.verifyToken).subscribe(
       () => {
         this.router.navigate(['/login', {password: 'updated'}])
       },

@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     focus: any;
     focus1: any;
     focus2: any;
+    focus3: any;
   
     formData: any = {}
     errors: any[] = []

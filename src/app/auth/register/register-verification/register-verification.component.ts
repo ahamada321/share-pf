@@ -50,23 +50,21 @@ export class RegisterVerificationComponent implements OnInit {
   showSwal(type) {
     if (type == 'success') {
       Swal.fire({
-            title: 'アクティベーション完了！',
-            text: 'これより登録したEmailとパスワードでログインできます',
+            title: 'Successfully Activated!',
+            text: 'You can login from now !',
             type: 'success',
-            confirmButtonClass: "btn btn-success",
-            buttonsStyling: false
-        }).then((result) => {
-            if (result.value) {
-              this.router.navigate(['/login', {registered: 'success'}])
-            }
+            confirmButtonClass: "btn btn-primary btn-round btn-lg",
+            buttonsStyling: false,
+            timer: 5000
+        }).then(() => {
+          this.router.navigate(['/login', {registered: 'success'}])
         })
-
     } else if (type == 'failed') {
       Swal.fire({
             title: 'Faild',
             text: 'URLが期限切れです',
             type: 'error',
-            confirmButtonClass: "btn",
+            confirmButtonClass: "btn btn-primary btn-round btn-lg",
             buttonsStyling: false
         })
 

@@ -160,6 +160,31 @@ exports.register = function(req, res) {
     })
 }
 
+exports.updateUser = function(req, res) {
+    const userData = req.body
+    const reqUserId = req.params.id
+    const user = res.locals.user // This is logined user infomation.
+
+    if(reqUserId == user.id) { // Checking logined user editing his/her profile.
+        User.updateMany({ _id: user.id}, userData, () => {})
+
+        const token = jwt.sign({
+            userId: user.id,
+            username: userData.username,
+            userRole: user.userRole,
+          }, config.SECRET, { expiresIn: '2h' })
+
+        return res.json(token)
+    } else {
+        return res.status(422).send({
+            errors: {
+                title: "Invalid user!",
+                detail: "Cannot edit other user profile!"
+            }
+        })
+    }
+}
+
 exports.emailVerification = function (req, res) {
     const verifyToken = req.params.token
     let user
@@ -264,36 +289,6 @@ exports.setNwePassword = function(req, res) {
             return res.status(200).send(foundUser)
         })
     })
-}
-
-exports.updateUser = function(req, res) {
-    const userData = req.body
-    const reqUserId = req.params.id
-    const user = res.locals.user
-
-    if(reqUserId == user.id) {
-        User.findById(reqUserId)
-            .select('-password')
-            .exec(function(err, foundUser) {
-            if(err) {
-                return res.status(422).send({errors: normalizeErrors(err.errors)})
-            }
-            foundUser.set(userData)
-            foundUser.save(function(err) {
-                if(err) {
-                    return res.status(422).send({errors: normalizeErrors(err.errors)})
-                }
-                return res.status(200).send(foundUser)
-            })
-        })
-    } else {
-        return res.status(422).send({
-            errors: {
-                title: "Invalid user!",
-                detail: "Cannot edit other user profile!"
-            }
-        })
-    }
 }
 
 

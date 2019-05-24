@@ -3,6 +3,7 @@ import { AuthService } from '../service/auth.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { Router } from '@angular/router'
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,6 +13,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   focus: any;
   focus1: any;
   focus2: any;
+  focus3: any;
 
   formData: any = {}
   errors: any[] = []
@@ -37,7 +39,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   register() {
     this.auth.register(this.formData).subscribe(
       () => {
-        this.router.navigate(['/thanks'])
+        this.router.navigate(['/register/sent'])
       },
       (errorResponse: HttpErrorResponse) => {
         this.errors = errorResponse.error.errors

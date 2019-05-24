@@ -65,6 +65,11 @@ export class AuthService {
             (token: string) => this.saveToken(token)))
     }
 
+    public updateUser(userId: string, userData: any): Observable<any> {
+        return this.http.patch('/api/v1/users/' + userId, userData).pipe(map(
+            (token: string) => this.saveToken(token)))
+    }
+
     public logout() {
         localStorage.removeItem('app-auth')
         localStorage.removeItem('app-meta')
@@ -86,16 +91,5 @@ export class AuthService {
     public getUserById(userId: string): Observable<any> {
         return this.http.get('/api/v1/users/' + userId)
     }
-
-    public getI(): Observable<any> {
-        return this.http.get('/api/v1/users/' + this.getUserId())
-    }
-
-    public updateUser(userId: string, userData: any): Observable<any> {
-        return this.http.patch('/api/v1/users/' + userId, userData)
-    }
-
-
-
 
 }
