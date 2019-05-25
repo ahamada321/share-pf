@@ -14,6 +14,8 @@ import { FooterComponent } from './common/footer/footer.component';
 import { HomeModule } from './home/home.module';
 import { LandingComponent } from './landing/landing.component';
 import { Page404Component } from './page404/page404.component';
+import { TermsOfServiceComponent } from './terms-service/terms-service.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { Page404Component } from './page404/page404.component';
     NavbarComponent,
     FooterComponent,
     LandingComponent,
-    Page404Component
+    Page404Component,
+    TermsOfServiceComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     HttpClientModule,

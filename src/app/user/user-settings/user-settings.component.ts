@@ -12,7 +12,7 @@ export class UserSettingsComponent implements OnInit {
     userData: any
     state_info = true;
     state_info1 = true;
-    state_info2 = true;
+    third_switch = true;
 
     data : Date = new Date();
 
@@ -46,8 +46,7 @@ export class UserSettingsComponent implements OnInit {
     updateUser(userForm: NgForm) {
         this.auth.updateUser(this.userData._id, userForm.value).subscribe(
           (UserUpdated) => {
-            userForm.reset()
-            this.ngOnInit()
+            userForm.reset(userForm.value)
             this.showSwalSuccess()
           },
           (err) => { }

@@ -10,12 +10,16 @@ import { UserModule } from './user/user.module';
 import { PresentationModule } from './presentation/presentation.module';
 import { PresentationComponent } from './presentation/presentation.component';
 import { Page404Component } from './page404/page404.component';
+import { TermsOfServiceComponent } from './terms-service/terms-service.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'landing',          component: LandingComponent },
   { path: 'presentation',         component: PresentationComponent },
+  { path: 'terms',         component: TermsOfServiceComponent },
+  { path: 'privacy',         component: PrivacyPolicyComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   // { path: '**', component: Page404Component }
 ];
