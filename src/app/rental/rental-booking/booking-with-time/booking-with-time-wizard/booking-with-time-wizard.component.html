@@ -75,25 +75,12 @@
               <div class="tab-pane" id="account">
                 <h5 class="info-text"> 合計金額： {{newBooking.totalPrice}} 円 </h5>
                 <div class="row justify-content-center">
-
-                  <!--
-                    <div *ngIf="!isAutoBooking">
-                      <app-payment (paymentComfirmed)="onPaymentConfirmed($event)"></app-payment>
-                      <p>予約申込しますか？</p>
-                      <p>申込後、30分以内に商品オーナーが受理しなかった場合は自動キャンセルになります。</p>
-                      <p>その場合、費用が発生することはありません。</p>
-                    </div>
-                  -->
-
-                    <div *ngIf="isAutoBooking">
-                      <h4>予約申し込みしますか？</h4>
-                    </div>
-                    <div *ngIf="errors.length>0" class="alert alert-danger modal-error">
-                      <p *ngFor="let error of errors">
-                        {{error.detail}}
-                      </p>
-                    </div>
-
+                  <h4>予約申し込みしますか？</h4>
+                  <div *ngIf="errors.length>0" class="alert alert-danger modal-error">
+                    <p *ngFor="let error of errors">
+                      {{error.detail}}
+                    </p>
+                  </div>
                 </div>
               </div>
 

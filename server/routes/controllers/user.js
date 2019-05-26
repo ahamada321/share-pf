@@ -95,6 +95,37 @@ exports.auth = function(req, res) {
     })
 }
 
+exports.FBauth = function(req, res) {//Under development
+    const FBuserID = req.body.userID
+
+     User.findOne({FBuserID}, function(err, foundUser) {
+        if(err) {
+            return res.status(422).send({errors: normalizeErrors(err.errors)})
+        }
+        if(!foundUser) {
+            return res.status(422).send({errors: [{title: "Invalid user!", detail: "User does not exist!"}]})
+        }
+        if(!foundUser.isVerified) {
+            return res.status(422).send({errors: [{title: "Not verified user!", detail: "Please activate account from recieved email!"}]})
+        }
+
+        // if(user.hasSamePassword(password)) {
+            // return JWT token
+            const token = jwt.sign({
+                userId: foundUser.id,
+                username: foundUser.username,
+                userRole: foundUser.userRole,
+              }, config.SECRET, { expiresIn: '2h' })
+
+            return res.json(token)
+
+        // } 
+        // else {
+            // return res.status(422).send({errors: [{title: "Invalid Data!", detail: "Wrong email or password!"}]})
+        // }
+    })
+}
+
 exports.register = function(req, res) {
     /*
     const username = req.body.username
@@ -102,15 +133,28 @@ exports.register = function(req, res) {
     const password = req.body.password
     const passwordConfirmation = req.body.passwordConfirmation
     */
-   const { username, email, password, passwordConfirmation } = req.body
+   const { FBuserID, username, email, password, passwordConfirmation } = req.body
 
-   if(!password || !email) {
-       return res.status(422).send({errors: [{title: "Data missing!", detail: "Provide email and password!"}]})
+
+    if(!password || !email) {
+        return res.status(422).send({errors: [{title: "Data missing!", detail: "Provide email and password!"}]})
     }
 
-   if(password != passwordConfirmation) {
-       return res.status(422).send({errors: [{title: "Invalid password!", detail: "Password is not as same as confirmation!"}]})
+    if(password != passwordConfirmation) {
+        return res.status(422).send({errors: [{title: "Invalid password!", detail: "Password is not as same as confirmation!"}]})
     }
+
+    if(FBuserID) {
+        User.findOne({FBuserID}, function(err, existingUser) {
+            if(err) {
+                return res.status(422).send({errors: normalizeErrors(err.errors)})
+            }
+            if(existingUser) {
+                return res.status(422).send({errors: [{title: "Invalid Facebook ID!", detail: "User with this Facebook ID already exist!"}]})
+            }
+        })
+   }
+
 
     User.findOne({email}, function(err, existingUser) {
         if(err) {
@@ -122,11 +166,13 @@ exports.register = function(req, res) {
 
         // Filling user infomation with ../models/user.js format
         const user = new User({
+            FBuserID,
             username,
             email,
             password
 
             /* It is same as above
+            FBuserID: FBuserID,
             username: username,
             email: email,
             password: password

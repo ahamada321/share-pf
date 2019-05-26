@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/service/auth.service';
-import Swal from 'sweetalert2'
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-user-settings',
@@ -16,7 +18,9 @@ export class UserSettingsComponent implements OnInit {
 
     data : Date = new Date();
 
-    constructor(private auth: AuthService) { }
+    constructor(
+      private auth: AuthService, 
+      private router: Router ) { }
 
     ngOnInit() {
         this.getUser()
@@ -61,6 +65,8 @@ export class UserSettingsComponent implements OnInit {
             confirmButtonClass: "btn btn-primary btn-round btn-lg",
             buttonsStyling: false,
             timer: 5000
+        }).then(() => {
+          this.router.navigate(['/rentals', {registered: 'success'}])
         })
     }
     

@@ -67,7 +67,7 @@
                             Service chage(30%)；{{rental.hourlyPrice * chosenCourseTime / 60 * 0.3}}JPY<br>
                             Total Price；{{rental.hourlyPrice * chosenCourseTime / 60 * 1.3}}JPY<br>
                         </div>    
-                        <div class="description" *ngIf="isSelectedDateTime && (stripeCustomerId.length>0) && !isChangeBtnClicked">
+                        <div class="description" *ngIf="isSelectedDateTime && (stripeCustomerId && stripeCustomerId.length>0) && !isChangeBtnClicked">
                             Paying Metiod：Visa ******4242
                             <button class="btn btn-primary" (click)="isChangeBtnClicked=true">Change paying method?</button>
                         </div>

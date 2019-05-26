@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+    FBuserID: String,
+    
     username: {
         type: String,
         max: [32, 'Too long, max is 32 characters.'],
@@ -23,9 +25,7 @@ const userSchema = new Schema({
         min: [4, 'Too short, min is 4 characters.'],
         required: 'Password is required',
     },
-    stripeCustomerId: String,
-
-    isAutoBooking: { type: Boolean, default: true },
+    stripeCustomerId: { type: String, default: '' },
     rating: Number,
 
     isVerified: { type: Boolean, default: false },

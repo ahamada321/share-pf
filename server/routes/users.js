@@ -6,6 +6,8 @@ const UserCtrl = require('./controllers/user')
 //refering to ./controllers/user.js
 router.post('/auth', UserCtrl.auth )
 
+router.post('/fb-auth', UserCtrl.FBauth )
+
 router.post('/reset', UserCtrl.sendPasswordResetLink )
 
 router.patch('/reset/:token', UserCtrl.setNwePassword )

@@ -47,21 +47,24 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
 }
 
 
-
-
 async function createPayment(booking, toUser, paymentToken) {
     const { user } = booking
     let customer
 
-    if (paymentToken) {
-        // Store booking user paymentToken and email to charge later.
-        customer = await stripe.customers.create({
-            source: paymentToken.id,
-            email: user.email
-        })
-        User.updateMany({_id: user.id}, {$set: {stripeCustomerId: customer.id}}, () => {})
-    } else {
+    if(user.stripeCustomerId) {
         customer.id = user.stripeCustomerId
+    }
+    if (paymentToken) {
+        if(customer.id) {
+            // retrieve card. カード番号更新処理入れる。　あと、stripeIDある時のpaymentトークン発行部分、customerが新しく作られないようにしないといけない？
+        } else {
+            // Store booking user paymentToken and email to charge later.
+            customer = await stripe.customers.create({
+                source: paymentToken.id,
+                email: user.email
+            })
+            User.updateMany({_id: user.id}, {$set: {stripeCustomerId: customer.id}}, () => {})
+        }
     }
 
     if(customer) {
@@ -125,9 +128,13 @@ exports.createBooking = function(req, res) {
         if(isValidBooking(booking, foundRental.bookings)) {
             booking.user = user
             booking.rental = foundRental
+            const { err, payment } = await createPayment(booking, foundRental.user, paymentToken)
 
-            if(user.isAutoBooking) {
-                //booking.payment.status = 'autobooking' // Fix me!
+            if(err) {
+                return res.status(422).send({errors: [{title: "Payment error!", detail: err}]})
+            }
+            if(payment){
+                booking.payment = payment
                 foundRental.bookings.push(booking)
                 
                 booking.save(function(err) {
@@ -143,32 +150,7 @@ exports.createBooking = function(req, res) {
                     User.updateMany({_id: user.id}, {$push: {bookings: booking}}, function(){})
                     return res.json({startAt: booking.startAt, endAt: booking.endAt})
                 })
-            } else {
-                const { err, payment } = await createPayment(booking, foundRental.user, paymentToken)
-
-                if(err) {
-                    return res.status(422).send({errors: [{title: "Payment error!", detail: err}]})
-                }
-                if(payment){
-                    booking.payment = payment
-                    foundRental.bookings.push(booking)
-                    
-                    booking.save(function(err) {
-                        if(err) {
-                            return res.status(422).send({errors: normalizeErrors(err.errors)})
-                        }
-    
-                        // Send notification to both of users.
-                        sendEmailTo(user.email, REQUEST_SEND, booking, req.hostname)
-                        sendEmailTo(foundRental.user.email, REQUEST_RECIEVED, booking, req.hostname)
-    
-                        foundRental.save()
-                        User.updateMany({_id: user.id}, {$push: {bookings: booking}}, function(){})
-                        return res.json({startAt: booking.startAt, endAt: booking.endAt})
-                    })
-                }
             }
-
         } else {
            return res.status(422).send({errors: [{title: "Invalid booking!", detail: "Chosed dates are already taken!"}]})
         }
@@ -224,5 +206,5 @@ exports.getUserBookings = function(req,res) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
                 return res.json(foundBookings)
-            })
+    })
 }
