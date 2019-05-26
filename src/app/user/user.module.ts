@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserComponent } from './user.component';
 import { UserMyBookingsComponent } from './user-mybookings/user-mybookings.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 import { FormatDatePipe } from '../common/pipes/format-date.pipe';
@@ -28,8 +29,9 @@ const routes: Routes = [{
 @NgModule({
     declarations: [
         UserComponent,
+        UserMyBookingsComponent, 
+        UserProfileComponent,  
         UserSettingsComponent,
-        UserMyBookingsComponent,   
         FormatDatePipe,
         FormatTimePipe,         
       ],

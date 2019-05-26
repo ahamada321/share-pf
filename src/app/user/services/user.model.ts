@@ -5,6 +5,7 @@ export class User {
     username: string
     email: string
     password: string
+    passwordConfirmation: string // Frontend only!
     stripeCustomerId: number
     rating: number
     isVerified: boolean
