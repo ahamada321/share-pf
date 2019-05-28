@@ -13,13 +13,14 @@ import { FormatDatePipe } from '../common/pipes/format-date.pipe';
 import { FormatTimePipe } from '../common/pipes/format-time.pipe';
 import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
+import { AuthGuard } from '../auth/service/auth.guard';
 
 
 const routes: Routes = [{
     path: 'user',
     component: UserComponent,
     children: [
-        { path: 'settings', component: UserSettingsComponent },
+        { path: 'settings', component: UserSettingsComponent, canActivate: [AuthGuard] },
     // { path: ':rentalId/edit', component: RentalDetailUpdateComponent }
         { path: 'mybookings', component: UserMyBookingsComponent },
         { path: '', redirectTo: 'profile', pathMatch: 'full' }

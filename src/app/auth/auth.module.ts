@@ -14,15 +14,16 @@ import { RegisterVerificationComponent } from './register/register-verification/
 import { RegisterSentComponent } from './register/register-sent/register-sent.component';
 
 import { AuthService } from './service/auth.service';
+import { AuthGuard } from './service/auth.guard';
 import { TokenInterceptor } from './service/token.interceptor';
 
 
 const routes: Routes = [
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
     { path: 'login/reset', component: LoginResetpasswordComponent },
     { path: 'login/reset/sent', component: LoginResetpasswordSentComponent },
     { path: 'login/reset/newpassword/:verifyToken', component: LoginNewPasswordComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
     { path: 'register/sent', component: RegisterSentComponent },
     { path: 'register/:verifyToken', component: RegisterVerificationComponent }
 ];
@@ -48,6 +49,7 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     AuthService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

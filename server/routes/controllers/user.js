@@ -17,16 +17,16 @@ function sendEmailTo(sendTo, sendMsg, token, hostname) {
     if(sendMsg == VERIFICATION_EMAIL) {
         msg = {
             to: sendTo,
-            from: 'info@ap-trainer.com',
+            from: 'noreply@ap-trainer.com',
             subject: '[アカウント発行メール]あなたのアカウントを有効化してください',
-            text: "以下のリンクをクリックしてアカウントを有効化してください。\n\nhttp:\/\/" + hostname + '\/register\/' + token
+            text: "以下のリンクをクリックしてアカウントを有効化してください。\n\nhttps:\/\/" + hostname + '\/register\/' + token
         }
     } else if (sendMsg == PR_RESET_EMAIL) {
         msg = {
             to: sendTo,
-            from: 'info@ap-trainer.com',
+            from: 'noreply@ap-trainer.com',
             subject: '[パスワードリセット]パスワードを再設定してください',
-            text: "以下のリンクをクリックしてパスワードを再設定してください。\n\nhttp:\/\/" + hostname + '\/login\/reset\/newpassword\/' + token
+            text: "以下のリンクをクリックしてパスワードを再設定してください。\n\nhttps:\/\/" + hostname + '\/login\/reset\/newpassword\/' + token
         }
     } else {
         return res.status(422).send({errors: [{title: "Could not send email!", detail: "Please select appropriate email content!"}]})
@@ -50,7 +50,7 @@ exports.getUser = function(req, res) {
     } else {
         // Restrict some data
         User.findById(reqUserId)
-            .select('-revenue -stripeCustomerId -password')
+            .select('-revenue -customer -password')
             .exec(function(err, foundUser) {
                 if(err) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
@@ -85,7 +85,7 @@ exports.auth = function(req, res) {
                 userId: user.id,
                 username: user.username,
                 userRole: user.userRole,
-              }, config.SECRET, { expiresIn: '2h' })
+              }, config.SECRET, { expiresIn: '24h' })
 
             return res.json(token)
 
@@ -115,7 +115,7 @@ exports.FBauth = function(req, res) {//Under development
                 userId: foundUser.id,
                 username: foundUser.username,
                 userRole: foundUser.userRole,
-              }, config.SECRET, { expiresIn: '2h' })
+              }, config.SECRET, { expiresIn: '24h' })
 
             return res.json(token)
 
@@ -218,7 +218,7 @@ exports.updateUser = function(req, res) {
             userId: user.id,
             username: userData.username,
             userRole: user.userRole,
-          }, config.SECRET, { expiresIn: '2h' })
+          }, config.SECRET, { expiresIn: '24h' })
 
         return res.json(token)
     } else {

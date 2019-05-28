@@ -35,7 +35,9 @@ export class RentalBookingComponent implements OnInit, OnDestroy {
     rental: Rental
     newBooking: Booking
     paymentToken: string
-    stripeCustomerId: string = ""
+    // stripeCustomerId: string = ""
+    customer: any
+    
     errors: any[] = []
 
 
@@ -81,7 +83,7 @@ export class RentalBookingComponent implements OnInit, OnDestroy {
         const userId = this.auth.getUserId()
         this.auth.getUserById(userId).subscribe(
             (user) => {
-                this.stripeCustomerId = user.stripeCustomerId
+                this.customer = user.customer
                 //this.getUserLast4()
             },
             (err) => { }
@@ -106,11 +108,7 @@ export class RentalBookingComponent implements OnInit, OnDestroy {
     }
 
     createBooking() {
-        if(this.stripeCustomerId) {
-            this.newBooking.paymentToken = null
-        } else {
-            this.newBooking.paymentToken = this.paymentToken
-        }
+        this.newBooking.paymentToken = this.paymentToken
 
         this.newBooking.rental = this.rental
         this.bookingService.createBooking(this.newBooking).subscribe(

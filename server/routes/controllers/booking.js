@@ -23,21 +23,25 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     if(sendMsg == REQUEST_SEND) {
         msg = {
             to: sendTo,
-            from: 'info@ap-trainer.com',
+            from: 'noreply@ap-trainer.com',
             subject: '[仮予約完了]予約リクエストを送信しました！',
-            text: '現時点では予約は確定していません。「' + booking.rental.rentalname + '」オーナーがリクエストを受理された場合に正式予約が完了します。\n\n'
-                + '予約が確定しない限りクレジットカードに請求されることはありません。'
+            text: '現時点では予約は確定していません。「' + booking.rental.rentalname + ' Trainer」がリクエストを受理された場合に正式予約が完了します。\n\n'
+                + '予約が確定しない限りご請求が行くことはありません。'
+                + '\n\n\n\n'
+                + 'AnytimePersonalTrainer.inc'
         }
     } else if (sendMsg == REQUEST_RECIEVED) {
         msg = {
             to: sendTo,
-            from: 'info@ap-trainer.com',
-            subject: '「' + booking.rental.rentalname + '」への予約リクエストが来ています！',
-            text: 'あなたの「' + booking.rental.rentalname + '」への予約リクエストが以下の日時で来ています。受理されますか？\n\n'
+            from: 'noreply@ap-trainer.com',
+            subject: '「' + booking.rental.rentalname + ' Trainer」に予約リクエストが来ています！',
+            text: '「' + booking.rental.rentalname + '」への予約リクエストが以下の日時で来ています。受理されますか？\n\n'
                 + '日時：' + startAt + ' 〜 ' + endAt + '\n\n'
                 + '場所：' + booking.rental.province + '\n\n'
                 + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
-                + 'URL：' +  "http:\/\/" + hostname + '\/requests'
+                + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
+                + '\n\n\n\n'
+                + 'AnytimePersonalTrainer.inc'
         }
     } else {
         return res.status(422).send({errors: [{title: "Could not send email!", detail: "Please select appropriate email content!"}]})
@@ -47,35 +51,32 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
 }
 
 
-async function createPayment(booking, toUser, paymentToken) {
+async function createPayment(booking, toUser, paymentToken = null) {
     const { user } = booking
     let customer
 
-    if(user.stripeCustomerId) {
-        customer.id = user.stripeCustomerId
-    }
-    if (paymentToken) {
-        if(customer.id) {
-            // retrieve card. カード番号更新処理入れる。　あと、stripeIDある時のpaymentトークン発行部分、customerが新しく作られないようにしないといけない？
+    if (paymentToken) { // It means first time payment or, user changed credit card
+        if(user.customer.id) { // If user wanna pay with different card as before
+            customer = await stripe.customers.update(user.customer.id, {
+                source: paymentToken.id
+            }) 
         } else {
-            // Store booking user paymentToken and email to charge later.
             customer = await stripe.customers.create({
-                source: paymentToken.id,
-                email: user.email
+                email: user.email,
+                source: paymentToken.id
             })
-            User.updateMany({_id: user.id}, {$set: {stripeCustomerId: customer.id}}, () => {})
         }
-    }
+        User.updateMany({_id: user.id}, {$set: {customer: customer}}, () => {})
 
-    if(customer) {
+        // Store booking user paymentToken and email to charge later.
         const payment = new Payment({
             fromUser: user,
             toUser,
             fromStripeCustomerId: customer.id,
             booking,
-            tokenId: paymentToken.id,
-            amount: booking.totalPrice * CUSTOMER_SHARE
-        })
+            // tokenId: paymentToken.id,
+            ownerRevenue: booking.totalPrice * CUSTOMER_SHARE
+        })  
 
         try {
             const savePayment = await payment.save()
@@ -83,9 +84,26 @@ async function createPayment(booking, toUser, paymentToken) {
         } catch(err) {
             return {err: err.message}
         }
-    } else {
-        return {err: 'Can not process Payment!'}
+    } else if(user.customer.id) { // If user wanna pay with same card as before
+        // Store booking user paymentToken and email to charge later.
+        const payment = new Payment({
+            fromUser: user,
+            toUser,
+            fromStripeCustomerId: user.customer.id,
+            booking,
+            // tokenId: user.customer.default_source,
+            ownerRevenue: booking.totalPrice * CUSTOMER_SHARE
+        })    
+
+        try {
+            const savePayment = await payment.save()
+            return {payment: savePayment}
+        } catch(err) {
+            return {err: err.message}
+        }
     }
+    
+    return {err: 'Can not process Payment!'}
 }
 
 function isValidBooking(requestBooking, rentalBookings) {

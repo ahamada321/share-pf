@@ -15,7 +15,7 @@
       <div class="container">
         <div class="row">
           <ng-container *ngIf="bookings.length > 0">
-          <div class='col-md-3 col-xs-6' *ngFor="let booking of bookings; let i = index">
+          <div *ngFor="let booking of bookings; let i = index" class='col-md-3 col-xs-6'>
             <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
             <div class="card">
               <a routerLink="/rentals/{{booking.rental._id}}">

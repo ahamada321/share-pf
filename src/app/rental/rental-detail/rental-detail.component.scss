@@ -1,6 +1,8 @@
 .card{
     &[data-background="image"]{
-        &:hover::after{
+        &:hover::after,
+        &:active::after,
+        &:focus::after{
             background-color: transparent;
             transition-duration: .2s;
         }

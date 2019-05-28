@@ -141,7 +141,7 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
 
     smoothScroll(target) {
       let targetScroll = document.getElementById(target);
-      this.scrollTo(document.documentElement, targetScroll.offsetTop - this.headerOffset, 1250);
+      this.scrollTo(document.scrollingElement || document.documentElement, targetScroll.offsetTop - this.headerOffset, 1250); // Updated by Creative Tim support!
     }
     scrollTo(element, to, duration) {
       var start = element.scrollTop,

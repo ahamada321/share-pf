@@ -95,7 +95,7 @@
                         <p class="description">
                             Now UI Kit comes with 100 custom icons made by our friends from NucleoApp. The official package contains over 2.100 thin icons which are looking great in combination with Now UI Kit Make sure you check all of them and use those that you like the most.
                         </p><br/>
-                        <a [routerLink]="['/rentals']" class="btn btn-danger btn-round">Go and see Professional Trainers !</a>
+                        <a [routerLink]="['/rentals']" class="btn btn-danger btn-round btn-lg">Go and see Professional Trainers !</a>
                     </div>
 
                     <div class="col-lg-6 col-md-12">
@@ -135,23 +135,20 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                         <div class="card card-register">
-                            <h3 class="title">Register</h3>
-                            <div class="social-line text-center">
-                                <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
-                                    <i class="fa fa-facebook-square"></i>
-                                </a>
-                                <!-- <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
-                                    <i class="fa fa-twitter"></i>
-                                </a> -->
-                            </div>
-                            <div class="division">
-                                <div class="line l"></div>
-                                <span>or</span>
-                                <div class="line r"></div>
-                            </div>
+                            <h3 *ngIf="isFBbuttonClicked" class="title">Register with Facebook</h3>
+                            <ng-container *ngIf="!isFBbuttonClicked">
+                                <h3 class="title">Register</h3>
+                                <div class="social-line text-center">
+                                    <button  class="btn btn-neutral btn-facebook btn-just-icon" (click)="FBregister()">
+                                        <i class="fa fa-facebook-square"></i>
+                                    </button>
+                                </div>
+                                <div class="division">
+                                    <div class="line l"></div>
+                                    <span>or</span>
+                                    <div class="line r"></div>
+                                </div>
+                            </ng-container>
                             <div *ngIf="errors.length > 0" class="alert alert-danger">
                                 <p *ngFor="let error of errors">{{error.detail}}</p>
                             </div>
@@ -249,11 +246,8 @@
                     <div class="col-md-8 ml-auto mr-auto text-center">
                         <h2 class="title">Become Personal Trainer?</h2>
                         <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 download-area ml-auto mr-auto">
-                        <a routerLink="/register" class="btn btn-warning btn-round">Become Personal Trainer</a>
+                        <br>
+                        <a routerLink="/register" class="btn btn-warning btn-round btn-lg">Become Personal Trainer</a>
                     </div>
                 </div>
                 <!-- <div class="row justify-content-md-center sharing-area text-center">

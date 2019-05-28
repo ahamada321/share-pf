@@ -1,0 +1,89 @@
+<section id="userRentals">
+  <h1 class="page-title">My Rentals</h1>
+  <div class="row">
+    <ng-container *ngIf="rentals && rentals.length > 0">
+      <div *ngFor="let rental of rentals; let i = index" class="col-md-4">
+
+          <div class="card card-product">
+              <a routerLink="/rentals/{{rental._id}}">
+                <div class="card-header card-header-image" data-header-animation="true">
+                  <img class="img" src="{{rental.image}}">
+                </div>
+              </a>
+
+              <div class="card-body">
+                <div class="card-actions text-center">
+                  <button mat-raised-button 
+                          type="button" 
+                          class="btn btn-danger btn-link fix-broken-card"><i class="material-icons">build</i> Fix Header!
+                  </button>
+                  <button mat-raised-button type="button" 
+                          class="btn btn-default btn-link" 
+                          matTooltip="View" 
+                          [matTooltipPosition]="'below'"
+                          routerLink="/rentals/{{rental._id}}"><i class="material-icons">art_track</i>
+                  </button>
+                  <button mat-raised-button type="button" 
+                          class="btn btn-success btn-link" 
+                          matTooltip="Edit" 
+                          [matTooltipPosition]="'below'" 
+                          routerLink="/rentals/{{rental._id}}"><i class="material-icons">edit</i>
+                  </button>
+                  <button mat-raised-button type="button" 
+                          class="btn btn-danger btn-link" 
+                          matTooltip="Remove" 
+                          [matTooltipPosition]="'below'"
+                          (click)="swalConfirmation.show(); rentalDeleteIndex = i"><i class="material-icons">close</i>
+                  </button>
+                  <!-- <swal #swalConfirmation 
+                        title="この商品を削除しますか？" 
+                        text="この決定は取り消せません" 
+                        type="question"
+                        showCancelButton="true"
+                        confirmButtonText="削除する"
+                        [focusCancel]="true"
+                        (confirm)="swalDeleted.show()"
+                        (cancel)="rentalDeleteIndex = undefined">
+                  </swal>
+                  <swal #swalDeleted 
+                        title="削除しました" 
+                        type="error"
+                        (confirm)="deleteRental(rental._id)">
+                  </swal> -->
+
+                </div>
+                <h4 class="card-title">
+                  <a href="#pablo">{{rental.rentalname}}</a>
+                </h4>
+                <div class="card-description">
+                    <!-- Created at {{rental.createdAt | formatDate}} -->
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="price">
+                  <h4>{{rental.hourlyPrice}}円/時間</h4>
+                </div>
+                <div class="stats">
+                  <p class="card-category"><i class="material-icons">place</i> {{rental.province}}</p>
+                </div>
+              </div>
+            </div>
+
+      </div>
+
+    </ng-container>
+    <div *ngIf="rentals.length == 0" class="col-md-8">
+      <div class="alert alert-warning">
+        まだ貸出用の商品が登録されていません。あなたの自慢の商品を登録しましょう！
+        <a class="btn btn-bwm" routerLink="/rentals/new">貸し出す商品を登録する</a>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <ng-container *ngIf="rentals && rentals.length > 0">
+    <h1 class="page-title">Rentals Calendar</h1>
+    <!-- <app-manage-rentals-calendar [rentals]="rentals"></app-manage-rentals-calendar> -->
+  </ng-container>
+
+</section>

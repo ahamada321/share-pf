@@ -12,7 +12,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
   stripe: any
   elements: any
 
-  stripeCustomerId: string = ""
+  // stripeCustomerId: string = ""
+  customer: any
+
   token: any
   validatingCardFlag: boolean = false
   error: string
@@ -69,13 +71,13 @@ export class PaymentComponent implements OnInit, OnDestroy {
     }
   }
 
-  async getUserLast4() {
-    const {customer, error} = await this.stripe.customers.retrieve(
-      this.stripeCustomerId, {
-      expand: ['default_source'],
-    })
-    this.stripeCustomerId = customer.default_source
-  }
+  // async getUserLast4() {
+  //   const {customer, error} = await this.stripe.customers.retrieve(
+  //     this.stripeCustomerId, {
+  //     expand: ['default_source'],
+  //   })
+  //   this.stripeCustomerId = customer.default_source
+  // }
 
   isCardValid(): boolean {
     return this.cardNumber._complete && this.cardExpiry._complete && this.cardCvc._complete

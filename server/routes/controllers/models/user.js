@@ -25,7 +25,10 @@ const userSchema = new Schema({
         min: [4, 'Too short, min is 4 characters.'],
         required: 'Password is required',
     },
-    stripeCustomerId: { type: String, default: '' },
+    customer: {
+        id: { type: String, default: '' },
+        default_source: { type: String, default: '' }
+    },
     rating: Number,
 
     isVerified: { type: Boolean, default: false },

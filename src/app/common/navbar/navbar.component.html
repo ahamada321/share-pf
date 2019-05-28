@@ -51,17 +51,16 @@
                 </ng-container>
                 <ng-container *ngIf="auth.isAuthenticated()">
                     <ng-container *ngIf="auth.getUserRole() == 'Owner'">
-                        <li class="nav-item dropdown clickable">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="nc-icon nc-grid-45"></i>オーナー機能
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" routerLink="/manage/requests">予約リクエスト</a>
-                            <a class="dropdown-item" routerLink="/manage/rentals">物件管理</a>
-                            <a class="dropdown-item" routerLink="/manage/report-owner">収益レポート</a>
-                            <a class="dropdown-item" routerLink="/rentals/new">物件の追加</a>
+                        
+                        <div ngbDropdown class="nav-item clickable dropdown"><span *ngIf="payments && payments.length>0" class="label label-danger notification-bubble">{{ payments.length }}</span>
+                            <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; オーナー機能</div>
+                            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
+                                <a class="dropdown-item" [routerLink]="['/rentals/requests']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 予約リクエスト管理</a>
+                                <!-- <a class="dropdown-item" [routerLink]="['/rentals/manage']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; 商品管理</a>
+                                <a class="dropdown-item" [routerLink]="['/manage/report-owner']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; 収益レポート</a>
+                                <a class="dropdown-item" [routerLink]="['/rentals/new']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; 物件の追加</a> -->
+                            </div>
                         </div>
-                        </li>
                     </ng-container>
                     <div ngbDropdown class="nav-item clickable dropdown">
                         <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; {{auth.getUsername()}}さん</div>

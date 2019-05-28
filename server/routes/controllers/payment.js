@@ -23,23 +23,27 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     if(sendMsg == REQUEST_DECLINED) {
         msg = {
             to: sendTo,
-            from: "info@ap-trainer.com",
-            subject: "「" + booking.rental.rentalname + "」の予約リクエストは受理されませんでした",
+            from: "noreply@ap-trainer.com",
+            subject: "「" + booking.rental.rentalname + " Trainer」への予約リクエストは受理されませんでした",
             text: "商品名：" + booking.rental.rentalname + " \n\n"
                 + "日時：" + startAt + ' 〜 ' + endAt + " \n\n"
                 + "場所：" + booking.rental.province + "\n\n"
-                + "への予約リクエストは受理されませんでした。たまたま「" + booking.rental.rentalname + "」の都合がつかなかった場合もありますので、また別の日程で予約にチャレンジしてみてください！\n\n"
+                + "への予約リクエストは受理されませんでした。たまたま「" + booking.rental.rentalname + " Trainer」の都合がつかなかった場合もありますので、また別の日程で予約にチャレンジしてみてください！\n\n"
                 + "他の商品の方が予約しやすい場合もあります。"
+                + '\n\n\n\n'
+                + 'AnytimePersonalTrainer.inc'
         }
     } else if (sendMsg == REQUEST_ACCEPTED) {
         msg = {
             to: sendTo,
-            from: "info@ap-trainer.com",
-            subject: "[予約確定]「" + booking.rental.rentalname + "」への予約リクエストが受理されました！",
-            text: 'おめでとうございます！「' + booking.rental.rentalname + '」への予約リクエストが受理されました！\n\n' 
+            from: "noreply@ap-trainer.com",
+            subject: "[予約確定]「" + booking.rental.rentalname + " Trainer」への予約リクエストが受理されました！",
+            text: 'おめでとうございます！「' + booking.rental.rentalname + ' Trainer」への予約リクエストが受理されました！\n\n' 
                 + '日時：' + startAt + ' 〜 ' + endAt + ' \n\n'
                 + '場所：' + booking.rental.province + '\n\n'
                 + 'これ以降のキャンセルはできません。時間に余裕を持って目的地に到着されるようお願いいたします。'
+                + '\n\n\n\n'
+                + 'AnytimePersonalTrainer.inc'
         }
     } else {
         return res.status(422).send({errors: [{title: "Could not send email!", detail: "Please select appropriate email content!"}]})
@@ -52,6 +56,7 @@ exports.getPendingPayments = function(req, res) {
     const user = res.locals.user
 
     Payment.where({toUser: user})
+            .where({status: 'pending'})
             .populate({
                 // populate both 'booking' and 'rental'
                 path: 'booking',

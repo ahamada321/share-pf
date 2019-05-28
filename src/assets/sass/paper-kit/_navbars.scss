@@ -96,10 +96,10 @@
     }
 
     .notification-bubble{
-        right: 72px;
-        padding: 0.2em 0.6em;
+        padding: 0.2em 0.7em;
         position: absolute;
-        top: 15px;
+        top: 18px;
+        left: 1px;
     }
     .btn{
        margin: $navbar-margin-btn;

@@ -3,12 +3,16 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Router } from '@angular/router';
 
+import { PaymentService } from '../components/payment/services/payment.service';
+
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+    payments: any[]
+
     private toggleButton: any;
     private sidebarVisible: boolean;
 
@@ -16,7 +20,8 @@ export class NavbarComponent implements OnInit {
             public location: Location, 
             private element : ElementRef,
             public auth: AuthService,
-            private router: Router
+            private router: Router,
+            private paymentService: PaymentService
         ) 
         {
             this.sidebarVisible = false;
@@ -25,6 +30,14 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
+    }
+    getPendingPayments() { // Need to findout the way to call this when payments.length changes.
+        this.paymentService.getPendingPayments().subscribe(
+            (payments: any) => {
+                this.payments = payments
+            },
+            () => { }
+        )
     }
     sidebarOpen() {
         const toggleButton = this.toggleButton;

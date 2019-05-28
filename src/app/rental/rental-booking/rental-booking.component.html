@@ -67,14 +67,16 @@
                             Service chage(30%)；{{rental.hourlyPrice * chosenCourseTime / 60 * 0.3}}JPY<br>
                             Total Price；{{rental.hourlyPrice * chosenCourseTime / 60 * 1.3}}JPY<br>
                         </div>    
-                        <div class="description" *ngIf="isSelectedDateTime && (stripeCustomerId && stripeCustomerId.length>0) && !isChangeBtnClicked">
+                        <!-- <div class="description" *ngIf="isSelectedDateTime && (customer && customer.id.length>0) && !isChangeBtnClicked"> -->
+                        <div class="description" *ngIf="isSelectedDateTime && customer.id && !isChangeBtnClicked">
                             Paying Metiod：Visa ******4242
                             <button class="btn btn-primary" (click)="isChangeBtnClicked=true">Change paying method?</button>
                         </div>
                     </div>
                 </div>
                 <div class="space-top"></div>
-                <div *ngIf="isSelectedDateTime && ((stripeCustomerId.length==0) || isChangeBtnClicked)">
+                <!-- <div *ngIf="isSelectedDateTime && ((customer.id.length==0) || isChangeBtnClicked)"> -->
+                <div *ngIf="isSelectedDateTime && (!customer.id || isChangeBtnClicked)">
                     <div class="nav-tabs-navigation">
                         <div class="nav-tabs-wrapper">
                             <ngb-tabset [justify]="'center'">
@@ -97,8 +99,10 @@
                 <div class="space-top"></div>
                 <div class="row">
                     <div class="col-md-8 mr-auto ml-auto">
-                        <button *ngIf="!(isSelectedDateTime && (stripeCustomerId || paymentToken)) || isChangeBtnClicked" [disabled]="true" class="btn btn-round">Book Now!</button>
-                        <button *ngIf="isSelectedDateTime && (stripeCustomerId || paymentToken) && !isChangeBtnClicked" class="btn btn-warning btn-round" (click)="createBooking()">Book Now!</button>
+                        <!-- <button *ngIf="!(isSelectedDateTime && (customer.id || paymentToken)) || isChangeBtnClicked" [disabled]="true" class="btn btn-round">Book Now!</button>
+                        <button *ngIf="isSelectedDateTime && (customer.id || paymentToken) && !isChangeBtnClicked" class="btn btn-warning btn-round" (click)="createBooking()">Book Now!</button> -->
+                        <button *ngIf="!(isSelectedDateTime && (customer.id || paymentToken)) || isChangeBtnClicked" [disabled]="true" class="btn btn-round">Book Now!</button>
+                        <button *ngIf="isSelectedDateTime && (customer.id || paymentToken) && !isChangeBtnClicked" class="btn btn-warning btn-round" (click)="createBooking()">Book Now!</button>
                     </div>
                 </div>                 
             </mat-step>
