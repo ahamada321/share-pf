@@ -35,8 +35,8 @@
                 </div>
               <!-- </a> -->
               <div class="card-footer" *ngIf="payment.status === 'pending'">
-                <button class="btn btn-danger" (click)="acceptPayment(payment)">Accept</button>
-                <button class="btn" (click)="declinePayment(payment)">Decline</button>
+                <button class="btn btn-sm btn-danger" (click)="acceptPayment(payment)">Accept</button>
+                <button class="btn btn-sm" (click)="declinePayment(payment)">Decline</button>
                 <!-- <app-review></app-review> -->  
               </div>
             </div>

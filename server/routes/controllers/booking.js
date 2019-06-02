@@ -26,7 +26,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
             from: 'noreply@ap-trainer.com',
             subject: '[仮予約完了]予約リクエストを送信しました！',
             text: '現時点では予約は確定していません。「' + booking.rental.rentalname + ' Trainer」がリクエストを受理された場合に正式予約が完了します。\n\n'
-                + '予約が確定しない限りご請求が行くことはありません。'
+                + '予約が確定しない限りご請求が行くことはございません。'
                 + '\n\n\n\n'
                 + 'AnytimePersonalTrainer.inc'
         }

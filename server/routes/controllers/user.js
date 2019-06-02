@@ -73,10 +73,10 @@ exports.auth = function(req, res) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
         }
         if(!user) {
-            return res.status(422).send({errors: [{title: "Invalid user!", detail: "User does not exist!"}]})
+            return res.status(422).send({errors: [{title: "Invalid user!", detail: "先にユーザー登録してください！"}]})
         }
         if(!user.isVerified) {
-            return res.status(422).send({errors: [{title: "Not verified user!", detail: "Please activate account from recieved email!"}]})
+            return res.status(422).send({errors: [{title: "Not verified user!", detail: "受信メールからからアカウントをアクティベーションしてください！"}]})
         }
 
         if(user.hasSamePassword(password)) {
@@ -103,10 +103,10 @@ exports.FBauth = function(req, res) {//Under development
             return res.status(422).send({errors: normalizeErrors(err.errors)})
         }
         if(!foundUser) {
-            return res.status(422).send({errors: [{title: "Invalid user!", detail: "User does not exist!"}]})
+            return res.status(422).send({errors: [{title: "Invalid user!", detail: "先にユーザー登録してください！"}]})
         }
         if(!foundUser.isVerified) {
-            return res.status(422).send({errors: [{title: "Not verified user!", detail: "Please activate account from recieved email!"}]})
+            return res.status(422).send({errors: [{title: "Not verified user!", detail: "受信メールからからアカウントをアクティベーションしてください！"}]})
         }
 
         // if(user.hasSamePassword(password)) {
