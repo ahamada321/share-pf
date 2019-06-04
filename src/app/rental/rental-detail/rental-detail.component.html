@@ -293,9 +293,10 @@
                     <div class="col-md-10 mr-auto ml-auto">
                         <full-calendar defaultView="timeGridWeek" 
                                         [plugins]="calendarPlugins" 
-                                        [events]="initEvents()"
                                         [allDaySlot]="false"
                                         [nowIndicator]="true"
+                                        [events]="initEvents()"
+                                        [businessHours]="initBusinessHours()"
                                         ></full-calendar>
                     </div>
                 </div>

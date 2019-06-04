@@ -1,0 +1,272 @@
+<div class="wrapper" *ngIf="rental">
+    <div class="page-header page-header-xs settings-background" style="background-image: url('./assets/img/joshua-earlez.jpg')">
+        <div class="filter"></div>
+    </div>
+    <div class="profile-content section">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="profile-picture">
+                    <app-image-upload [image]="'./assets/img//default-avatar.png'"></app-image-upload>
+                </div>
+            </div> -->
+            <div class="project-pills">
+                <ngb-tabset [justify]="'center'" type="pills" class="nav-pills nav-pills-primary justify-content-center">
+                    <ngb-tab title="Spot Schedule">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="space-top"></div>
+                                    <h5 class="description text-center">日ごとに受付時間を設定できます.</h5>
+                                    <div class="space-top"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 ml-auto mr-auto">
+                                    <full-calendar defaultView="dayGridMonth" 
+                                                    [plugins]="calendarPlugins" 
+                                                    [allDaySlot]="false"
+                                                    [selectable]="true"
+                                                    [events]="[
+                                                                {
+                                                                    daysOfWeek: [ 1, 2, 3 ],
+                                                                    startTime: '08:00',
+                                                                    endTime: '18:00'
+                                                                },
+                                                                {
+                                                                    daysOfWeek: [ 4, 5 ],
+                                                                    startTime: '10:00',
+                                                                    endTime: '16:00'
+                                                                }
+                                                            ]"
+                                                    (dayRender)="dayRender($event,el)"
+                                                    (dateClick)="handleDateClick($event)"
+                                                    ></full-calendar>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Regular">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="space-top"></div>
+                                    <h5 class="description text-center">曜日ごとに受付時間を設定できます.</h5>
+                                    <div class="space-top"></div>
+                                </div>
+                            </div>
+                            <form #businessHoursForm="ngForm" (ngSubmit)="updatebusinessHours(businessHoursForm)">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Enable</th>
+                                                <th>Day</th>
+                                                <th>StartAt</th>
+                                                <th>EndAt</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <bSwitch
+                                                            [ngModel]="businessHoursData.sun_enabled"
+                                                            name="sun_enabled"
+                                                            [switch-on-color]="'info'"
+                                                            [switch-off-color]="'info'">
+                                                        </bSwitch>
+                                                    </td>
+                                                    <td>{{businessHoursData.sun_name}}</td>
+                                                    <td>
+                                                        <ngb-timepicker 
+                                                            [ngModel]="businessHoursData.sun_startAt"
+                                                            name="sun_startAt"
+                                                            [hourStep]="hourStep" 
+                                                            [minuteStep]="minuteStep">
+                                                        </ngb-timepicker>
+                                                    </td>
+                                                    <td>
+                                                        <ngb-timepicker 
+                                                            [ngModel]="businessHoursData.sun_endAt"
+                                                            name="sun_endAt"
+                                                            [hourStep]="hourStep" 
+                                                            [minuteStep]="minuteStep">
+                                                        </ngb-timepicker>
+                                                    </td>
+                                                </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <bSwitch
+                                                        [ngModel]="businessHoursData.mon_enabled"
+                                                        name="mon_enabled"
+                                                        [switch-on-color]="'info'"
+                                                        [switch-off-color]="'info'">
+                                                    </bSwitch>
+                                                </td>
+                                                <td>{{businessHoursData.mon_name}}</td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.mon_startAt"
+                                                        name="mon_startAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.mon_endAt"
+                                                        name="mon_endAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <bSwitch
+                                                        [ngModel]="businessHoursData.tue_enabled"
+                                                        name="tue_enabled"
+                                                        [switch-on-color]="'info'"
+                                                        [switch-off-color]="'info'">
+                                                    </bSwitch>
+                                                </td>
+                                                <td>{{businessHoursData.tue_name}}</td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.tue_startAt"
+                                                        name="tue_startAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.tue_endAt"
+                                                        name="tue_endAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <bSwitch
+                                                        [ngModel]="businessHoursData.wed_enabled"
+                                                        name="wed_enabled"
+                                                        [switch-on-color]="'info'"
+                                                        [switch-off-color]="'info'">
+                                                    </bSwitch>
+                                                </td>
+                                                <td>{{businessHoursData.wed_name}}</td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.wed_startAt"
+                                                        name="wed_startAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.wed_endAt"
+                                                        name="wed_endAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <bSwitch
+                                                        [ngModel]="businessHoursData.thu_enabled"
+                                                        name="thu_enabled"
+                                                        [switch-on-color]="'info'"
+                                                        [switch-off-color]="'info'">
+                                                    </bSwitch>
+                                                </td>
+                                                <td>{{businessHoursData.thu_name}}</td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.thu_startAt"
+                                                        name="thu_startAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.thu_endAt"
+                                                        name="thu_endAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <bSwitch
+                                                        [ngModel]="businessHoursData.fri_enabled"
+                                                        name="fri_enabled"
+                                                        [switch-on-color]="'info'"
+                                                        [switch-off-color]="'info'">
+                                                    </bSwitch>
+                                                </td>
+                                                <td>{{businessHoursData.fri_name}}</td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.fri_startAt"
+                                                        name="fri_startAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.fri_endAt"
+                                                        name="fri_endAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <bSwitch
+                                                        [ngModel]="businessHoursData.sat_enabled"
+                                                        name="sat_enabled"
+                                                        [switch-on-color]="'info'"
+                                                        [switch-off-color]="'info'">
+                                                    </bSwitch>
+                                                </td>
+                                                <td>{{businessHoursData.sat_name}}</td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.sat_startAt"
+                                                        name="sat_startAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                                <td>
+                                                    <ngb-timepicker 
+                                                        [ngModel]="businessHoursData.sat_endAt"
+                                                        name="sat_endAt"
+                                                        [hourStep]="hourStep" 
+                                                        [minuteStep]="minuteStep">
+                                                    </ngb-timepicker>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
+                                <div class="text-center">
+                                    <button [disabled]="businessHoursForm.pristine" type="submit" class="btn btn-wd btn-info btn-round">Update</button>
+                                </div>
+                            </form>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div>
+    </div>
+</div>

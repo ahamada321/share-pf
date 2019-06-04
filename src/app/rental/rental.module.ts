@@ -13,7 +13,7 @@ import { RentalBookingComponent } from './rental-booking/rental-booking.componen
 import { RentalManageComponent } from './rental-manage/rental-manage.component';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
 import { RentalRequestsComponent } from './rental-requests/rental-requests.component';
-import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
+// import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
 
 
 import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.module';
@@ -32,6 +32,9 @@ import { PaymentModule } from '../common/components/payment/payment.module';
 import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
 import { WizardModule } from './wizard/wizard.module';
 import { AuthGuard } from '../auth/service/auth.guard';
+import { RentalEditComponent } from './rental-edit/rental-edit.component';
+import { RentalManageScheduleComponent, TimePickerModal } from './rental-manage/rental-manage-schedule/rental-manage-schedule.component';
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -44,10 +47,9 @@ const routes: Routes = [{
         { path: 'manage', component: RentalManageComponent, canActivate: [AuthGuard] },
         { path: 'requests', component: RentalRequestsComponent, canActivate: [AuthGuard] },
         { path: ':rentalId', component: RentalDetailComponent },
-        // { path: ':rentalId/booking', component: BookingWithTimeWizardComponent },
         { path: ':rentalId/booking', component: RentalBookingComponent, canActivate: [AuthGuard] },
-        { path: ':rentalId/edit', component: RentalDetailUpdateComponent, canActivate: [AuthGuard] },
-
+        { path: ':rentalId/edit', component: RentalEditComponent, canActivate: [AuthGuard] },
+        { path: ':rentalId/editschedule', component: RentalManageScheduleComponent, canActivate: [AuthGuard] },
     ]
 }];
 
@@ -59,12 +61,15 @@ const routes: Routes = [{
         RentalDetailComponent,
         RentalBookingComponent,
         RentalManageComponent,
+        RentalManageScheduleComponent,
         RentalCreateComponent,
+        RentalEditComponent,
         RentalRequestsComponent,
-        RentalDetailUpdateComponent,
+        // RentalDetailUpdateComponent, // This is replaced from RentalEditComponent.
         BookingWithTimeComponent,
         BookingWithTimeWizardComponent,
-        BottomNavbarComponent
+        BottomNavbarComponent,
+        TimePickerModal
       ],
       imports: [
           CommonModule,
@@ -79,8 +84,10 @@ const routes: Routes = [{
           BookingSelecterModule,
           // ImageUploadModule
           FullCalendarModule,
-          WizardModule
+          WizardModule, // Can delete this?
+          JwBootstrapSwitchNg2Module
         ],
+      entryComponents: [TimePickerModal],
       providers: [
           RentalService,
           BookingService,

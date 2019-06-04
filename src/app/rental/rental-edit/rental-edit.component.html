@@ -1,0 +1,89 @@
+<div class="wrapper">
+    <div class="page-header page-header-xs settings-background" style="background-image: url('./assets/img/joshua-earlez.jpg')">
+        <div class="filter"></div>
+    </div>
+    <div class="profile-content section">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="profile-picture">
+                    <app-image-upload [image]="'./assets/img//default-avatar.png'"></app-image-upload>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto">
+                    <form class="settings-form" *ngIf="userData" #userForm="ngForm" (ngSubmit)="updateUser(userForm)">
+                        <div class="form-group">
+                            <label>Rental Name</label>
+                            <input type="text" class="form-control border-input" placeholder="Your Name" [(ngModel)]="userData.username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Rental Province</label>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Rental Address</label>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Rental Description</label>
+                            <textarea class="form-control textarea-limited" placeholder="Your trainer can see your description here. Let's introduse who you are." rows="3" maxlength="150" ></textarea>
+                            <h5><small><span id="textarea-limited-message" class="pull-right">150 characters left</span></small></h5>
+                        </div>
+                        <div class="form-group">
+                            <label>Rental Price</label>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Rental images</label>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Rental PV</label>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Rental gallery images</label>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                        </div>
+                        
+
+                        <label>Notifications</label>
+                        <ul class="notifications">
+                            <!-- <li class="notification-item">
+                                Updates regarding platform changes
+                                <bSwitch
+                                    [switch-on-color]="'info'"
+                                    [switch-off-color]="'info'"
+                                    [(ngModel)]="state_info"
+                                    name="first_switch">
+                                </bSwitch>
+                            </li>
+                            <li class="notification-item">
+                                Updates regarding product changes
+                                <bSwitch
+                                    [switch-on-color]="'info'"
+                                    [switch-off-color]="'info'"
+                                    [(ngModel)]="state_info1"
+                                    name="second_switch">
+                                </bSwitch>
+                            </li> -->
+                            <li class="notification-item">
+                                From our special Newsletters & Coupons
+                                <!-- <bSwitch
+                                    [switch-on-color]="'info'"
+                                    [switch-off-color]="'info'"
+                                    [(ngModel)]="third_switch"
+                                    name="third_switch">
+                                </bSwitch> -->
+                            </li>
+                        </ul>
+                        <div class="text-center">
+                            <button [disabled]="userForm.pristine" type="submit" class="btn btn-wd btn-info btn-round">Update</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@ router.get('/secret', UserCtrl.authMiddleware, function(req, res) {
 
 router.get('/manage', UserCtrl.authMiddleware, RentalCtrl.getOwnerRentals)
 
-router.get('/:id', RentalCtrl.findRental)
+router.get('/:id', RentalCtrl.getRentalById)
 
 router.delete('/:id', UserCtrl.authMiddleware, RentalCtrl.deleteRental)
 

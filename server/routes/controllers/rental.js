@@ -3,7 +3,7 @@ const User = require('./models/user')
 const { normalizeErrors } = require('./helpers/mongoose')
 
 
-exports.findRental = function(req, res) {
+exports.getRentalById = function(req, res) {
     const rentalId = req.params.id
 
     Rental.findById(rentalId)
@@ -21,6 +21,29 @@ exports.findRental = function(req, res) {
                 return res.json(foundRental)
             })
 }
+
+exports.getRentals = function(req, res) {
+    Rental.find({})
+          .select('-bookings')
+          .exec(function(err, foundRentals){
+            res.json(foundRentals)
+          })
+
+}
+
+exports.getOwnerRentals = function(req,res) {
+    const user = res.locals.user
+
+    Rental.where({user})
+            .populate('bookings')
+            .exec(function(err, foundRentals) {
+                if(err) {
+                    return res.status(422).send({errors: normalizeErrors(err.errors)})
+                }
+                return res.json(foundRentals)
+            })
+}
+
 
 exports.deleteRental = function(req, res) {
     const user = res.locals.user
@@ -66,8 +89,8 @@ exports.updateRental = function(req, res) {
     const user = res.locals.user
 
     Rental.findById(req.params.id)
-            .populate('user')
-            .exec(function(err, foundRental) {
+            .populate('user', '_id')
+            .exec(async function(err, foundRental) {
                 if(err) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
@@ -79,36 +102,14 @@ exports.updateRental = function(req, res) {
                         }
                     })
                 }
-                foundRental.set(rentalData)
-                foundRental.save(function(err) {
-                    if(err) {
-                        return res.status(422).send({errors: normalizeErrors(err.errors)})
-                    }
-                    return res.status(200).send(foundRental)
-                })
-            })
-}
 
-exports.getOwnerRentals = function(req,res) {
-    const user = res.locals.user
-
-    Rental.where({user})
-            .populate('bookings')
-            .exec(function(err, foundRentals) {
-                if(err) {
-                    return res.status(422).send({errors: normalizeErrors(err.errors)})
+                try {
+                    const updatedRental = await Rental.updateMany({ _id: foundRental.id}, rentalData, () => {})
+                    return res.json(updatedRental)
+                } catch(err) {
+                    return res.json(err)
                 }
-                return res.json(foundRentals)
             })
-}
-
-exports.getRentals = function(req, res) {
-    Rental.find({})
-          .select('-bookings')
-          .exec(function(err, foundRentals){
-            res.json(foundRentals)
-          })
-
 }
 
 exports.createRental = function(req, res) {

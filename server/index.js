@@ -22,7 +22,7 @@ mongoose.connect(
     () => {
         if(process.env.NODE_ENV !== 'production') {
             const fakeDb = new FakeDb()
-            //fakeDb.seeDb()
+            // fakeDb.seeDb()
         }
     }
 );

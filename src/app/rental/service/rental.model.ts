@@ -1,4 +1,5 @@
 import { Booking } from '../rental-booking/services/booking.model';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class Rental {
 
@@ -6,6 +7,7 @@ export class Rental {
     _id: string;
     lastLogin: string;
     createdAt: string;
+    shared: Boolean;
 
     rentalname: string;
     age: number;
@@ -30,8 +32,29 @@ export class Rental {
     headlinedescription1: string;
     headlinedescription2: string;
 
+    businesshour_enabled_sun: boolean
+    businesshour_startTime_sun: NgbTimeStruct
+    businesshour_endTime_sun: NgbTimeStruct
+    businesshour_enabled_mon: boolean
+    businesshour_startTime_mon: NgbTimeStruct
+    businesshour_endTime_mon: NgbTimeStruct
+    businesshour_enabled_tue: boolean
+    businesshour_startTime_tue: NgbTimeStruct
+    businesshour_endTime_tue: NgbTimeStruct
+    businesshour_enabled_wed: boolean
+    businesshour_startTime_wed: NgbTimeStruct
+    businesshour_endTime_wed: NgbTimeStruct
+    businesshour_enabled_thu: boolean
+    businesshour_startTime_thu: NgbTimeStruct
+    businesshour_endTime_thu: NgbTimeStruct
+    businesshour_enabled_fri: boolean
+    businesshour_startTime_fri: NgbTimeStruct
+    businesshour_endTime_fri: NgbTimeStruct
+    businesshour_enabled_sat: boolean
+    businesshour_startTime_sat: NgbTimeStruct
+    businesshour_endTime_sat: NgbTimeStruct
+
     rating: number;
-    shared: Boolean;
     user: any;
     bookings: Booking[];
 }

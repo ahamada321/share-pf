@@ -119,6 +119,60 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
         return events
     }
 
+    initBusinessHours() {
+      let businessHours = []
+      if(this.rental.businesshour_enabled_sun) {
+        businessHours.push({
+          daysOfWeek: [0],
+          startTime: this.rental.businesshour_startTime_sun,
+          endTime: this.rental.businesshour_endTime_sun
+        })
+      }
+      if(this.rental.businesshour_enabled_mon) {
+        businessHours.push({
+          daysOfWeek: [1],
+          startTime: this.rental.businesshour_startTime_mon,
+          endTime: this.rental.businesshour_endTime_mon
+        })
+      }
+      if(this.rental.businesshour_enabled_tue) {
+        businessHours.push({
+          daysOfWeek: [2],
+          startTime: this.rental.businesshour_startTime_tue,
+          endTime: this.rental.businesshour_endTime_tue
+        })
+      }
+      if(this.rental.businesshour_enabled_wed) {
+        businessHours.push({
+          daysOfWeek: [3],
+          startTime: this.rental.businesshour_startTime_wed,
+          endTime: this.rental.businesshour_endTime_wed
+        })
+      }
+      if(this.rental.businesshour_enabled_thu) {
+        businessHours.push({
+          daysOfWeek: [4],
+          startTime: this.rental.businesshour_startTime_thu,
+          endTime: this.rental.businesshour_endTime_thu
+        })
+      }
+      if(this.rental.businesshour_enabled_fri) {
+        businessHours.push({
+          daysOfWeek: [5],
+          startTime: this.rental.businesshour_startTime_fri,
+          endTime: this.rental.businesshour_endTime_fri
+        })
+      }
+      if(this.rental.businesshour_enabled_sat) {
+        businessHours.push({
+          daysOfWeek: [6],
+          startTime: this.rental.businesshour_startTime_sat,
+          endTime: this.rental.businesshour_endTime_sat
+        })
+      }
+      return businessHours
+    }
+
     // formatDate(date: string): string {
     //     return `${moment(date).fromNow()}`
     // }
