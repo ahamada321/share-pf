@@ -60,7 +60,8 @@ export class UserMyBookingsComponent implements OnInit, OnDestroy {
       buttonsStyling: false,
       showCancelButton: true,
       confirmButtonText: 'Yes',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
+      allowOutsideClick: false
     }).then((result) => {
       if (result.value) {
         this.deleteBooking(bookingId)
@@ -74,7 +75,8 @@ export class UserMyBookingsComponent implements OnInit, OnDestroy {
         text: '予約はキャンセルされました。',
         // type: 'success',
         confirmButtonClass: 'btn btn-danger btn-lg',
-        buttonsStyling: false
+        buttonsStyling: false,
+        allowOutsideClick: false
     })
   }
 }

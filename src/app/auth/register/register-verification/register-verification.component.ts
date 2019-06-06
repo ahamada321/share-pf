@@ -65,7 +65,8 @@ export class RegisterVerificationComponent implements OnInit {
             text: 'URLが期限切れです',
             type: 'error',
             confirmButtonClass: "btn btn-primary btn-round btn-lg",
-            buttonsStyling: false
+            buttonsStyling: false,
+            allowOutsideClick: false
         })
 
     }

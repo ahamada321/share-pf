@@ -248,7 +248,8 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         // })
     }
 
-    handleDateClick(arg) {
+    async handleDateClick(arg) {
+      await this.delay(100)
       Swal.fire({
         title: '以下日時をブロックしますか？',
         text: arg.dateStr,
@@ -259,6 +260,7 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         cancelButtonText: "キャンセル",
         showCancelButton: true,
         buttonsStyling: false,
+        allowOutsideClick: false
       }).then((result) => {
         if (result.value) {
           // Delet event from DB
@@ -278,7 +280,6 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
       if(arg.startStr == moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD')) {
         return
       }
-
       Swal.fire({
         title: '以下日時をブロックしますか？',
         text: arg.startStr + ' ~ ' + moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD'),
@@ -289,6 +290,7 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         cancelButtonText: "キャンセル",
         showCancelButton: true,
         buttonsStyling: false,
+        allowOutsideClick: false
       }).then((result) => {
         if (result.value) {
           // Delet event from DB
@@ -318,7 +320,8 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
       )
   }
 
-  handleEventClick(arg) {
+  async handleEventClick(arg) {
+    await this.delay(100)
     this.showSwalAlert(arg)
   }
 
@@ -332,6 +335,7 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         cancelButtonText: "キャンセル",
         showCancelButton: true,
         buttonsStyling: false,
+        allowOutsideClick: false
     }).then((result) => {
       if (result.value) {
         this.bookingService.deleteBooking(arg.event.id).subscribe(
@@ -344,6 +348,10 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         )
       }
     })
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) )
   }
 
   // Reference for coding: https://stackblitz.com/edit/fullcalendar-angular-demo
