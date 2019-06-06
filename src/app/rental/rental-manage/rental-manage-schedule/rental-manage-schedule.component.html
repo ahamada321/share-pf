@@ -35,8 +35,9 @@
                                                     defaultView="dayGridMonth" 
                                                     [plugins]="calendarPlugins" 
                                                     [selectable]="true"
-                                                    [longPressDelay]="500"
+                                                    [longPressDelay]="300"
                                                     [events]="calendarEvents"
+                                                    (dateClick)="handleDateClick($event)"
                                                     (select)="handleDragSelect($event)"
                                                     (eventClick)="handleEventClick($event)"
                                                     ></full-calendar>

@@ -248,15 +248,10 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         // })
     }
 
-    handleDragSelect(arg) { // handler method
-      let text = ''
-      if(arg.startStr !== moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD')) {
-        text = ' ~ ' + moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD')
-      }
-
+    handleDateClick(arg) {
       Swal.fire({
         title: '以下日時をブロックしますか？',
-        text: arg.startStr + text,
+        text: arg.dateStr,
         type: 'info',
         confirmButtonClass: "btn btn-primary btn-lg",
         confirmButtonText: "ブロック",
@@ -267,7 +262,38 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
       }).then((result) => {
         if (result.value) {
           // Delet event from DB
-          const event = {
+          let event = {
+            id: '',
+            title: 'ブロック',
+            allday: true,
+            start: arg.dateStr,
+            end: moment(arg.dateStr).add(1, 'day').format('YYYY-MM-DD'),
+          }
+          this.createDateBlockBooking(event)
+        }
+      })
+    }
+
+    handleDragSelect(arg) { // handler method
+      if(arg.startStr == moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD')) {
+        return
+      }
+
+      Swal.fire({
+        title: '以下日時をブロックしますか？',
+        text: arg.startStr + ' ~ ' + moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD'),
+        type: 'info',
+        confirmButtonClass: "btn btn-primary btn-lg",
+        confirmButtonText: "ブロック",
+        cancelButtonClass: "btn btn-gray btn-lg",
+        cancelButtonText: "キャンセル",
+        showCancelButton: true,
+        buttonsStyling: false,
+      }).then((result) => {
+        if (result.value) {
+          // Delet event from DB
+          let event = {
+            id: '',
             title: 'ブロック',
             allday: true,
             start: arg.startStr,
@@ -283,9 +309,10 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
       this.newBooking.endAt = event.end
       this.newBooking.rental = this.rental
       this.bookingService.createDateBlockBooking(this.newBooking).subscribe(
-        (newBooking: any) => {
+        (resultId) => {
+          event.id = resultId
           this.calendarEvents = this.calendarEvents.concat(event) // Update front UI
-          this.newBooking = new Booking()
+          // this.newBooking = new Booking()
         },
         (err) => { }
       )
@@ -306,12 +333,12 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         showCancelButton: true,
         buttonsStyling: false,
     }).then((result) => {
-      // const index = this.calendarEvents.findIndex((x) => x.id === arg.event.id);
-
       if (result.value) {
         this.bookingService.deleteBooking(arg.event.id).subscribe(
           (deletedBooking) => {
-            arg.event.remove()
+            const index = this.calendarEvents.findIndex((x) => x.id === arg.event.id);
+            this.calendarEvents.splice(index, 1) // Dlete event from array.      
+            arg.event.remove() // Update Frontend
           },
           (err) => { }
         )

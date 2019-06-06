@@ -146,13 +146,13 @@ exports.createDateBlockBooking = function(req, res) {
         booking.rental = foundRental
         foundRental.bookings.push(booking)
                 
-        booking.save(function(err) {
+        booking.save(function(err, result) {
             if(err) {
                 return res.status(422).send({errors: normalizeErrors(err.errors)})
             }
 
             foundRental.save()
-            return res.json({startAt: booking.startAt, endAt: booking.endAt })
+            return res.json(result.id)
         })
     })
 }
