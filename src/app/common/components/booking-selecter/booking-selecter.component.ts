@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class BookingSelecterComponent implements OnInit {
   timeTables: any = []
   newBooking: Booking
+  isDateBlock_flg: boolean = false
 
   // Date picker params
   selectedDate: NgbDateStruct
@@ -45,13 +46,9 @@ export class BookingSelecterComponent implements OnInit {
 
   }
 
-  isPastDateTime(startAt) {
-    return moment(startAt).diff(moment()) < 0 // Attention: just "moment()" is already applied timezone!
-  }
-
   onDateSelect(date: NgbDateStruct) {
-    const selectedMonth = date.month - 1
-    const selectedDate = date.day
+    this.isDateBlock_flg = false
+    this.iskDateBlock(date)
     const d = new Date(date.year, date.month - 1, date.day)
     const selectedDay = d.getDay()
 
@@ -98,6 +95,22 @@ export class BookingSelecterComponent implements OnInit {
     this.chosenDateTime.emit(false)
   }
 
+  private isPastDateTime(startAt) {
+    return moment(startAt).diff(moment()) < 0 // Attention: just "moment()" is already applied timezone!
+  }
+
+  iskDateBlock (selectedDate: NgbDateStruct) {
+    const selected_date = moment(selectedDate).subtract(1, 'month').format('YYYY-MM-DD') // Subtract 1 month to adapt NgbDateStruct to moment()
+
+    for(let booking of this.rental.bookings) {
+      if(booking.status == 'block') {
+        if(selected_date == moment(booking.startAt).format('YYYY-MM-DD')) {
+          this.isDateBlock_flg = true
+        }
+      }
+    }
+  }
+
   isValidBooking(startAt) {
     let isValid = false
     const rentalBookings = this.rental.bookings
@@ -109,12 +122,12 @@ export class BookingSelecterComponent implements OnInit {
         return true
     } 
     else {
-        isValid = rentalBookings.every(function(booking) {
-            const existingStart = moment(booking.startAt)
-            const existingEnd = moment(booking.endAt)
-            // return ((existingStart<reqStart && existingEnd<reqStart) || (reqEnd<existingStart && reqEnd<existingEnd))
-            return (existingEnd<reqStart || reqEnd<existingStart) 
-          })
+        isValid = rentalBookings.every((booking) => {
+          const existingStart = moment(booking.startAt)
+          const existingEnd = moment(booking.endAt)
+          // return ((existingStart<reqStart && existingEnd<reqStart) || (reqEnd<existingStart && reqEnd<existingEnd))
+          return (existingEnd<reqStart || reqEnd<existingStart) 
+        })
       return isValid
     }
   }

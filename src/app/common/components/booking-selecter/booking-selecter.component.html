@@ -22,7 +22,7 @@
         </div>
     </form>
     <div class="space-top"></div>
-    <div *ngIf="timeTables && timeTables.length > 0" class="info">
+    <div *ngIf="timeTables && timeTables.length > 0 && !isDateBlock_flg" class="info">
         <div *ngFor="let timeTable of timeTables">
             <p>
                 <button *ngIf="isValidBooking(timeTable)" class="btn btn-danger" (click)="selectDateTime(timeTable)" >
@@ -34,7 +34,7 @@
             </p>
         </div>
     </div>
-    <ng-container *ngIf="timeTables.length==0" >
+    <ng-container *ngIf="timeTables.length==0 || isDateBlock_flg" >
             <div class="info">
                     <div class="icon icon-warning">
                         <i class="nc-icon nc-cart-simple"></i>

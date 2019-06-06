@@ -11,5 +11,7 @@ router.delete('/:id', UserCtrl.authMiddleware, BookingCtrl.deleteBooking)
 
 router.post('', UserCtrl.authMiddleware, BookingCtrl.createBooking)
 
+router.post('/block', UserCtrl.authMiddleware, BookingCtrl.createDateBlockBooking)
+
 
 module.exports = router

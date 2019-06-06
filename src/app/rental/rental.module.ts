@@ -20,8 +20,6 @@ import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.mod
 
 
 import { EditableModule } from '../common/components/editable/editable.module';
-import { BookingWithTimeComponent } from './rental-booking/booking-with-time/booking-with-time';
-import { BookingWithTimeWizardComponent } from './rental-booking/booking-with-time/booking-with-time-wizard/booking-with-time-wizard.component';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
@@ -66,8 +64,6 @@ const routes: Routes = [{
         RentalEditComponent,
         RentalRequestsComponent,
         // RentalDetailUpdateComponent, // This is replaced from RentalEditComponent.
-        BookingWithTimeComponent,
-        BookingWithTimeWizardComponent,
         BottomNavbarComponent,
         TimePickerModal
       ],

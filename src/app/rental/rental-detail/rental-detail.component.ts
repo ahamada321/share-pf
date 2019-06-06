@@ -115,6 +115,14 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
                     className: 'event-green'
                 })
             }
+            if(booking.status == 'block') {
+              events.push({
+                  //title: this.getUserName(booking.user), 
+                  start: moment(booking.startAt).format('YYYY-MM-DD'),
+                  end: moment(booking.endAt).format('YYYY-MM-DD'),
+                  rendering: 'background'
+              })
+          }
         }
         return events
     }

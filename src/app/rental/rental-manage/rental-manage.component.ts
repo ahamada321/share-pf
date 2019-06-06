@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RentalService } from 'src/app/rental/service/rental.service';
 import { Rental } from 'src/app/rental/service/rental.model';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './rental-manage.component.html',
   styleUrls: ['./rental-manage.component.scss']
 })
-export class RentalManageComponent implements OnInit {
+export class RentalManageComponent implements OnInit, OnDestroy {
 
   rentals: Rental[] = []
   rentalDeleteIndex: number = undefined
@@ -18,6 +18,11 @@ export class RentalManageComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    let body = document.getElementsByTagName('body')[0];
+    body.classList.add('settings');
+    let navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.add('navbar-transparent');
+
     this.rentalService.getOwnerRentals().subscribe(
       (rentals: Rental[]) => {
         this.rentals = rentals
@@ -26,6 +31,13 @@ export class RentalManageComponent implements OnInit {
 
       }
     )
+  }
+
+  ngOnDestroy() {
+    let body = document.getElementsByTagName('body')[0];
+    body.classList.remove('settings');
+    let navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
   }
 
   deleteRental(rentalId: string) {

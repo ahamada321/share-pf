@@ -16,6 +16,10 @@ export class BookingService {
         return this.http.post('/api/v1/bookings/manage', status)
     }
 
+    public createDateBlockBooking(booking: Booking): Observable<any> {
+        return this.http.post('/api/v1/bookings/block', booking)
+    }
+
     public createBooking(booking: Booking): Observable<any> {
         return this.http.post('/api/v1/bookings', booking)
     }

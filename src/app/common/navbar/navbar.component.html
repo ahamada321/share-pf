@@ -52,7 +52,7 @@
                 <ng-container *ngIf="auth.isAuthenticated()">
                     <ng-container *ngIf="auth.getUserRole() == 'Owner'">
                         
-                        <div ngbDropdown class="nav-item clickable dropdown"><span *ngIf="payments && payments.length>0" class="label label-danger notification-bubble">{{ payments.length }}</span>
+                        <div ngbDropdown class="nav-item clickable dropdown">
                             <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; オーナー機能</div>
                             <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
                                 <a class="dropdown-item" [routerLink]="['/rentals/requests']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 予約リクエスト管理</a>

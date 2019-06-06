@@ -7,8 +7,10 @@ exports.getRentalById = function(req, res) {
     const rentalId = req.params.id
 
     Rental.findById(rentalId)
-            .populate('user', 'username -_id')
-            .populate('bookings', 'startAt endAt status -_id')
+            //.populate('user', 'username -_id')
+            .populate('user') // Need to consider security in future.
+            //.populate('bookings', 'startAt endAt status -_id')
+            .populate('bookings', 'startAt endAt status _id') // Need to consider security in future.
             .exec(function(err, foundRental) {
                 if(err) {
                     return res.status(422).send({
@@ -90,21 +92,16 @@ exports.updateRental = function(req, res) {
 
     Rental.findById(req.params.id)
             .populate('user', '_id')
-            .exec(async function(err, foundRental) {
+            .exec(function(err, foundRental) {
                 if(err) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
-                if(foundRental.user.id != user.id) {
-                    return res.status(422).send({
-                        errors: {
-                            title: "Invalid user!",
-                            detail: "You are not rental owner!"
-                        }
-                    })
+                if(foundRental.user.id !== user.id) {
+                    return res.status(422).send({errors: {title: "Invalid user!", detail: "You are not rental owner!"}})
                 }
 
                 try {
-                    const updatedRental = await Rental.updateMany({ _id: foundRental.id}, rentalData, () => {})
+                    const updatedRental = Rental.updateMany({ _id: foundRental.id}, rentalData, () => {})
                     return res.json(updatedRental)
                 } catch(err) {
                     return res.json(err)

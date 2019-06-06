@@ -1,16 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2'
+
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { NgbTimeStruct, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
-import timeGridPlugin from '@fullcalendar/timegrid'; // Going to remove
 import { Rental } from '../../service/rental.model';
 import { RentalService } from '../../service/rental.service';
+import Swal from 'sweetalert2'
+import * as moment from 'moment-timezone';
+import { Booking } from '../../rental-booking/services/booking.model';
+import { BookingService } from '../../rental-booking/services/booking.service';
 
 
 @Component({
@@ -53,11 +58,11 @@ import { RentalService } from '../../service/rental.service';
   </div>
   <div class="modal-footer">
       <div class="left-side">
-          <button type="button" class="btn btn-default btn-link" (click)="activeModal.close('Close click'); onSetClicked(startTime, endTime)">セットする</button>
+          <button type="button" class="btn btn-default btn-link" (click)="activeModal.close(onSetClicked(startTime, endTime))">セットする</button>
       </div>
       <div class="divider"></div>
       <div class="right-side">
-          <button type="button" class="btn btn-danger btn-link" (click)="activeModal.close('Close click')">削除する</button>
+          <button type="button" class="btn btn-link" (click)="activeModal.close()">キャンセル</button>
       </div>
   </div>
   `
@@ -65,22 +70,20 @@ import { RentalService } from '../../service/rental.service';
 export class TimePickerModal {
   @Input() name;
   @Input() date;
-  startTime: NgbTimeStruct
-  endTime: NgbTimeStruct
+  @Input() rental: Rental
+  startTime: NgbTimeStruct = { hour:10, minute:0, second:0 }
+  endTime: NgbTimeStruct = { hour:19, minute:0, second:0  }
   hourStep = 1;
   minuteStep = 30;
-  event = {}
 
   constructor(public activeModal: NgbActiveModal) {}
 
   onSetClicked(startTime, endTime) {
     let event = {
-      start: startTime,
-      end: endTime
+      title: 'スポット受付',
+      start: moment(startTime).set({month: moment(this.date).month(),date: moment(this.date).date()}).format(),
+      end: moment(endTime).set({month: moment(this.date).month(),date: moment(this.date).date()}).format()
     }
-
-    // add to db (Rental?) 最大31個いるからなぁ。作らんとダメかなぁ。
-    // add to frontend
     return event
   }
 
@@ -98,10 +101,13 @@ export class TimePickerModal {
   templateUrl: './rental-manage-schedule.component.html',
   styleUrls: ['./rental-manage-schedule.component.scss']
 })
-export class RentalManageScheduleComponent implements OnInit {
-    calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin]; // important!
-    rental: Rental
+export class RentalManageScheduleComponent implements OnInit, OnDestroy {
+    @ViewChild('calendar') calendarComponent: FullCalendarComponent // This refering #calendar in frontend html
+    calendarPlugins = [dayGridPlugin, interactionPlugin]; // important!
+    calendarEvents: EventInput[] = []
     businessHoursData: any = {}
+    rental: Rental
+    newBooking: Booking
     hourStep = 1;
     minuteStep = 30;
 
@@ -111,9 +117,11 @@ export class RentalManageScheduleComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private rentalService: RentalService,
+      private bookingService: BookingService,
       private modalService: NgbModal ) { }
 
     ngOnInit() {
+      this.newBooking = new Booking()
       this.route.params.subscribe(
         (params) => {
           this.getRentalById(params['rentalId'])
@@ -125,7 +133,7 @@ export class RentalManageScheduleComponent implements OnInit {
       navbar.classList.add('navbar-transparent');
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         let body = document.getElementsByTagName('body')[0];
         body.classList.remove('settings');
         let navbar = document.getElementsByTagName('nav')[0];
@@ -136,10 +144,25 @@ export class RentalManageScheduleComponent implements OnInit {
       this.rentalService.getRentalById(rentalId).subscribe(
         (rental: Rental) => {
           this.rental = rental
+          this.getBlockDate()
           this.initBusinessHours()
         }
       )
     }
+
+    getBlockDate() {
+      for(let booking of this.rental.bookings) {
+          if(booking.status == 'block') {
+            this.calendarEvents = this.calendarEvents.concat({
+                id: booking._id,
+                title: 'ブロック',
+                allday: true,
+                start: moment(booking.startAt).format('YYYY-MM-DD'),
+                end: moment(booking.endAt).format('YYYY-MM-DD'),
+            })
+        }
+      }
+  }
 
     initBusinessHours() {
       this.businessHoursData = {
@@ -205,9 +228,6 @@ export class RentalManageScheduleComponent implements OnInit {
       
       this.rentalService.updateRental(this.rental._id, this.rental).subscribe(
         (updatedRental) => {
-          // Update component entity field text after save to DB
-          // this.rental = updatedRental
-          businessHoursForm.reset(businessHoursForm.value)
           this.showSwalSuccess()
         },
         (err) => { }
@@ -217,41 +237,87 @@ export class RentalManageScheduleComponent implements OnInit {
     private showSwalSuccess() {
         Swal.fire({
             // title: 'User infomation has been updated!',
-            text: 'User infomation has been updated!',
+            text: '定例スケジュールが更新されました！',
             type: 'success',
             confirmButtonClass: "btn btn-primary btn-round btn-lg",
             buttonsStyling: false,
             timer: 5000
-        }).then(() => {
-          this.router.navigate(['/rentals/manage'])
         })
+        // .then(() => {
+        //   this.router.navigate(['/rentals/manage'])
+        // })
     }
 
-    handleDateClick(arg) { // handler method
-      const modalRef = this.modalService.open(TimePickerModal);
-      modalRef.componentInstance.name = 'World';
-      modalRef.componentInstance.date = arg.dateStr
+    handleDragSelect(arg) { // handler method
+      let text = ''
+      if(arg.startStr !== moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD')) {
+        text = ' ~ ' + moment(arg.endStr).subtract(1, 'day').format('YYYY-MM-DD')
+      }
 
-      // Swal.fire({
-      //     // title: 'User infomation has been updated!',
-      //     // text: arg.dateStr,
-      //     type: 'success',
-      //     html:
-      //       "<input>" +
-      //       "<ngb-timepicker></ngb-timepicker>",
-      //     //onOpen:,
-      //     confirmButtonClass: "btn btn-primary btn-round btn-lg",
-      //     buttonsStyling: false,
-      // }).then(() => {
-      //   // this.router.navigate(['/rentals', {registered: 'success'}])
-      // })
+      Swal.fire({
+        title: '以下日時をブロックしますか？',
+        text: arg.startStr + text,
+        type: 'info',
+        confirmButtonClass: "btn btn-primary btn-lg",
+        confirmButtonText: "ブロック",
+        cancelButtonClass: "btn btn-gray btn-lg",
+        cancelButtonText: "キャンセル",
+        showCancelButton: true,
+        buttonsStyling: false,
+      }).then((result) => {
+        if (result.value) {
+          // Delet event from DB
+          const event = {
+            title: 'ブロック',
+            allday: true,
+            start: arg.startStr,
+            end: arg.endStr,
+          }
+          this.createDateBlockBooking(event)
+        }
+      })
     }
 
-    // You can reference https://stackblitz.com/edit/fullcalendar-angular-demo
-    dayRender(ev){
-      // ev.el.addEventListener('dblclick', () => {
-      //    alert('double click!');
-      // });
+    createDateBlockBooking(event) {
+      this.newBooking.startAt = event.start
+      this.newBooking.endAt = event.end
+      this.newBooking.rental = this.rental
+      this.bookingService.createDateBlockBooking(this.newBooking).subscribe(
+        (newBooking: any) => {
+          this.calendarEvents = this.calendarEvents.concat(event) // Update front UI
+          this.newBooking = new Booking()
+        },
+        (err) => { }
+      )
+  }
 
-    }
+  handleEventClick(arg) {
+    this.showSwalAlert(arg)
+  }
+
+  private showSwalAlert(arg) {
+    Swal.fire({
+        title: 'ブロックを削除しますか？',
+        type: 'warning',
+        confirmButtonClass: "btn btn-primary btn-lg",
+        confirmButtonText: "削除",
+        cancelButtonClass: "btn btn-gray btn-lg",
+        cancelButtonText: "キャンセル",
+        showCancelButton: true,
+        buttonsStyling: false,
+    }).then((result) => {
+      // const index = this.calendarEvents.findIndex((x) => x.id === arg.event.id);
+
+      if (result.value) {
+        this.bookingService.deleteBooking(arg.event.id).subscribe(
+          (deletedBooking) => {
+            arg.event.remove()
+          },
+          (err) => { }
+        )
+      }
+    })
+  }
+
+  // Reference for coding: https://stackblitz.com/edit/fullcalendar-angular-demo
 }

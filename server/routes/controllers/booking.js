@@ -123,6 +123,40 @@ function isValidBooking(requestBooking, rentalBookings) {
     return isValid
 }
 
+exports.createDateBlockBooking = function(req, res) {
+    const { startAt, endAt, rental } = req.body
+    const user = res.locals.user
+
+    const booking = new Booking({ startAt, endAt })
+
+    Rental.findById(rental._id)
+                    .populate('bookings')
+                    .populate('user')
+                    .exec(function(err, foundRental) {
+        if(err) {
+            return res.status(422).send({errors: normalizeErrors(err.errors)})
+        }
+
+        if(foundRental.user.id !== user.id){
+            return res.status(422).send({errors: [{title: "Invalid user!", detail: "Dayblock can be made by Rental Owner only!"}]})
+        }
+
+        booking.user = user
+        booking.status = 'block'
+        booking.rental = foundRental
+        foundRental.bookings.push(booking)
+                
+        booking.save(function(err) {
+            if(err) {
+                return res.status(422).send({errors: normalizeErrors(err.errors)})
+            }
+
+            foundRental.save()
+            return res.json({startAt: booking.startAt, endAt: booking.endAt })
+        })
+    })
+}
+
 exports.createBooking = function(req, res) {
     // Passed booking information from booking.component.ts
     const { startAt, endAt, days, courseTime, totalPrice, rental, paymentToken } = req.body
