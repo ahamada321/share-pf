@@ -6,8 +6,10 @@ import { RentalService } from '../service/rental.service';
 import { BookingService } from '../rental-booking/services/booking.service';
 // import { Review } from 'src/app/review/service/review.model';
 // import { ReviewService } from 'src/app/review/service/review.service';
-import * as moment from 'moment-timezone'
+import { EventInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import * as moment from 'moment-timezone'
+
 
 //t = current time
 //b = start value
@@ -29,6 +31,8 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
     rental: Rental
     newBooking: Booking
     calendarPlugins = [timeGridPlugin]; // important!
+    calendarEvents: EventInput[] = []
+    calendarBusinessHours: EventInput[] = []
 
     headerOffset: number = 75; // want to replace like DEFINE HEADER_OFFSET
     
@@ -70,6 +74,8 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
       this.rentalService.getRentalById(rentalId).subscribe(
         (rental: Rental) => {
           this.rental = rental;
+          this.initBusinessHours()
+          this.initEvents()
           this.getReviews(rental._id)
         }
       )
@@ -88,7 +94,7 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
 
       //[{resourceId: rental.id, title: user.name, strat: startAt, end: endAt}]
     initEvents() {
-        let events: any[] = []
+        let events: EventInput[] = []
 
         // // Draw past-time to gray.
         // events.push({
@@ -124,11 +130,11 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
               })
           }
         }
-        return events
+        this.calendarEvents = events
     }
 
     initBusinessHours() {
-      let businessHours = []
+      let businessHours: EventInput[] = []
       if(this.rental.businesshour_enabled_sun) {
         businessHours.push({
           daysOfWeek: [0],
@@ -178,7 +184,7 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
           endTime: this.rental.businesshour_endTime_sat
         })
       }
-      return businessHours
+      this.calendarBusinessHours = businessHours
     }
 
     // formatDate(date: string): string {
