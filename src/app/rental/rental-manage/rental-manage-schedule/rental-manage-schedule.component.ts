@@ -249,7 +249,7 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
     }
 
     async handleDateClick(arg) {
-      await this.delay(100)
+      await this.delay(150)
       Swal.fire({
         title: '以下日時をブロックしますか？',
         text: arg.dateStr,
@@ -321,7 +321,7 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
   }
 
   async handleEventClick(arg) {
-    await this.delay(100)
+    await this.delay(150)
     this.showSwalAlert(arg)
   }
 
@@ -338,12 +338,12 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         allowOutsideClick: false
     }).then((result) => {
       if (result.value) {
-        this.bookingService.deleteBooking(arg.event.id).subscribe(
-          (deletedBooking) => {
-            const index = this.calendarEvents.findIndex((x) => x.id === arg.event.id);
-            this.calendarEvents.splice(index, 1) // Dlete event from array.      
-            arg.event.remove() // Update Frontend
-          },
+        const index = this.calendarEvents.findIndex((x) => x.id === arg.event.id);
+        this.calendarEvents.splice(index, 1) // Dlete event from array.      
+        arg.event.remove() // Update Frontend
+
+        this.bookingService.deleteBooking(arg.event.id).subscribe( // Update DB
+          (deletedBooking) => { },
           (err) => { }
         )
       }
