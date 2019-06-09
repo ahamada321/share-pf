@@ -36,11 +36,11 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-12 mr-auto">
                             <div class="card card-register">
-                                <h3 *ngIf="isFBbuttonClicked" class="title">Register with Facebook</h3>
-                                <ng-container *ngIf="!isFBbuttonClicked">
+                                <h3 *ngIf="isFBloggedIn" class="title">Registering with Facebook</h3>
+                                <ng-container *ngIf="!isFBloggedIn">
                                     <h3 class="title">Register</h3>
                                     <div class="social-line text-center">
-                                        <button class="btn btn-neutral btn-facebook btn-just-icon" (click)="FBregister()">
+                                        <button class="btn btn-neutral btn-facebook btn-just-icon" (click)="signInWithFB()">
                                             <i class="fa fa-facebook-square"></i>
                                         </button>
                                     </div>

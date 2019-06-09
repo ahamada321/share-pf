@@ -38,6 +38,7 @@
     "@sweetalert2/ngx-sweetalert2": "^5.0.3",
     "@types/jquery": "^3.3.29",
     "@types/stripe": "^6.25.13",
+    "angularx-social-login": "^1.2.7",
     "aws-sdk": "^2.451.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",

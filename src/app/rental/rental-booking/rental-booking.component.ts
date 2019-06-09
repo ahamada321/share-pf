@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { AuthService } from 'src/app/auth/service/auth.service';
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 import { RentalService } from '../service/rental.service';
 import { BookingService } from './services/booking.service';
 import { BookingHelperService } from './services/booking.helper.service';
@@ -48,7 +48,7 @@ export class RentalBookingComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private helper: BookingHelperService,
         private bookingService: BookingService,
-        private auth: AuthService,
+        private auth: MyOriginAuthService,
 
     ) { }
 

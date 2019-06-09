@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { AuthService } from 'src/app/auth/service/auth.service';
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
+import { AuthService } from "angularx-social-login";
 import { Router } from '@angular/router';
 
 import { PaymentService } from '../components/payment/services/payment.service';
@@ -19,7 +20,8 @@ export class NavbarComponent implements OnInit {
     constructor(
             public location: Location, 
             private element : ElementRef,
-            public auth: AuthService,
+            public auth: MyOriginAuthService,
+            private socialAuthService: AuthService,
             private router: Router,
             private paymentService: PaymentService
         ) 
@@ -90,6 +92,7 @@ export class NavbarComponent implements OnInit {
 
     logout() {
         this.auth.logout()
+        this.socialAuthService.signOut()
         this.router.navigate(['/'])
     }
 }

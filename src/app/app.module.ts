@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { FooterComponent } from './common/footer/footer.component';
 
-import { HomeModule } from './home/home.module';
+import { AuthModule } from './auth/auth.module';
 import { LandingComponent } from './landing/landing.component';
 import { Page404Component } from './page404/page404.component';
 import { TermsOfServiceComponent } from './terms-service/terms-service.component';
@@ -35,7 +35,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     AppRoutingModule,
     RouterModule,
     NgbModule.forRoot(),
-    HomeModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

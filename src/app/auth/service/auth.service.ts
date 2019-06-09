@@ -16,7 +16,7 @@ class DecodedToken {
 
 
 @Injectable()
-export class AuthService {
+export class MyOriginAuthService {
     private decodedToken
 
     constructor(private http: HttpClient) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
-import { AuthService } from 'src/app/auth/service/auth.service';
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -113,7 +113,7 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
 
 
     constructor(
-      private auth: AuthService, 
+      private auth: MyOriginAuthService, 
       private route: ActivatedRoute,
       private router: Router,
       private rentalService: RentalService,

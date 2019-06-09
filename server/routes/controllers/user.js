@@ -96,14 +96,14 @@ exports.auth = function(req, res) {
 }
 
 exports.FBauth = function(req, res) {//Under development
-    const FBuserID = req.body.userID
+    const FBuserID = req.body.id
 
      User.findOne({FBuserID}, function(err, foundUser) {
         if(err) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
         }
         if(!foundUser) {
-            return res.status(422).send({errors: [{title: "Invalid user!", detail: "先にユーザー登録してください！"}]})
+            return res.status(422).send({errors: [{title: "User not found!", detail: "Please sign up before login!"}]})
         }
         if(!foundUser.isVerified) {
             return res.status(422).send({errors: [{title: "Not verified user!", detail: "受信メールからからアカウントをアクティベーションしてください！"}]})

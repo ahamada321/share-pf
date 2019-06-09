@@ -13,7 +13,12 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterVerificationComponent } from './register/register-verification/register-verification.component';
 import { RegisterSentComponent } from './register/register-sent/register-sent.component';
 
-import { AuthService } from './service/auth.service';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { FacebookLoginProvider } from "angularx-social-login";
+import { environment } from 'src/environments/environment';
+
+
+import { MyOriginAuthService } from './service/auth.service';
 import { AuthGuard } from './service/auth.guard';
 import { TokenInterceptor } from './service/token.interceptor';
 
@@ -28,6 +33,16 @@ const routes: Routes = [
     { path: 'register/:verifyToken', component: RegisterVerificationComponent }
 ];
 
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider(environment.FACEBOOK_APP_ID)
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -45,15 +60,20 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    SocialLoginModule
   ],
   exports: [RouterModule],
   providers: [
-    AuthService,
+    MyOriginAuthService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
     }
   ],
 })

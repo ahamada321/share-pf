@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AuthService } from 'src/app/auth/service/auth.service';
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private auth: AuthService,
+    private auth: MyOriginAuthService,
   ) {
     this.stripe = Stripe(environment.STRIPE_PUBLISH_KEY);
     this.elements = this.stripe.elements();

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { AuthService } from '../../../service/auth.service'
+import { MyOriginAuthService } from '../../../service/auth.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { Router, ActivatedRoute } from '@angular/router'
 
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router'
   styleUrls: ['./login-newpassword.component.scss']
 })
 export class LoginNewPasswordComponent implements OnInit, OnDestroy {
-  test: Date = new Date();
+  footer: Date = new Date();
 
   focus: any;
   focus1: any;
@@ -19,7 +19,7 @@ export class LoginNewPasswordComponent implements OnInit, OnDestroy {
   errors: any[] = []
   verifyToken: any
 
-  constructor(private auth: AuthService, 
+  constructor(private auth: MyOriginAuthService, 
               private router: Router,
               private route: ActivatedRoute) { }
 

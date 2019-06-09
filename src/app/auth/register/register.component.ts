@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core'
-import { AuthService } from '../service/auth.service'
+import { MyOriginAuthService } from '../service/auth.service'
+import { AuthService } from "angularx-social-login";
+import { FacebookLoginProvider } from "angularx-social-login";
 import { HttpErrorResponse } from '@angular/common/http'
 import { Router } from '@angular/router'
 import { User } from 'src/app/user/services/user.model';
-
-declare var FB: any;
 
 
 @Component({
@@ -13,7 +13,7 @@ declare var FB: any;
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-  isFBbuttonClicked: boolean = false
+  isFBloggedIn: boolean
 
   focus: any;
   focus1: any;
@@ -23,7 +23,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   formData: User = new User()
   errors: any[] = []
 
-  constructor( private auth: AuthService, 
+  constructor( private auth: MyOriginAuthService, 
+               private socialAuthService: AuthService,
                private router: Router,
                private zone: NgZone ) { }
 
@@ -35,7 +36,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         navbar.classList.add('navbar-transparent');
 
 
-    this.initFBwindow()
+    this.seeFBLoginState()
   }
   
   ngOnDestroy() {
@@ -46,24 +47,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
     navbar.classList.remove('navbar-transparent');
   }
 
-  initFBwindow() {
-    (window as any).fbAsyncInit = function() {
-      FB.init({
-        appId      : '802750546764836',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.3'
-      });
-      FB.AppEvents.logPageView();   
-    };
+  signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  } 
 
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
+  seeFBLoginState() {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.formData.FBuserID = user.id
+      this.formData.username = user.name
+      this.formData.email = user.email
+      this.isFBloggedIn = (user != null)
+    })
   }
 
   register() {
@@ -75,28 +69,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.errors = errorResponse.error.errors
       }
     )
-  }
-
-  FBregister() {
-    FB.getLoginStatus((response) => {
-      if (response.status === 'connected') {
-        this.getFBUserInfomation()
-      } else {
-        // this.errors = [{title: "Authorization error!", detail: "User cancelled login or did not fully authorize."}]
-        this.isFBbuttonClicked = false  
-      }
-    })
-  }
-
-  private getFBUserInfomation() {
-    FB.api('/me', {field: 'id,name,email'},
-    (response) => {
-      this.zone.run(() => { // In order to detect changes here immidiately.
-        this.formData.FBuserID = response.id
-        this.formData.username = response.name
-        this.isFBbuttonClicked = true
-      })
-    })
   }
 
 }

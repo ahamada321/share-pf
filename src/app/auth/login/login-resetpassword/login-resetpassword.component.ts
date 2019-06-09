@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { AuthService } from '../../service/auth.service'
+import { MyOriginAuthService } from '../../service/auth.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -10,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login-resetpassword.component.scss']
 })
 export class LoginResetpasswordComponent implements OnInit, OnDestroy {
-  test : Date = new Date();
+  footer: Date = new Date();
 
   focus: any;
   focus1: any;
@@ -19,7 +19,7 @@ export class LoginResetpasswordComponent implements OnInit, OnDestroy {
   notifyMessage: string = ''
 
   constructor(private formBuilder: FormBuilder,
-              private auth: AuthService,
+              private auth: MyOriginAuthService,
               private router: Router,
               private route: ActivatedRoute ) { }
 

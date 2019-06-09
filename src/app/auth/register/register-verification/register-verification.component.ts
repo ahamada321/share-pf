@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { AuthService } from '../../service/auth.service'
+import { MyOriginAuthService } from '../../service/auth.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2'
@@ -16,7 +16,7 @@ export class RegisterVerificationComponent implements OnInit {
   errors: any[] = []
   notifyMessage: string = ''
 
-  constructor(private auth: AuthService,
+  constructor(private auth: MyOriginAuthService,
               private router: Router,
               private route: ActivatedRoute ) { }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/service/auth.service';
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -19,7 +19,7 @@ export class RentalEditComponent implements OnInit {
     data : Date = new Date();
 
     constructor(
-      private auth: AuthService, 
+      private auth: MyOriginAuthService, 
       private router: Router ) { }
 
     ngOnInit() {
