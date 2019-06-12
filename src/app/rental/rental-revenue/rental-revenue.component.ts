@@ -31,17 +31,19 @@ export class RentalRevenueComponent implements OnInit {
   DashboardChartLabels:Array<any>
   DashboardChartColors:Array<any>
 
+  DashboardRevenueData:Array<any> // Going to use
+
   constructor(private paymentService: PaymentService,
               public router: Router) {
     router.events.subscribe(s => {
       if (s instanceof NavigationEnd) {
-          const tree = router.parseUrl(router.url);
-          if (tree.fragment) {
-              const element = document.querySelector("#" + tree.fragment);
-              if (element) { element.scrollIntoView(); }
-          }
+        const tree = router.parseUrl(router.url);
+        if (tree.fragment) {
+          const element = document.querySelector("#" + tree.fragment);
+          if (element) { element.scrollIntoView(); }
+        }
       }
-  })
+    })
   }
 
   ngOnInit() {
@@ -64,6 +66,15 @@ export class RentalRevenueComponent implements OnInit {
       }
     )
   }
+
+  getTotalRevenue() {
+    let total = 0;
+    for(let payment of this.payments) {
+        let integer = parseInt(payment.ownerRevenue)
+        total += integer;
+    } 
+    return total;
+}
 
   initDashboardChart() {
     this.canvas = document.getElementById("dashboardChart");
@@ -231,6 +242,7 @@ export class RentalRevenueComponent implements OnInit {
     let targetScroll = document.getElementById(target);
     this.scrollTo(document.scrollingElement || document.documentElement, targetScroll.offsetTop - this.headerOffset, 625); // Updated by Creative Tim support!
   }
+
   private scrollTo(element, to, duration) {
     let start = element.scrollTop,
         change = to - start,
@@ -246,5 +258,5 @@ export class RentalRevenueComponent implements OnInit {
         }
     };
     animateScroll();
-}
+  }
 }
