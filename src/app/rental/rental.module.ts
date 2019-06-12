@@ -4,35 +4,33 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../common/modules/matmodule/matmodule';
+import { ChartsModule } from 'ng2-charts';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AuthGuard } from '../auth/service/auth.guard';
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 import { RentalComponent } from './rental.component';
 import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list/rental-list-item/rental-list-item.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
+import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.module';
 import { RentalBookingComponent } from './rental-booking/rental-booking.component';
+import { PaymentModule } from '../common/components/payment/payment.module';
 import { RentalManageComponent } from './rental-manage/rental-manage.component';
+import { RentalManageScheduleComponent, TimePickerModal } from './rental-manage/rental-manage-schedule/rental-manage-schedule.component';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
 import { RentalRequestsComponent } from './rental-requests/rental-requests.component';
+import { RentalRevenueComponent } from './rental-revenue/rental-revenue.component';
 // import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
-
-
-import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.module';
-
 
 import { EditableModule } from '../common/components/editable/editable.module';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { RentalService } from './service/rental.service';
 import { BookingService } from './rental-booking/services/booking.service';
 import { BookingHelperService } from './rental-booking/services/booking.helper.service';
-import { PaymentModule } from '../common/components/payment/payment.module';
 import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
-import { WizardModule } from './wizard/wizard.module';
-import { AuthGuard } from '../auth/service/auth.guard';
 import { RentalEditComponent } from './rental-edit/rental-edit.component';
-import { RentalManageScheduleComponent, TimePickerModal } from './rental-manage/rental-manage-schedule/rental-manage-schedule.component';
-import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -44,6 +42,7 @@ const routes: Routes = [{
         { path: 'new', component: RentalCreateComponent, canActivate: [AuthGuard] },
         { path: 'manage', component: RentalManageComponent, canActivate: [AuthGuard] },
         { path: 'requests', component: RentalRequestsComponent, canActivate: [AuthGuard] },
+        { path: 'revenue', component: RentalRevenueComponent, canActivate: [AuthGuard] },
         { path: ':rentalId', component: RentalDetailComponent },
         { path: ':rentalId/booking', component: RentalBookingComponent, canActivate: [AuthGuard] },
         { path: ':rentalId/edit', component: RentalEditComponent, canActivate: [AuthGuard] },
@@ -63,6 +62,7 @@ const routes: Routes = [{
         RentalCreateComponent,
         RentalEditComponent,
         RentalRequestsComponent,
+        RentalRevenueComponent,
         // RentalDetailUpdateComponent, // This is replaced from RentalEditComponent.
         BottomNavbarComponent,
         TimePickerModal
@@ -75,12 +75,12 @@ const routes: Routes = [{
           NgbModule,
           MaterialModule,
           EditableModule,
+          ChartsModule,
           GoogleMapsModule,
           PaymentModule,
           BookingSelecterModule,
           // ImageUploadModule
           FullCalendarModule,
-          WizardModule, // Can delete this?
           JwBootstrapSwitchNg2Module
         ],
       entryComponents: [TimePickerModal],

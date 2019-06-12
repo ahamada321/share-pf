@@ -36,13 +36,14 @@ export class AppComponent implements OnInit {
       });
       this.renderer.listenGlobal('window', 'scroll', (event) => {
           const number = window.scrollY;
-          let _location = this.location.path();
-          _location = _location.split('/')[3];
+          const _location = this.location.path();
+          const isLocationOfBooking = ( _location.split('/')[3] === 'booking' );
+          const isLocationOfRevenue = ( _location.split('/')[2] === 'revenue' );
 
           if (number > 150 || window.pageYOffset > 150) {
               // add logic
               navbar.classList.remove('navbar-transparent');
-          } else if (_location !== 'booking') {
+          } else if (!isLocationOfBooking && !isLocationOfRevenue) {
               // remove logic
               navbar.classList.add('navbar-transparent');
           }

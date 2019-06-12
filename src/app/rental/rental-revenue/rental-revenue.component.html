@@ -1,0 +1,246 @@
+<section id="rentalRevenue">
+  <div class="space-70"></div>
+  <div class="panel-header panel-header-lg">
+    <canvas baseChart id="dashboardChart"
+            [chartType]="DashboardChartType"
+            [options]="DashboardChartOptions"
+            [datasets]="DashboardChartDatasets"
+            [labels]="DashboardChartLabels"
+            [colors]="DashboardChartColors"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+
+  <div class="main">
+    <div class="section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card">
+              <a (click)="setRevenueToDashboardChart(payments); smoothScroll('rentalRevenue')">
+                <div class="card-body">
+                  <div class="info info-horizontal">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="icon icon-success">
+                          <i class="nc-icon nc-money-coins" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="description">
+                            <p> Revenue [JPY]</p>
+                          <h4 class="info-title">100,0000</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="card-footer">
+                      <div class="stats">
+                        This year: $2000
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            Comming Soon!
+            <div class="card">
+              <a (click)="smoothScroll('rentalRevenue')">
+                <div class="card-body">
+                  <div class="info info-horizontal">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="icon icon-danger">
+                          <i class="nc-icon nc-favourite-28" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="description">
+                            <p> Ratings</p>
+                          <h2 class="info-title">4.2</h2>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="card-footer">
+                      <div class="stats">
+                        All time: 4.3
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card">
+              <a (click)="smoothScroll('rentalRevenue')">
+                <div class="card-body">
+                  <div class="info info-horizontal">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="icon icon-primary">
+                          <i class="nc-icon nc-single-02" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="description">
+                            <p> Enrollments</p>
+                          <h2 class="info-title">202</h2>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="card-footer">
+                      <div class="stats">
+                        All time: 580
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            Comming Soon!
+            <div class="card">
+              <a (click)="smoothScroll('rentalRevenue')">
+                <div class="card-body">
+                  <div class="info info-horizontal">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="icon icon-warning">
+                          <i class="nc-icon nc-single-copy-04" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="description">
+                            <p> PageViews</p>
+                          <h2 class="info-title">202</h2>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="card-footer">
+                      <div class="stats">
+                        This year: 1389
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-top"></div>
+        <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+                <h2 class="title">
+                    Revenue Report
+                </h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                              <th class="text-center">Date </th>
+                              <th>Rental name</th>
+                              <th>Hourly price & time</th>
+                              <th class="text-right">Booking username</th>
+                              <th class="text-right">Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let payment of payments">
+                                <td class="text-center">{{payment.paidAt | date: "yyyy / MM / dd"}}</td>
+                                <td>{{payment.booking.rental.rentalname}}</td>
+                                <td>{{payment.fromUser}}</td>
+                                <td class="text-right">{{payment.ownerRevenue}}JPY</td>
+                                <td class="td-actions text-right">
+                                    <button type="button" ngbTooltip="View Profile" class="btn btn-info btn-link btn-sm">
+                                        <i class="fa fa-user"></i>
+                                    </button>
+                                    <button type="button" ngbTooltip="Edit Profile" class="btn btn-success btn-link btn-sm">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" ngbTooltip="Remove" class="btn btn-danger btn-link btn-sm">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- <h4 class="title">
+                    <small>Ratings & Comments</small>
+                </h4>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">aaaaa</th>
+                                <th></th>
+                                <th>vvvvvv</th>
+                                <th>fffff</th>
+                                <th>bbbbb</th>
+                                <th class="text-right">rrrrrr</th>
+                                <th class="text-right">qqqqqq</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let payment of payments">
+                                <td class="text-center">qqqqqq</td>
+                                <td>
+                                    <div [ngSwitch]="row.check">
+                                        <div *ngSwitchCase="true">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div *ngSwitchDefault>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="" >
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>sssss</td>
+                                <td>wwww</td>
+                                <td>wwwww</td>
+                                <td class="text-right">&euro; ddddd}</td>
+                                <td class="text-right">&euro; dddddd}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5"></td>
+                                <td class="td-total">
+                                    Total
+                                </td>
+                                <td class="td-price">
+                                    {{getTotal1()| currency:'EUR':true:'1.2-2'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+                <ngb-pagination [collectionSize]="50" [(page)]="pageIndex" aria-label="Default pagination"></ngb-pagination>
+            </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</section>
