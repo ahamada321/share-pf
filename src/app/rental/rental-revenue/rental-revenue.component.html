@@ -29,7 +29,7 @@
                       <div class="col-8">
                         <div class="description">
                             <p> Revenue [JPY]</p>
-                          <h4 class="info-title">100,0000</h4>
+                          <h4 class="info-title">{{ getTotalRevenue() }}</h4>
                         </div>
                       </div>
                     </div>
@@ -90,7 +90,7 @@
                       <div class="col-8">
                         <div class="description">
                             <p> Enrollments</p>
-                          <h2 class="info-title">202</h2>
+                          <h2 class="info-title">{{payments.length}}</h2>
                         </div>
                       </div>
                     </div>
@@ -150,28 +150,18 @@
                             <tr>
                               <th class="text-center">Date </th>
                               <th>Rental name</th>
-                              <th>Hourly price & time</th>
-                              <th class="text-right">Booking username</th>
-                              <th class="text-right">Revenue</th>
+                              <th>Booking username</th>
+                              <th>Course</th>
+                              <th class="text-center">Revenue</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let payment of payments">
                                 <td class="text-center">{{payment.paidAt | date: "yyyy / MM / dd"}}</td>
                                 <td>{{payment.booking.rental.rentalname}}</td>
-                                <td>{{payment.fromUser}}</td>
-                                <td class="text-right">{{payment.ownerRevenue}}JPY</td>
-                                <td class="td-actions text-right">
-                                    <button type="button" ngbTooltip="View Profile" class="btn btn-info btn-link btn-sm">
-                                        <i class="fa fa-user"></i>
-                                    </button>
-                                    <button type="button" ngbTooltip="Edit Profile" class="btn btn-success btn-link btn-sm">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button type="button" ngbTooltip="Remove" class="btn btn-danger btn-link btn-sm">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </td>
+                                <td>{{payment.fromUser.username}}</td>
+                                <td>{{payment.booking.courseTime}}min</td>
+                                <td class="text-center">{{payment.ownerRevenue}}JPY</td>
                             </tr>
                         </tbody>
                     </table>

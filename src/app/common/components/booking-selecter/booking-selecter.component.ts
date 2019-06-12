@@ -49,7 +49,7 @@ export class BookingSelecterComponent implements OnInit {
   onDateSelect(date: NgbDateStruct) {
     this.isDateBlock_flg = false
     this.iskDateBlock(date)
-    const d = new Date(date.year, date.month - 1, date.day)
+    const d = new Date(date.year, date.month -1, date.day)
     const selectedDay = d.getDay()
 
     let mTimeTables = []
@@ -57,32 +57,32 @@ export class BookingSelecterComponent implements OnInit {
     let mStartAt = null
 
     if(selectedDay==0 && this.rental.businesshour_enabled_sun) { // Sunday
-      mEndAt = moment(this.rental.businesshour_endTime_sun).set(date)
-      mStartAt = moment(this.rental.businesshour_startTime_sun).set(date)
+      mEndAt = moment(this.rental.businesshour_endTime_sun).set({'year': date.year, 'month': date.month -1, 'date': date.day})
+      mStartAt = moment(this.rental.businesshour_startTime_sun).set({'year': date.year, 'month': date.month -1, 'date': date.day})
     }
     if(selectedDay==1 && this.rental.businesshour_enabled_mon) { // Monday
-      mEndAt = moment(this.rental.businesshour_endTime_mon).set(date)
-      mStartAt = moment(this.rental.businesshour_startTime_mon).set(date)
+      mEndAt = moment(this.rental.businesshour_endTime_mon).set({'year': date.year, 'month': date.month -1, 'date': date.day})
+      mStartAt = moment(this.rental.businesshour_startTime_mon).set({'year': date.year, 'month': date.month -1, 'date': date.day})
     }
     if(selectedDay==2 && this.rental.businesshour_enabled_tue) {
-      mEndAt = moment(this.rental.businesshour_endTime_tue).set(date)
-      mStartAt = moment(this.rental.businesshour_startTime_tue).set(date)
+      mEndAt = moment(this.rental.businesshour_endTime_tue).set({'year': date.year, 'month': date.month -1, 'date': date.day})
+      mStartAt = moment(this.rental.businesshour_startTime_tue).set({'year': date.year, 'month': date.month -1, 'date': date.day})
     }
     if(selectedDay==3 && this.rental.businesshour_enabled_wed) {
-      mEndAt = moment(this.rental.businesshour_endTime_wed).set(date)
-      mStartAt = moment(this.rental.businesshour_startTime_wed).set(date)
+      mEndAt = moment(this.rental.businesshour_endTime_wed).set({'year': date.year, 'month': date.month -1, 'date': date.day})
+      mStartAt = moment(this.rental.businesshour_startTime_wed).set({'year': date.year, 'month': date.month -1, 'date': date.day})
     }
     if(selectedDay==4 && this.rental.businesshour_enabled_thu) {
-      mEndAt = moment(this.rental.businesshour_endTime_thu).set(date)
-      mStartAt = moment(this.rental.businesshour_startTime_thu).set(date)
+      mEndAt = moment(this.rental.businesshour_endTime_thu).set({'year': date.year, 'month': date.month -1, 'date': date.day})
+      mStartAt = moment(this.rental.businesshour_startTime_thu).set({'year': date.year, 'month': date.month -1, 'date': date.day})
     }
     if(selectedDay==5 && this.rental.businesshour_enabled_fri) {
-      mEndAt = moment(this.rental.businesshour_endTime_fri).set(date)
-      mStartAt = moment(this.rental.businesshour_startTime_fri).set(date)
+      mEndAt = moment(this.rental.businesshour_endTime_fri).set({'year': date.year, 'month': date.month -1, 'date': date.day})
+      mStartAt = moment(this.rental.businesshour_startTime_fri).set({'year': date.year, 'month': date.month -1, 'date': date.day})
     }
     if(selectedDay==6 && this.rental.businesshour_enabled_sat) {
-      mEndAt = moment(this.rental.businesshour_endTime_sat).set(date)
-      mStartAt = moment(this.rental.businesshour_startTime_sat).set(date)
+      mEndAt = moment(this.rental.businesshour_endTime_sat).set({'year': date.year, 'month': date.month -1, 'date': date.day})
+      mStartAt = moment(this.rental.businesshour_startTime_sat).set({'year': date.year, 'month': date.month -1, 'date': date.day})
     }
 
     while(mStartAt < mEndAt) {
@@ -117,7 +117,6 @@ export class BookingSelecterComponent implements OnInit {
 
     const reqStart = moment(startAt)
     const reqEnd = moment(startAt).add(this.chosenCourseTime, 'minute').subtract(1, 'minute')
-
     if(rentalBookings && rentalBookings.length === 0) {
         return true
     } 
