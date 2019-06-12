@@ -16,6 +16,7 @@ import Swal from 'sweetalert2'
 export class LoginComponent implements OnInit, OnDestroy {
   isFBloggedIn: boolean
   footer : Date = new Date();
+  user: any
 
   focus: any;
   focus1: any;
@@ -56,14 +57,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   signInWithFB(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  } 
-
-  seeFBLoginState() {
-    this.socialAuthService.authState.subscribe((user) => {
-      this.isFBloggedIn = (user != null);
-
-      this.auth.FBlogin(user).subscribe(
+    if(this.isFBloggedIn) {
+      this.auth.FBlogin(this.user).subscribe(
         (token) => {
           this.router.navigate(['/rentals'])
         },
@@ -73,6 +68,15 @@ export class LoginComponent implements OnInit, OnDestroy {
           })
         }
       )
+    } else {
+      this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    }
+  } 
+
+  seeFBLoginState() {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.isFBloggedIn = (user != null);
+      this.user = user
     })
   }
 
