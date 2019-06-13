@@ -9,6 +9,7 @@ import { BookingService } from '../rental-booking/services/booking.service';
 import { EventInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import * as moment from 'moment-timezone'
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 
 
 //t = current time
@@ -42,7 +43,8 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
       private route: ActivatedRoute,
       private rentalService: RentalService,
       // private reviewService: ReviewService,
-      public router: Router
+      public router: Router,
+      public auth: MyOriginAuthService,
     ) {
       router.events.subscribe(s => {
         if (s instanceof NavigationEnd) {
@@ -68,6 +70,10 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
       let navbar = document.getElementsByTagName('nav')[0];
       navbar.classList.remove('navbar-transparent');
+    }
+
+    isYourRental() {
+      return this.rental.user._id === this.auth.getUserId()
     }
 
     getRental(rentalId: string) {
@@ -126,7 +132,8 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
                   //title: this.getUserName(booking.user), 
                   start: moment(booking.startAt).format('YYYY-MM-DD'),
                   end: moment(booking.endAt).format('YYYY-MM-DD'),
-                  rendering: 'background'
+                  rendering: 'background',
+                  color: '#b8b8b8'
               })
           }
         }

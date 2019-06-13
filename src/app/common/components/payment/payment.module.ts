@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common'
 import { Routes, RouterModule } from '@angular/router'
 import { PaymentComponent } from './payment.component';
 import { PaymentService } from './services/payment.service';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +11,9 @@ import { PaymentService } from './services/payment.service';
         PaymentComponent
       ],
       imports: [
-          CommonModule
+          CommonModule,
+          FormsModule,
+          ReactiveFormsModule,
         ],
       exports: [PaymentComponent],
       providers: [

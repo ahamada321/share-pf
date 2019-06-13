@@ -32,6 +32,7 @@ export class RentalRevenueComponent implements OnInit {
   DashboardChartColors:Array<any>
 
   DashboardRevenueData:Array<any> // Going to use
+  DashboardRatingsData:Array<any> // Going to use
 
   constructor(private paymentService: PaymentService,
               public router: Router) {
@@ -69,12 +70,14 @@ export class RentalRevenueComponent implements OnInit {
 
   getTotalRevenue() {
     let total = 0;
-    for(let payment of this.payments) {
+    if(this.payments) {
+      for(let payment of this.payments) {
         let integer = parseInt(payment.ownerRevenue)
         total += integer;
-    } 
+      }
+    }
     return total;
-}
+  }
 
   initDashboardChart() {
     this.canvas = document.getElementById("dashboardChart");
@@ -249,14 +252,14 @@ export class RentalRevenueComponent implements OnInit {
         currentTime = 0,
         increment = 20;
 
-    let animateScroll = function(){
+    let animateScroll = function() {
         currentTime += increment;
         var val = easeInOutQuad(currentTime, start, change, duration);
         element.scrollTop = val;
         if(currentTime < duration) {
             setTimeout(animateScroll, increment);
         }
-    };
+    }
     animateScroll();
   }
 }

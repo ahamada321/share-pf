@@ -85,17 +85,15 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   async onSubmit() {
     this.validatingCardFlag = true
-
     const {token, error} = await this.stripe.createToken(this.cardNumber)
     /* As same as above.
     const res = await this.stripe.createToken(this.cardNumber)
-    res.token 
+    res.token
     res.error
     */
     this.validatingCardFlag = false
-
     if(error) {
-      console.error('error')
+      console.log('error', error)
     } else {
       this.token = token
       this.paymentComfirmed.emit(token)

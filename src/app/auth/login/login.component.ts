@@ -117,7 +117,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   showSwalSuccess() {
     Swal.fire({
         title: 'Password has been updated!',
-        text: 'You can login with new password!',
+        text: '新しいパスワードでログインできます！',
         type: 'success',
         confirmButtonClass: "btn btn-primary btn-round btn-lg",
         buttonsStyling: false,

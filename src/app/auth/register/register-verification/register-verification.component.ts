@@ -51,15 +51,15 @@ export class RegisterVerificationComponent implements OnInit {
     if (type == 'success') {
       Swal.fire({
             title: 'Successfully Activated!',
-            text: 'You can login from now !',
+            text: 'アクティベーションが完了しました!',
             type: 'success',
             confirmButtonClass: "btn btn-primary btn-round btn-lg",
             buttonsStyling: false,
-            timer: 5000
+            allowOutsideClick: false
         }).then(() => {
-          this.router.navigate(['/login', {registered: 'success'}])
+            this.router.navigate(['/login'])
         })
-    } else if (type == 'failed') {
+    } else if (type == 'failed') { // Maybe won't need URL expired pattern.
       Swal.fire({
             title: 'Faild',
             text: 'URLが期限切れです',

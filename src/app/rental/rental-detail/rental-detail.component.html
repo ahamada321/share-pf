@@ -311,7 +311,15 @@
                         <h2 class="title">Let's book</h2>
                         <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
                         <br>
-                        <a routerLink="booking" class="btn btn-danger btn-round btn-lg">Go to booking</a>
+                        <a *ngIf="!isYourRental()" routerLink="booking" class="btn btn-danger btn-round btn-lg">Go to booking</a>
+                        <button *ngIf="isYourRental()" 
+                                class="btn btn-round btn-lg disabled" 
+                                placement="bottom" 
+                                ngbPopover="Cannot book your Rental !"
+                                triggers="mouseenter:mouseleave"
+                                #p="ngbPopover" 
+                                (click)="p.open()">Go to booking</button>
+
                     </div>
                 </div>
             </div>

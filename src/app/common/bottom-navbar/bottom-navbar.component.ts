@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Rental } from 'src/app/rental/service/rental.model';
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 
 @Component({
     selector: 'app-bottom-navbar',
@@ -12,7 +13,11 @@ export class BottomNavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element : ElementRef) {
+    constructor(
+        public location: Location, 
+        private element : ElementRef,
+        public auth: MyOriginAuthService,
+        ) {
         this.sidebarVisible = false;
     }
 
@@ -20,6 +25,11 @@ export class BottomNavbarComponent implements OnInit {
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
     }
+
+    isYourRental() {
+        return this.rental.user._id === this.auth.getUserId()
+    }
+
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const html = document.getElementsByTagName('html')[0];

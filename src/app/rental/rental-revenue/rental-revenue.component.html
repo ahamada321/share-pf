@@ -152,7 +152,7 @@
                               <th>Rental name</th>
                               <th>Booking username</th>
                               <th>Course</th>
-                              <th class="text-center">Revenue</th>
+                              <th class="text-center">Revenue [JPY]</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,8 +160,8 @@
                                 <td class="text-center">{{payment.paidAt | date: "yyyy / MM / dd"}}</td>
                                 <td>{{payment.booking.rental.rentalname}}</td>
                                 <td>{{payment.fromUser.username}}</td>
-                                <td>{{payment.booking.courseTime}}min</td>
-                                <td class="text-center">{{payment.ownerRevenue}}JPY</td>
+                                <td>{{payment.booking.courseTime}} min</td>
+                                <td class="text-center">{{payment.ownerRevenue}} JPY</td>
                             </tr>
                         </tbody>
                     </table>

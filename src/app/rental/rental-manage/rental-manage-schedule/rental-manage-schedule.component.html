@@ -34,9 +34,10 @@
                                     <full-calendar #calendar
                                                     defaultView="dayGridMonth" 
                                                     [plugins]="calendarPlugins" 
-                                                    [selectable]="true"
                                                     [longPressDelay]="300"
+                                                    [selectable]="true"
                                                     [events]="calendarEvents"
+                                                    [businessHours]="calendarBusinessHours"
                                                     (dateClick)="handleDateClick($event)"
                                                     (select)="handleDragSelect($event)"
                                                     (eventClick)="handleEventClick($event)"

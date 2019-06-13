@@ -59,9 +59,8 @@ body .fc { /* extra precedence to overcome jqui */
 }
 
 .fc-bgevent { /* default look for background events */
-	// background: rgb(143, 223, 130);
-	// opacity: .3;
-	background: #9c9c9c !important; // Changed by Hamada. Due to adjust to Rental Detail calendar.
+	background: rgb(143, 223, 130);
+	opacity: .3;
 }
 
 .fc-nonbusiness { /* default look for non-business-hours areas */
