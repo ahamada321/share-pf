@@ -28,7 +28,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
             text: '現時点では予約は確定していません。「' + booking.rental.rentalname + ' Trainer」がリクエストを受理された場合に正式予約が完了します。\n\n'
                 + '予約が確定しない限りご請求が行くことはございません。'
                 + '\n\n\n\n'
-                + 'AnytimePersonalTrainer.inc'
+                + 'mococo.inc'
         }
     } else if (sendMsg == REQUEST_RECIEVED) {
         msg = {
@@ -41,7 +41,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                 + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                 + '\n\n\n\n'
-                + 'AnytimePersonalTrainer.inc'
+                + 'mococo.inc'
         }
     } else {
         return res.status(422).send({errors: [{title: "Could not send email!", detail: "Please select appropriate email content!"}]})
