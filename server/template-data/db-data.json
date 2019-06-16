@@ -114,6 +114,35 @@
                             
             "rating": 4,
             "shared": true
+        },
+        {
+            "lastLogin": "2018/11/30",
+            "createdAt": "2018/11/10",
+
+            "rentalname": "Erina",
+            "age": 18,
+            "height": "148",
+            "bust": "C-cup",
+            "weight": "標準的",
+            "image": "assets/img/trainers/erina6.jpg",
+            "image2": "assets/img/trainers/erina5.jpg",
+            "gallery": "assets/img/trainers/erina7.jpg",
+            "gallery2": "assets/img/trainers/erina1.jpg",
+            "gallery3": "assets/img/trainers/erina3.jpg",
+            "gallery4": "assets/img/trainers/erina2.jpg",
+            "gallery5": "assets/img/trainers/erina4.jpg",
+            "video": "",
+
+            "province": "東京",
+            "nearStation": "新宿",
+            "hourlyPrice": 54000,
+            "description": "プロカウンセラー",
+            "headlinedescription1": "青森県三沢市出身。三沢市観光大使。千葉県テコンドー協会副会長。 小比類巻道場会長。元ISKAオリエンタル世界スーパーウェルター級チャンピオン。K-1 WORLD MAX 2004,2005,2009 日本チャンピオン。",
+            "headlinedescription2": "実績・経歴などのアピールをこの欄で行えます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
+
+                            
+            "rating": 4,
+            "shared": true
         }
     ],
     "users": [
