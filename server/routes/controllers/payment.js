@@ -31,7 +31,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + "への予約リクエストは受理されませんでした。たまたま「" + booking.rental.rentalname + " Trainer」の都合がつかなかった場合もありますので、また別の日程で予約にチャレンジしてみてください！\n\n"
                 + "他の商品の方が予約しやすい場合もあります。"
                 + '\n\n\n\n'
-                + 'AnytimePersonalTrainer.inc'
+                + 'Anytime Personal Trainer.inc'
         }
     } else if (sendMsg == REQUEST_ACCEPTED) {
         msg = {
@@ -43,7 +43,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '場所：' + booking.rental.province + '\n\n'
                 + 'これ以降のキャンセルはできません。時間に余裕を持って目的地に到着されるようお願いいたします。'
                 + '\n\n\n\n'
-                + 'AnytimePersonalTrainer.inc'
+                + 'Anytime Personal Trainer.inc'
         }
     } else {
         return res.status(422).send({errors: [{title: "Could not send email!", detail: "Please select appropriate email content!"}]})
