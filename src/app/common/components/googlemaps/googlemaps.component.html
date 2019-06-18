@@ -1,19 +1,18 @@
-<div class="map">
-  <agm-map
-  (mapReady)="mapReadyHandler()" 
-  [latitude]="lat" 
-  [longitude]="lng"
-  [zoom]="13"
-  >
+<div class="big-map" >
+  <agm-map (mapReady)="mapReadyHandler()" 
+           [latitude]="lat"
+           [longitude]="lng"
+           [zoom]="15"
+           style="height: 400px"
+           >
     <agm-circle *ngIf="!isPositionError && lat && lng"
                 [latitude]="lat" 
                 [longitude]="lng"
-                [radius]="800"
+                [radius]="400"
                 [fillColor]="'#F44336'"
                 [fillOpacity]="0.4"
                 >
     </agm-circle>
-
     <agm-info-window *ngIf="isPositionError"
                       [latitude]="0" 
                       [longitude]="0"
@@ -26,6 +25,3 @@
     </agm-info-window>
   </agm-map>
 </div>
-
-
-    <!-- <div id="regularMap" class="map"></div> -->

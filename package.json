@@ -60,6 +60,7 @@
     "multer-s3": "^2.9.0",
     "ng2-charts": "^2.2.3",
     "ng2-nouislider": "^1.7.13",
+    "ngx-pipes": "^2.5.1",
     "nouislider": "^13.1.5",
     "perfect-scrollbar": "^1.4.0",
     "popper.js": "^1.15.0",

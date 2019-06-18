@@ -15,6 +15,9 @@ export class Rental {
     bust: string;
     weight: string;
 
+    province: string;
+    nearStation: string;
+
     image: string;
     image2: string;
     gallery: string;
@@ -23,9 +26,6 @@ export class Rental {
     gallery4: string;
     gallery5: string;
     video: string;
-
-    province: string;
-    nearStation: string;
 
     hourlyPrice: number;
     description: string;
