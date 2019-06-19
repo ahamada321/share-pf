@@ -1,15 +1,18 @@
 import { Component, OnInit, OnDestroy, Input, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
+
 import { Rental } from '../service/rental.model';
+import { Review } from 'src/app/common/components/review/service/review.model';
 import { Booking } from '../rental-booking/services/booking.model';
 import { RentalService } from '../service/rental.service';
+import { ReviewService } from 'src/app/common/components/review/service/review.service';
 import { BookingService } from '../rental-booking/services/booking.service';
 // import { Review } from 'src/app/review/service/review.model';
 // import { ReviewService } from 'src/app/review/service/review.service';
 import { EventInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import * as moment from 'moment-timezone'
-import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 
 
 //t = current time
@@ -30,6 +33,8 @@ var easeInOutQuad = function (t, b, c, d) {
 export class RentalDetailComponent implements OnInit, OnDestroy {
     currentId: string
     rental: Rental
+    rating: number
+    reviews: Review[] = []
     newBooking: Booking
     calendarPlugins = [timeGridPlugin]; // important!
     calendarEvents: EventInput[] = []
@@ -39,22 +44,21 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
     
     // reviews: Review[] = []
 
-    constructor(
-      private route: ActivatedRoute,
-      private rentalService: RentalService,
-      // private reviewService: ReviewService,
-      public router: Router,
-      public auth: MyOriginAuthService,
-    ) {
-      router.events.subscribe(s => {
-        if (s instanceof NavigationEnd) {
-            const tree = router.parseUrl(router.url);
-            if (tree.fragment) {
-                const element = document.querySelector("#" + tree.fragment);
-                if (element) { element.scrollIntoView(); }
-            }
-        }
-    })
+    constructor(private route: ActivatedRoute,
+                private rentalService: RentalService,
+                private reviewService: ReviewService,
+                public router: Router,
+                public auth: MyOriginAuthService,
+                ) {
+                  router.events.subscribe(s => {
+                    if (s instanceof NavigationEnd) {
+                        const tree = router.parseUrl(router.url);
+                        if (tree.fragment) {
+                            const element = document.querySelector("#" + tree.fragment);
+                            if (element) { element.scrollIntoView(); }
+                        }
+                    }
+                })
     }
 
     ngOnInit() {
@@ -82,20 +86,27 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
           this.rental = rental;
           this.initBusinessHours()
           this.initEvents()
+          this.getAvgRating(rental._id)
           this.getReviews(rental._id)
         }
       )
     }
 
-    getReviews(rentalId: string) {
-      // this.reviewService.getRentalReviews(rentalId).subscribe(
-      //   (reviews: Review[]) => {
-      //     this.reviews = reviews
-      //   },
-      //   () => {
+    getAvgRating(rentalId: string) {
+      this.reviewService.getAvgRating(rentalId).subscribe(
+        (rating: number) => {
+          this.rating = rating
+        }
+      )
+    }
 
-      //   }
-      // )
+    getReviews(rentalId: string) {
+      this.reviewService.getRentalReviews(rentalId).subscribe(
+        (reviews: Review[]) => {
+          this.reviews = reviews
+        },
+        () => { }
+      )
     }
 
       //[{resourceId: rental.id, title: user.name, strat: startAt, end: endAt}]
@@ -235,5 +246,4 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
       animateScroll();
   }
 
-  
 }

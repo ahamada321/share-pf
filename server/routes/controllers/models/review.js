@@ -7,10 +7,10 @@ const reviewSchema = new Schema({
     rating: Number,
     comment: String,
     cretatedAt: { type: Date, default: Date.now },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    rental: { type: Schema.Types.ObjectId, ref: 'Rental' }
-})
+    user: { type: Schema.Types.ObjectId, ref: "User" },
+    rental: { type: Schema.Types.ObjectId, ref: "Rental" }
 
+})
 
 reviewSchema.pre('save', function(next) {
     const user = this
@@ -19,12 +19,11 @@ reviewSchema.pre('save', function(next) {
     if(ALLOWED_RATING.indexOf(this.rating) >= 0){
         next()
     } else {
-        const err = new Error('Not valid rating!')
+        const err = new Error({ rating: 'Invalid rating!' })
         err.erros = {}
-        err.erros.rating = {message: 'Not valid rating!'}
+        err.erros.rating = { message: 'Not valid rating!' }
         next(err)
     }
-
 })
 
 

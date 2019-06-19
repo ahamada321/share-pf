@@ -11,7 +11,7 @@ export class User {
         id: string,
         source: string
     }
-
+    description: string
     rating: number
     isVerified: boolean
     userRole: string

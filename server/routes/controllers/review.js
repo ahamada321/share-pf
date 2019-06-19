@@ -10,7 +10,7 @@ exports.getReviews = function(req, res) {
     const { rentalId } = req.query
 
     Review.find({'rental': rentalId})
-            .populate('user')
+            .populate('user', '-password')
             .exec((err, foundReviews) => {
 
                 if(err){
@@ -19,6 +19,23 @@ exports.getReviews = function(req, res) {
                 return res.json(foundReviews)
 
             })
+}
+
+exports.getRentalRating = function(req, res) {
+    const rentalId = req.query.id
+
+    Review.aggregate([
+        {"$unwind": "$rental"},
+        {"$group": {
+            "_id": rentalId, 
+            "ratingAvg": {"$avg": "$rating"}
+        }}
+    ], function(err, result) {
+        if(err) {
+            return res.status(422).send({errors: normalizeErrors(err.errors)})
+        }
+        return res.json(result[0]["ratingAvg"])
+    })
 }
 
 exports.createReview = function(req, res) {
@@ -36,7 +53,7 @@ exports.createReview = function(req, res) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
 
-                if(foundBooking.rental.user.id == user.id) {
+                if(foundBooking.rental.user.id === user.id) {
                     return res.status(422).send({
                         errors: {
                             title: "Invalid user!",
@@ -45,7 +62,7 @@ exports.createReview = function(req, res) {
                     })
                 }
 
-                if(foundBooking.user.id != user.id) {
+                if(foundBooking.user.id !== user.id) {
                     return res.status(422).send({
                         errors: {
                             title: "Invalid user!",
@@ -60,7 +77,7 @@ exports.createReview = function(req, res) {
                     return res.status(422).send({
                         errors: {
                             title: "Invalid date!",
-                            detail: "You can review after stayed!"
+                            detail: "You can review after finished service!"
                         }
                     })
                 }
@@ -76,7 +93,7 @@ exports.createReview = function(req, res) {
 
                 const review = new Review(reviewData)
                 review.user = user
-                review.rental = foundBooking
+                review.rental = foundBooking.rental
                 foundBooking.review = review
 
                 try {
@@ -87,7 +104,6 @@ exports.createReview = function(req, res) {
                 } catch(err) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
-
 
             })
 }

@@ -30,11 +30,12 @@ const userSchema = new Schema({
         default_source: { type: String, default: '' }
     },
     rating: Number,
+    description: String,
 
     isVerified: { type: Boolean, default: false },
-    userRole:  { type: String, default: 'User' }, // User, Owner, OEM_Owner
+    userRole:  { type: String, default: "User" }, // User, Owner, OEM_Owner
     
-    rentals: [{ type: Schema.Types.ObjectId, ref: 'Rental' }],
+    rentals: [{ type: Schema.Types.ObjectId, ref: "Rental" }],
     bookings: [{ type: Schema.Types.ObjectId, ref: "Booking" }]
 })
 

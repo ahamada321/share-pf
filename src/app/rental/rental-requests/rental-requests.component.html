@@ -18,22 +18,28 @@
           <div *ngFor="let payment of payments" class='col-md-3 col-xs-6'>
             <!-- <app-rental-requests-list-item [booking]="bookin"></app-rental-requests-list-item> -->
             <div class="card" data-background="declined">
-              <!-- <a routerLink="/rentals/{{booking.rental._id}}"> -->
-                <div class="card-image">
-                  <img class="img" src="{{ payment.booking.rental.image }}">
+              <div class="card-image">
+                <img class="img" src="{{ payment.booking.rental.image }}">
+              </div>
+              <div class="card-body">
+                <label class="label label-warning">{{ payment.booking.rental.province }}</label>
+                <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
+                <div class="card-description">
+                  <div>Revenue: {{payment.ownerRevenue}} JPY</div>
+                  <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
+                  <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
+                  <div>Status: {{payment.status}}</div>
                 </div>
-                <div class="card-body">
-                  <label class="label label-warning">{{ payment.booking.rental.province }}</label>
-                  <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
-                  <div class="card-description">
-                    <div>Revenue: {{payment.ownerRevenue}} JPY</div>
-                    <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
-                    <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
-                    <div>Status: {{payment.status}}</div>
-                    <!-- <hr> -->
+                <div class="card-footer">
+                  <div class="author">
+                    <a href="#pablo">
+                      <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
+                      <span> {{ payment.fromUser.username }}</span>
+                    </a>
                   </div>
                 </div>
-              <!-- </a> -->
+              </div>
+              <hr>
               <div class="card-footer" *ngIf="payment.status === 'pending'">
                 <button class="btn btn-sm btn-danger" (click)="acceptPayment(payment)">Accept</button>
                 <button class="btn btn-sm" (click)="declinePayment(payment)">Decline</button>

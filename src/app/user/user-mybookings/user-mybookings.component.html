@@ -18,28 +18,26 @@
           <div *ngFor="let booking of bookings; let i = index" class='col-md-3 col-xs-6'>
             <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
             <div class="card">
-              <a routerLink="/rentals/{{booking.rental._id}}">
-                <div class="card-image">
-                  <img class="img" src="{{booking.rental.image}}">
-                </div>
-                <div class="card-body">
-                  <label class="label label-warning">{{ booking.rental.province }}</label>
-                  <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
-                  <div class="card-description">
-                    <div>Date：{{ booking.startAt | formatDate }}</div>
-                    <div>Start time ：{{ booking.startAt | formatTime }}</div>
-                    <div>Course time：{{ booking.courseTime }}min</div>
-                    <!-- <hr> -->
+                <a routerLink="/rentals/{{booking.rental._id}}">
+                  <div class="card-image">
+                    <img class="img" src="{{booking.rental.image}}">
                   </div>
+                  <div class="card-body">
+                    <label class="label label-warning">{{ booking.rental.province }}</label>
+                    <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
+                    <div class="card-description">
+                      <div>Date：{{ booking.startAt | formatDate }}</div>
+                      <div>Start time ：{{ booking.startAt | formatTime }}</div>
+                      <div>Course time：{{ booking.courseTime }}min</div>
+                    </div>
+                  </div>
+                </a>
+                <!-- <hr> -->
+                <div class="card-footer">
+                  <button *ngIf="!isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセルする</button>
+                  <!-- <button *ngIf="isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">レビューする</button> -->
+                  <app-review *ngIf="!booking.review && isExpired(booking.startAt)" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler($event, i)"></app-review>  
                 </div>
-              </a>
-              <div class="card-footer">
-
-                <button *ngIf="!isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセルする</button>
-                <!-- <button *ngIf="isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">レビューする</button> -->
-                
-                <!-- <app-review></app-review> -->  
-              </div>
             </div>
           </div>
           </ng-container>

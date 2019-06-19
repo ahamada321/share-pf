@@ -3,6 +3,7 @@
            [latitude]="lat"
            [longitude]="lng"
            [zoom]="15"
+           [scrollwheel]="false"
            style="height: 400px"
            >
     <agm-circle *ngIf="!isPositionError && lat && lng"

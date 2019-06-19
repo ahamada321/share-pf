@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Booking } from 'src/app/rental/rental-booking/services/booking.model';
+import { Review } from 'src/app/common/components/review/service/review.model';
 import { BookingService } from 'src/app/rental/rental-booking/services/booking.service';
 import * as moment from 'moment-timezone';
 import Swal from 'sweetalert2'
@@ -37,10 +38,15 @@ export class UserMyBookingsComponent implements OnInit, OnDestroy {
   }
 
   isExpired(startAt) {
-    return moment(startAt).diff(moment()) < 0 // Attention: just "moment()" is already applied timezone!
+    const timeNow = moment() // Attention: just "moment()" is already applied timezone!
+    return moment(startAt).diff(timeNow) < 0
   }
 
-  deleteBooking(bookingId: string) {
+  reviewHandler(review: Review, index: number) {
+    this.bookings[index]['reviews'] = review
+  }
+
+  private deleteBooking(bookingId: string) {
     this.bookingService.deleteBooking(bookingId).subscribe(
       (deletedBooking) => {
         this.bookings.splice(this.bookingDeleteIndex, 1)

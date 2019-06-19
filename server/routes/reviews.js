@@ -6,7 +6,9 @@ const ReviewCtrl = require('./controllers/review')
 
 
 //refering to ./controllers/review.js
-router.get('', UserCtrl.authMiddleware, ReviewCtrl.getReviews)
+router.get('', ReviewCtrl.getReviews)
+
+router.get('/:id/rating', ReviewCtrl.getRentalRating)
 
 router.post('', UserCtrl.authMiddleware, ReviewCtrl.createReview)
 

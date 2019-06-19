@@ -13,24 +13,25 @@ import { RentalComponent } from './rental.component';
 import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list/rental-list-item/rental-list-item.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
-import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.module';
+import { RentalEditComponent } from './rental-edit/rental-edit.component';
 import { RentalBookingComponent } from './rental-booking/rental-booking.component';
-import { PaymentModule } from '../common/components/payment/payment.module';
 import { RentalManageComponent } from './rental-manage/rental-manage.component';
 import { RentalManageScheduleComponent, TimePickerModal } from './rental-manage/rental-manage-schedule/rental-manage-schedule.component';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
 import { RentalRequestsComponent } from './rental-requests/rental-requests.component';
 import { RentalRevenueComponent } from './rental-revenue/rental-revenue.component';
 // import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
-
-import { EditableModule } from '../common/components/editable/editable.module';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
+
+import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.module';
+import { PaymentModule } from '../common/components/payment/payment.module';
+import { ReviewModule } from '../common/components/review/review.module';
+import { EditableModule } from '../common/components/editable/editable.module';
+import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
 
 import { RentalService } from './service/rental.service';
 import { BookingService } from './rental-booking/services/booking.service';
 import { BookingHelperService } from './rental-booking/services/booking.helper.service';
-import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
-import { RentalEditComponent } from './rental-edit/rental-edit.component';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -78,6 +79,7 @@ const routes: Routes = [{
           ChartsModule,
           GoogleMapsModule,
           PaymentModule,
+          ReviewModule,
           BookingSelecterModule,
           // ImageUploadModule
           FullCalendarModule,
