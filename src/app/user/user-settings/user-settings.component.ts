@@ -69,5 +69,4 @@ export class UserSettingsComponent implements OnInit {
           this.router.navigate(['/rentals', {registered: 'success'}])
         })
     }
-    
 }
