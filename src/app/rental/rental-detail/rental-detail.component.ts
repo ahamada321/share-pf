@@ -8,8 +8,6 @@ import { Booking } from '../rental-booking/services/booking.model';
 import { RentalService } from '../service/rental.service';
 import { ReviewService } from 'src/app/common/components/review/service/review.service';
 import { BookingService } from '../rental-booking/services/booking.service';
-// import { Review } from 'src/app/review/service/review.model';
-// import { ReviewService } from 'src/app/review/service/review.service';
 import { EventInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import * as moment from 'moment-timezone'
@@ -41,8 +39,6 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
     calendarBusinessHours: EventInput[] = []
 
     headerOffset: number = 75; // want to replace like DEFINE HEADER_OFFSET
-    
-    // reviews: Review[] = []
 
     constructor(private route: ActivatedRoute,
                 private rentalService: RentalService,
@@ -86,8 +82,8 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
           this.rental = rental;
           this.initBusinessHours()
           this.initEvents()
-          this.getAvgRating(rental._id)
-          this.getReviews(rental._id)
+          // this.getAvgRating(rental._id)
+          // this.getReviews(rental._id)
         }
       )
     }
