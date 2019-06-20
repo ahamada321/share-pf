@@ -9,6 +9,7 @@ const rentalSchema = new Schema({
 
     category: String,
     rentalname: { type: String, required: true, max: [128, 'Too long, max is 128 characters.']},
+    lineworksURL: String,
     age: Number,
     height: Number,
     bust: { type: String, required: true },

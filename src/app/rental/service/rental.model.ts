@@ -10,6 +10,7 @@ export class Rental {
     shared: Boolean;
 
     rentalname: string;
+    lineworksURL: string;
     age: number;
     height: string;
     bust: string;
