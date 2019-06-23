@@ -16,6 +16,9 @@ import { LandingComponent } from './landing/landing.component';
 import { Page404Component } from './page404/page404.component';
 import { TermsOfServiceComponent } from './terms-service/terms-service.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { FAQComponent } from './faq/faq.component';
+import { ContactFormComponent } from './contactform/contactform.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +29,9 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     LandingComponent,
     Page404Component,
     TermsOfServiceComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    FAQComponent,
+    ContactFormComponent
   ],
   imports: [
     HttpClientModule,
@@ -35,7 +40,9 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     AppRoutingModule,
     RouterModule,
     NgbModule.forRoot(),
-    AuthModule
+    AuthModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

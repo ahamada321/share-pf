@@ -12,6 +12,8 @@ import { PresentationComponent } from './presentation/presentation.component';
 import { Page404Component } from './page404/page404.component';
 import { TermsOfServiceComponent } from './terms-service/terms-service.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { FAQComponent } from './faq/faq.component';
+import { ContactFormComponent } from './contactform/contactform.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'presentation',         component: PresentationComponent },
   { path: 'terms',         component: TermsOfServiceComponent },
   { path: 'privacy',         component: PrivacyPolicyComponent },
+  { path: 'faq',         component: FAQComponent },
+  { path: 'contactform',         component: ContactFormComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   // { path: '**', component: Page404Component }
 ];

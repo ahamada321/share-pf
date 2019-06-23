@@ -1,0 +1,57 @@
+<div class="wrapper">
+    <div class="page-header page-header-xs settings-background" style="background-image: url('./assets/img/joshua-earlez.jpg')">
+        <div class="filter"></div>
+        <div class="container">
+            <div class="space-50"></div>
+            <div class="motto text-center">
+                <h2>よくある質問</h2>
+                <h3>Freequently asked questions.</h3>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="space-top"></div>
+        <ngb-accordion #acc="ngbAccordion" activeIds="config-panel-one">
+            <ngb-panel id="config-panel-one">
+                <ng-template ngbPanelTitle>
+                    <h5 class="mb-0 panel-title">
+                        <a class="collapsed">
+                            質問１
+                            <i class="nc-icon nc-minimal-down"></i>
+                        </a>
+                    </h5>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    今後、問い合わせフォームよりいただきました質問から、頻繁にいただく内容を追加していきます。
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel>
+                <ng-template ngbPanelTitle>
+                    <h5 class="mb-0 panel-title">
+                        <a class="collapsed">
+                            質問２
+                            <i class="nc-icon nc-minimal-down"></i>
+                        </a>
+                    </h5>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    今後、問い合わせフォームよりいただきました質問から、頻繁にいただく内容を追加していきます。
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel>
+                <ng-template ngbPanelTitle>
+                    <h5 class="mb-0 panel-title">
+                        <a class="collapsed">
+                            質問３
+                            <i class="nc-icon nc-minimal-down"></i>
+                        </a>
+                    </h5>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    今後、問い合わせフォームよりいただきました質問から、頻繁にいただく内容を追加していきます。
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+</div>
