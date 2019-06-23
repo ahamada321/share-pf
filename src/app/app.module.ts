@@ -19,6 +19,10 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { FAQComponent } from './faq/faq.component';
 import { ContactFormComponent } from './contactform/contactform.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PartnershipComponent } from './partnership/partnership.component';
+import { UserguideComponent } from './userguide/userguide.component';
+import { UsersVoiceComponent } from './usersvoice/usersvoice.component';
+import { ResultsComponent } from './results/results.component';
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TermsOfServiceComponent,
     PrivacyPolicyComponent,
     FAQComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    PartnershipComponent,
+    UserguideComponent,
+    UsersVoiceComponent,
+    ResultsComponent
   ],
   imports: [
     HttpClientModule,

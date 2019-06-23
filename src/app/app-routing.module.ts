@@ -14,16 +14,24 @@ import { TermsOfServiceComponent } from './terms-service/terms-service.component
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { FAQComponent } from './faq/faq.component';
 import { ContactFormComponent } from './contactform/contactform.component';
+import { PartnershipComponent } from './partnership/partnership.component';
+import { UserguideComponent } from './userguide/userguide.component';
+import { UsersVoiceComponent } from './usersvoice/usersvoice.component';
+import { ResultsComponent } from './results/results.component';
 
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'landing',          component: LandingComponent },
-  { path: 'presentation',         component: PresentationComponent },
-  { path: 'terms',         component: TermsOfServiceComponent },
-  { path: 'privacy',         component: PrivacyPolicyComponent },
-  { path: 'faq',         component: FAQComponent },
-  { path: 'contactform',         component: ContactFormComponent },
+  { path: 'home',         component: HomeComponent },
+  { path: 'landing',      component: LandingComponent },
+  { path: 'presentation', component: PresentationComponent },
+  { path: 'terms',        component: TermsOfServiceComponent },
+  { path: 'privacy',      component: PrivacyPolicyComponent },
+  { path: 'faq',          component: FAQComponent },
+  { path: 'contactform',  component: ContactFormComponent },
+  { path: 'partnership',  component: PartnershipComponent },
+  { path: 'userguide',  component: UserguideComponent },
+  { path: 'usersvoice',  component: UsersVoiceComponent },
+  { path: 'results',  component: ResultsComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   // { path: '**', component: Page404Component }
 ];
