@@ -5,12 +5,12 @@ export class Rental {
 
     static readonly CATEGORIES = ["カテゴリ1", "カテゴリ2"]
     _id: string;
+    shared: Boolean;
     lastLogin: string;
     createdAt: string;
-    shared: Boolean;
+    lineworksURL: string;
 
     rentalname: string;
-    lineworksURL: string;
     age: number;
     height: string;
     bust: string;
@@ -18,6 +18,16 @@ export class Rental {
 
     province: string;
     nearStation: string;
+
+    hourlyPrice: number;
+    cardDescription
+    headlinedescription1: string;
+    headlinedescription2: string;
+    description: string;
+    course60img: string;
+    course90img: string;
+    course60Description: string;
+    course90Description: string;
 
     image: string;
     image2: string;
@@ -27,11 +37,6 @@ export class Rental {
     gallery4: string;
     gallery5: string;
     video: string;
-
-    hourlyPrice: number;
-    description: string;
-    headlinedescription1: string;
-    headlinedescription2: string;
 
     businesshour_enabled_sun: boolean
     businesshour_startTime_sun: NgbTimeStruct

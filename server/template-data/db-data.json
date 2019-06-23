@@ -1,40 +1,46 @@
 {
     "rentals": [
         {
+            "shared": true,
             "lastLogin": "2018/11/30",
             "createdAt": "2018/11/10",
-
-            "rentalname": "Higuchi",
             "lineworksURL": "https://works.do/R/ti/p/ahamada321@aerume",
+
+            "rentalname": "Nanami",
             "age": 18,
             "height": "148",
             "bust": "C-cup",
             "weight": "標準的",
-            "image": "assets/img/trainers/higuchi.jpg",
-            "image2": "assets/img/trainers/higuchi2.jpg",
-            "gallery": "assets/img/trainers/higuchi-g1.jpg",
-            "gallery2": "assets/img/trainers/higuchi-g2.jpg",
-            "gallery3": "assets/img/trainers/higuchi-g3.jpg",
-            "gallery4": "assets/img/trainers/higuchi-g4.jpg",
-            "gallery5": "assets/img/trainers/higuchi-g5.jpg",
+            "image": "assets/img/trainers/nanami1.jpg",
+            "image2": "assets/img/trainers/nanami1.jpg",
+            "gallery": "assets/img/trainers/nanami3.jpg",
+            "gallery2": "assets/img/trainers/nanami4.jpg",
+            "gallery3": "assets/img/trainers/nanami5.jpg",
+            "gallery4": "assets/img/trainers/nanami6.jpg",
+            "gallery5": "assets/img/trainers/nanami7.jpg",
             "video": "",
 
             "province": "東京",
             "nearStation": "新宿",
             "hourlyPrice": 54000,
-            "description": "プロゴルファー",
-            "headlinedescription1": "2016年プロテストに合格しPGAトーナメントプレイヤーの資格を取得。",
-            "headlinedescription2": "実績・経歴などのアピールをこの欄で行えます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
-                            
-            "rating": 4,
-            "shared": true
+            "cardDescription": "ロシアと日本のハーフです",
+            "description": "20歳です。エマワトソンに似てるってよく言われます笑　ロシアと日本のハーフで韓国育ちです。英語は全く話せません。",
+            "headlinedescription1": "",
+            "headlinedescription2": "",
+            "course60img": "assets/img/course/cafe.jpg",
+            "course90img": "assets/img/course/dating.jpg",
+            "course60Description": "お茶したりしながらお話したり、デートができるコースです。初めての方や、時間が限られている方にお勧めのコースです。",
+            "course90Description": "一緒に買い物に行ったり、食事したりできるコースです。時間に余裕のあるのでリピーターにもお勧めのコースです。",
+            "rating": 4
         },
         {
+            "shared": true,
             "lastLogin": "2018/11/30",
             "createdAt": "2018/11/10",
+            "lineworksURL": "https://works.do/R/ti/p/ahamada321@aerume",
+
 
             "rentalname": "Kohiruimaki",
-            "lineworksURL": "https://works.do/R/ti/p/ahamada321@aerume",
             "age": 18,
             "height": "148",
             "bust": "C-cup",
@@ -51,20 +57,23 @@
             "province": "東京",
             "nearStation": "新宿",
             "hourlyPrice": 54000,
+            "cardDescription": "プロキックボクサー",
             "description": "プロキックボクサー",
             "headlinedescription1": "青森県三沢市出身。三沢市観光大使。千葉県テコンドー協会副会長。 小比類巻道場会長。元ISKAオリエンタル世界スーパーウェルター級チャンピオン。K-1 WORLD MAX 2004,2005,2009 日本チャンピオン。",
             "headlinedescription2": "実績・経歴などのアピールをこの欄で行えます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
-
-                            
-            "rating": 4,
-            "shared": true
+            "course60img": "assets/img/gallery-sample/training1.jpg",
+            "course90img": "assets/img/gallery-sample/training2.jpg",
+            "course60Description": "自慢の60minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
+            "course90Description": "自慢の90minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
+            "rating": 4
         },
         {
+            "shared": true,
             "lastLogin": "2018/11/30",
             "createdAt": "2018/11/10",
+            "lineworksURL": "https://works.do/R/ti/p/ahamada321@aerume",
 
             "rentalname": "Rokutan",
-            "lineworksURL": "https://works.do/R/ti/p/ahamada321@aerume",
             "age": 18,
             "height": "148",
             "bust": "C-cup",
@@ -81,20 +90,23 @@
             "province": "東京",
             "nearStation": "新宿",
             "hourlyPrice": 54000,
+            "cardDescription": "プロゴールキーパー",
             "description": "プロゴールキーパー",
             "headlinedescription1": "六反は1987年生まれの31歳。熊本国府高校から2006年にアビスパ福岡に加入した。2012年には横浜F・マリノスへ移籍し、3年間に渡ってプレー。2015年からベガルタ仙台に所属し、2017年に清水へ完全移籍で加入した。",
             "headlinedescription2": "実績・経歴などのアピールをこの欄で行えます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
-
-                            
-            "rating": 4,
-            "shared": true
+            "course60img": "assets/img/gallery-sample/training1.jpg",
+            "course90img": "assets/img/gallery-sample/training2.jpg",
+            "course60Description": "自慢の60minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
+            "course90Description": "自慢の90minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",        
+            "rating": 4
         },
         {
+            "shared": true,
             "lastLogin": "2018/11/30",
             "createdAt": "2018/11/10",
+            "lineworksURL": "https://works.do/R/ti/p/ahamada321@aerume",
 
             "rentalname": "Yamazaki",
-            "lineworksURL": "https://works.do/R/ti/p/ahamada321@aerume",
             "age": 18,
             "height": "148",
             "bust": "C-cup",
@@ -111,13 +123,15 @@
             "province": "東京",
             "nearStation": "新宿",
             "hourlyPrice": 54000,
+            "cardDescription": "プロパーソナルトレーナー",
             "description": "プロパーソナルトレーナー",
             "headlinedescription1": "青森県三沢市出身。三沢市観光大使。千葉県テコンドー協会副会長。 小比類巻道場会長。元ISKAオリエンタル世界スーパーウェルター級チャンピオン。K-1 WORLD MAX 2004,2005,2009 日本チャンピオン。",
             "headlinedescription2": "実績・経歴などのアピールをこの欄で行えます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
-
-                            
-            "rating": 4,
-            "shared": true
+            "course60img": "assets/img/gallery-sample/training1.jpg",
+            "course90img": "assets/img/gallery-sample/training2.jpg",
+            "course60Description": "自慢の60minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",
+            "course90Description": "自慢の90minレッスンの具体的な内容をここで紹介できます。サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章　サンプル文章",     
+            "rating": 4
         }
     ],
     "users": [

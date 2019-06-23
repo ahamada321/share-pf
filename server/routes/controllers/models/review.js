@@ -6,6 +6,7 @@ const ALLOWED_RATING = [1, 2, 3, 4, 5]
 const reviewSchema = new Schema({
     rating: Number,
     comment: String,
+    approved: { type: Boolean, default: false },
     cretatedAt: { type: Date, default: Date.now },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     rental: { type: Schema.Types.ObjectId, ref: "Rental" }

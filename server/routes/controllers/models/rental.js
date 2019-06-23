@@ -5,11 +5,22 @@ const Schema = mongoose.Schema;
 const rentalSchema = new Schema({
     lastLogin: { type: Date, default: Date.now },
     createdAt: { type: Date, default: Date.now },
+    shared: { type: Boolean, default: true },
+    lineworksURL: String,
     rating: Number,
 
     category: String,
     rentalname: { type: String, required: true, max: [128, 'Too long, max is 128 characters.']},
-    lineworksURL: String,
+    cardDescription: { type: String, required: true, lowercase: true },
+    headlinedescription1: { type: String, lowercase: true },
+    headlinedescription2: { type: String, lowercase: true },
+    description: { type: String, required: true, lowercase: true },
+    course60img: String,
+    course90img: String,
+    course60Description: { type: String, required: true, lowercase: true },
+    course90Description: { type: String, required: true, lowercase: true },
+
+    
     age: Number,
     height: Number,
     bust: { type: String, required: true },
@@ -22,13 +33,10 @@ const rentalSchema = new Schema({
     gallery4: { type: String, required: true },
     gallery5: { type: String, required: true },
     video: { type: String },
-    province: {type: String, required: true, lowercase: true },
-    nearStation: {type: String, required: true, lowercase: true },
+    province: { type: String, required: true, lowercase: true },
+    nearStation: { type: String, required: true, lowercase: true },
     hourlyPrice: Number,
-    description: { type: String, required: true, lowercase: true },
-    headlinedescription1: { type: String, required: true, lowercase: true },
-    headlinedescription2: { type: String, required: true, lowercase: true },
-    shared: Boolean,
+    
 
     businesshour_enabled_sun: { type: Boolean, default: true },
     businesshour_startTime_sun: { hour: {type: Number, default: 10}, minute: {type: Number, default: 0}, second: {type: Number, default: 0} },
