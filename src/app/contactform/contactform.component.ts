@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contactform } from './service/contactform.model';
 import { ContactformService } from './service/contactform.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -51,7 +51,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
 
-  sendMessage(contactForm: NgForm) {
+  sendMessage(contactForm) {
     this.contactformService.sendFormMsg(contactForm.value).subscribe(
       (Message) => {
         contactForm.reset()
