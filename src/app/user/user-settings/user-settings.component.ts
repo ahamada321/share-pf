@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../service/user.model';
 import Swal from 'sweetalert2'
 
 
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./user-settings.component.scss']
 })
 export class UserSettingsComponent implements OnInit {
-    userData: any
+    userData: User
     state_info = true;
     state_info1 = true;
     third_switch = true;
@@ -60,7 +61,7 @@ export class UserSettingsComponent implements OnInit {
     private showSwalSuccess() {
         Swal.fire({
             // title: 'User infomation has been updated!',
-            text: 'User infomation has been updated!',
+            text: 'ユーザー情報が更新されました！',
             type: 'success',
             confirmButtonClass: "btn btn-primary btn-round btn-lg",
             buttonsStyling: false,

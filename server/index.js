@@ -11,6 +11,7 @@ const userRoutes = require('./routes/users')
 const bookingRoutes = require('./routes/bookings')
 const paymentRoutes = require('./routes/payments')
 const reviewRoutes = require('./routes/reviews')
+const contactformRoutes = require('./routes/contactforms')
 const imageUploadRoutes = require('./routes/image-upload')
 
 mongoose.connect(
@@ -36,6 +37,7 @@ app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/bookings', bookingRoutes)
 app.use('/api/v1/payments', paymentRoutes)
 app.use('/api/v1/reviews', reviewRoutes)
+app.use('/api/v1/contactforms', contactformRoutes)
 app.use('/api/v1', imageUploadRoutes)
 
 

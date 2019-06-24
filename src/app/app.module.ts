@@ -35,7 +35,6 @@ import { ResultsComponent } from './results/results.component';
     TermsOfServiceComponent,
     PrivacyPolicyComponent,
     FAQComponent,
-    ContactFormComponent,
     PartnershipComponent,
     UserguideComponent,
     UsersVoiceComponent,

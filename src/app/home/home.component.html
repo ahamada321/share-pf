@@ -30,9 +30,21 @@
         <div class="section section-dark section-summary">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
+                    <div class="col-md-9 ml-auto mr-auto text-center">
                         <h2 class="title">今までにない新しい挑戦</h2>
-                        <p class="description">The kit comes with three pre-built pages to help you get started faster. You can change the text and images and you're good to go. More importantly, looking at them will give you a picture of what you can built with this powerful kit.</p>
+                        <p class="description">
+                            ITの飛躍的な進歩により個人と個人が繋がれるようになった現代。
+                            <br><br>
+                            今までは安心して「サービス」を受けれる為に「会社」が従業員を教育し「品質を担保」してきました。
+                        </p>
+                        <h3 class="title">これからは違います</h3>
+                        <p class="description">
+                            埋もれている「個人」が努力し提供するサービスを「今」だからこそ利用者から直接フィードバックを受けれます。
+                            <br><br>
+                            「個人」に評価され、それが「個人」の信用・ブランドになります。
+                            努力している「個人」が最大限報われて評価される環境を、
+                            私たちは提供する努力を惜しみません。
+                        </p>
                     </div>
                 </div>
                 <div class="space-top"></div>
@@ -53,8 +65,8 @@
                                 <i class="nc-icon nc-layout-11"></i>
                             </div>
                             <div class="description">
-                                <h4 class="info-title"> Huge Number of Components </h4>
-                                <p>The kit comes with components designed to look perfect together. All components fit perfectly with each other.</p>
+                                <h4 class="info-title"> 登録は簡単 </h4>
+                                <p>FacebookまたはEメールで簡単に登録でき、通知はEメールに届きます.</p>
                             </div>
                         </div>
                     </div>
@@ -65,8 +77,8 @@
                                 <i class="nc-icon nc-tile-56"></i>
                             </div>
                             <div class="description">
-                                <h4 class="info-title"> Multi-Purpose Sections </h4>
-                                <p>The sections will help you generate pages in no time. From team presentation to pricing options, you can easily customise and built your examples.</p>
+                                <h4 class="info-title"> 予約も簡単 </h4>
+                                <p>トレーナーのスケジュールを確認し、最短わずか４クリックで予約完了します.</p>
                             </div>
                         </div>
                     </div>
@@ -77,8 +89,8 @@
                                 <i class="nc-icon nc-paper"></i>
                             </div>
                             <div class="description">
-                                <h4 class="info-title"> Example Pages </h4>
-                                <p>Speed up your development time or get inspired with the large number of example pages. You can jump start your development with our pre-built example pages.</p>
+                                <h4 class="info-title"> 相互レビューで安心 </h4>
+                                <p>サービスを提供する側、利用する側も双方で評価ができ、評価が高くなるほど優遇される環境です.</p>
                             </div>
                         </div>
                     </div>
@@ -91,13 +103,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
-                        <h2 class="title">Professional Trainers</h2><br/>
+                        <h2 class="title">Professional Trainers</h2>
                         <p class="description">
-                            Now UI Kit comes with 100 custom icons made by our friends from NucleoApp. The official package contains over 2.100 thin icons which are looking great in combination with Now UI Kit Make sure you check all of them and use those that you like the most.
+                            選ばれし優秀なトレーナーたちはこちらからご確認いただけます. 
+                            しばらくは厳しい審査をくぐり抜けたトレーナーのみの掲載となりますが、
+                            将来的には、チャレンジしたい人にオープンな環境にしていく予定です.
                         </p><br/>
-                        <a [routerLink]="['/rentals']" class="btn btn-danger btn-round btn-lg">Go and see Professional Trainers !</a>
+                        <a [routerLink]="['/rentals']" class="btn btn-danger btn-round btn-lg">Trainersを見に行く！</a>
+                        <div class="space-top"></div>
                     </div>
-
                     <div class="col-lg-6 col-md-12">
                         <div class="icons-container">
                             <i class="nc-icon nc-time-alarm"></i>
@@ -124,8 +138,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">Completed with examples</h2>
-                        <p class="description">The kit comes with three pre-built pages to help you get started faster. You can change the text and images and you're good to go. More importantly, looking at them will give you a picture of what you can built with this powerful kit.</p>
+                        <h2 class="title">Become members</h2>
+                        <p class="description">メンバー登録はこちらから簡単に行えます.</p>
                     </div>
                 </div>
             </div>
@@ -214,9 +228,9 @@
                                 <a routerLink="/login" class="btn btn-link btn-danger">Already have an account?</a>
                             </div>
                         </div>
-                        <div class="col text-center" routerLinkActive="active">
+                        <!-- <div class="col text-center" routerLinkActive="active">
                             <a [routerLink]="['/login']" class="btn btn-outline-neutral btn-round btn-lg">Go to Login</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -244,10 +258,13 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">Become Personal Trainer?</h2>
-                        <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
+                        <h2 class="title">トレーナーになりたいですか？</h2>
+                        <p class="description">
+                            現在はクローズド期間の為、まだオープンにはトレーナー登録ができません.<br>
+                            ご希望の方は問い合わせフォームよりお問い合わせください.
+                        </p>
                         <br>
-                        <a routerLink="/register" class="btn btn-warning btn-round btn-lg">Become Personal Trainer</a>
+                        <a routerLink="/contactform" class="btn btn-warning btn-round btn-lg">Request to become Trainer</a>
                     </div>
                 </div>
                 <!-- <div class="row justify-content-md-center sharing-area text-center">

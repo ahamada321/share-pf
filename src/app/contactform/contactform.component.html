@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="page-header page-header-xs settings-background" style="background-image: url('./assets/img/joshua-earlez.jpg')">
+    <div class="page-header page-header-xs settings-background" style="background-image: url('./assets/img/top-banner-half.jpg')">
         <div class="filter"></div>
         <div class="container">
             <div class="space-50"></div>
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-8 mr-auto ml-auto">
                 <!-- <h2 class="text-center">Keep in touch?</h2> -->
-                <form class="contact-form" #contactForm="ngForm" (ngSubmit)="sendMessage(formData)">
+                <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="sendMessage(contactForm)">
                     <div class="row">
                         <div class="col-md-6">
                             <label>Name</label>
@@ -23,7 +23,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
                                 </div>
-                                <input (ngModel)="formData.username"
+                                <input formControlName="username"
                                         type="username" 
                                         name="username"
                                         id="username"
@@ -40,7 +40,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">  <i class="nc-icon nc-email-85"></i></span>
                                 </div>
-                                <input (ngModel)="formData.email"
+                                <input formControlName="email"
                                         type="email" 
                                         name="email"
                                         id="email"
@@ -54,18 +54,34 @@
                     </div>
                     <div class="form-group">
                         <label>Message</label>
-                        <textarea (ngModel)="formData.massage"
+                        <textarea formControlName="msg"
                                   type="text"
-                                  name="message"
-                                  id="massage"
+                                  name="msg"
+                                  id="msg"
                                   class="form-control" 
                                   rows="4" 
-                                  placeholder="Tell us your thoughts and feelings..." ></textarea>
+                                  placeholder="お問い合わせ内容を入力..." ></textarea>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8 mr-auto ml-auto">
-                            <button [disabled]="!contactForm.valid" class="btn btn-danger btn-lg btn-fill" type="submit" >Send Message (Not working yet)</button>
+                    <div *ngIf="isInvlidForm('username')" class="alert alert-danger">
+                        <div *ngIf="contactForm.controls['username'].errors.required">
+                            名前は必須です.
                         </div>
+                    </div>
+                    <div *ngIf="isInvlidForm('email')" class="alert alert-danger">
+                        <div *ngIf="contactForm.controls['email'].errors.required">
+                            Emailは必須です.
+                        </div>
+                        <div *ngIf="contactForm.controls['email'].errors.pattern">
+                            Emailを正しく入力してください.
+                        </div>
+                    </div>
+                    <div *ngIf="isInvlidForm('msg')" class="alert alert-danger">
+                        <div *ngIf="contactForm.controls['msg'].errors.required">
+                            メッセージを入力してください.
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button [disabled]="!contactForm.valid" type="submit" class="btn btn-warning btn-lg">Send Message</button>
                     </div>
                 </form>
             </div>

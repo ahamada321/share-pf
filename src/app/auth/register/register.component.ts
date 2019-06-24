@@ -4,7 +4,7 @@ import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider } from "angularx-social-login";
 import { HttpErrorResponse } from '@angular/common/http'
 import { Router } from '@angular/router'
-import { User } from 'src/app/user/services/user.model';
+import { User } from 'src/app/user/service/user.model';
 
 
 @Component({

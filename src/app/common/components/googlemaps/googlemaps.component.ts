@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { GoogleMapsService } from './services/googlemaps.service';
+import { GoogleMapsService } from './service/googlemaps.service';
 
 
 @Component({

@@ -66,9 +66,9 @@ exports.auth = function(req, res) {
 
     if(!password || !email) {
         return res.status(422).send({errors: [{title: "Data missing!", detail: "Provide email and password!"}]})
-     }
+    }
 
-     User.findOne({email}, function(err, user) {
+    User.findOne({email}, function(err, user) {
         if(err) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
         }
@@ -88,7 +88,7 @@ exports.auth = function(req, res) {
               }, config.SECRET, { expiresIn: '24h' })
 
             return res.json(token)
-
+            
         } else {
             return res.status(422).send({errors: [{title: "Invalid Data!", detail: "Wrong email or password!"}]})
         }

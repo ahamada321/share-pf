@@ -17,7 +17,6 @@ exports.getReviews = function(req, res) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
                 return res.json(foundReviews)
-
             })
 }
 
@@ -104,6 +103,5 @@ exports.createReview = function(req, res) {
                 } catch(err) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
-
             })
 }

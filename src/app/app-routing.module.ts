@@ -18,6 +18,7 @@ import { PartnershipComponent } from './partnership/partnership.component';
 import { UserguideComponent } from './userguide/userguide.component';
 import { UsersVoiceComponent } from './usersvoice/usersvoice.component';
 import { ResultsComponent } from './results/results.component';
+import { ContactformModule } from './contactform/contactform.module';
 
 
 const routes: Routes = [
@@ -43,7 +44,8 @@ const routes: Routes = [
     HomeModule,
     RentalModule,
     UserModule,
-    PresentationModule
+    PresentationModule,
+    ContactformModule
   ],
   exports: [RouterModule]
 })

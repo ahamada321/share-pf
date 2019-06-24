@@ -20,7 +20,6 @@ export class RentalCreateComponent implements OnInit {
   ngOnInit() {
     this.newRental = new Rental()
     this.newRental.image = "assets/images/image_placeholder.jpg"
-    this.newRental.shared = false
 
   }
 

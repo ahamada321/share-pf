@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { CamelizePipe } from 'ngx-pipes'
 import { GoogleMapsComponent } from './googlemaps.component';
-import { GoogleMapsService } from './services/googlemaps.service';
+import { GoogleMapsService } from './service/googlemaps.service';
 import { environment } from 'src/environments/environment';
 
 
