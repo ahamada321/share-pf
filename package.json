@@ -33,7 +33,7 @@
     "@fullcalendar/daygrid": "^4.1.0",
     "@fullcalendar/interaction": "^4.1.0",
     "@fullcalendar/timegrid": "^4.1.0",
-    "@ng-bootstrap/ng-bootstrap": "^4.1.2",
+    "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "@sendgrid/mail": "^6.4.0",
     "@sweetalert2/ngx-sweetalert2": "^5.0.3",
     "@types/jquery": "^3.3.29",
