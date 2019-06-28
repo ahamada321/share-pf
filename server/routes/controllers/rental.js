@@ -25,7 +25,8 @@ exports.getRentalById = function(req, res) {
 }
 
 exports.getRentals = function(req, res) {
-    Rental.find({})
+    // Rental.find({})
+    Rental.where({shared: true})
           .select('-bookings')
           .exec(function(err, foundRentals){
             res.json(foundRentals)
