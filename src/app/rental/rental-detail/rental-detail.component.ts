@@ -83,7 +83,7 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
           this.initBusinessHours()
           this.initEvents()
           // this.getAvgRating(rental._id)
-          // this.getReviews(rental._id)
+          this.getReviews(rental._id)
         }
       )
     }

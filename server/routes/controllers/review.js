@@ -11,6 +11,8 @@ exports.getReviews = function(req, res) {
 
     Review.find({'rental': rentalId})
             .populate('user', '-password')
+            .sort({ "cretatedAt": -1})
+            .limit(3)
             .exec((err, foundReviews) => {
 
                 if(err){

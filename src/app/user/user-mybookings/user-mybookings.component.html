@@ -41,7 +41,7 @@
                   <br>
                   <button *ngIf="!isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセルする</button>
                   <!-- <button *ngIf="isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">レビューする</button> -->
-                  <app-review *ngIf="!booking.review && isExpired(booking.startAt)" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler($event, i)"></app-review>  
+                  <app-review *ngIf="!booking.review && isExpired(booking.startAt)" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>  
                 </div>
             </div>
           </div>

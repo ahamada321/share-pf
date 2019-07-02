@@ -30,7 +30,6 @@ export class ReviewComponent implements OnInit {
   }
 
   confirmReview() {
-    debugger
     this.reviewService.createReview(this.review, this.bookingId).subscribe(
       (review: Review) => {
         this.modalRef.close()

@@ -42,14 +42,14 @@ export class UserMyBookingsComponent implements OnInit, OnDestroy {
     return moment(startAt).diff(timeNow) < 0
   }
 
-  reviewHandler(review: Review, index: number) {
-    this.bookings[index]['reviews'] = review
+  reviewHandler(index: number, review: Review) {
+    this.bookings[index]['review'] = review // Update Frontend
   }
 
   private deleteBooking(bookingId: string) {
     this.bookingService.deleteBooking(bookingId).subscribe(
       (deletedBooking) => {
-        this.bookings.splice(this.bookingDeleteIndex, 1)
+        this.bookings.splice(this.bookingDeleteIndex, 1) // Update Frontend
         this.showSwalSuccess()
       },
       (err) => { }
