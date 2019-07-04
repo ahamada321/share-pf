@@ -1,0 +1,90 @@
+<div class="wrapper">
+    <div class="page-header page-header-xs settings-background" style="background-image: url('./assets/img/top-banner-half.jpg')">
+        <div class="filter"></div>
+        <div class="container">
+            <div class="space-50"></div>
+            <div class="motto text-center">
+                <h2>お問い合わせ</h2>
+                <h3>お問い合わせ内容を入力してください.</h3>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="space-top"></div>
+        <div class="row">
+            <div class="col-md-8 mr-auto ml-auto">
+                <!-- <h2 class="text-center">Keep in touch?</h2> -->
+                <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="sendMessage(contactForm)">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Name</label>
+                            <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
+                                </div>
+                                <input formControlName="username"
+                                        type="username" 
+                                        name="username"
+                                        id="username"
+                                        class="form-control" 
+                                        placeholder="Name" 
+                                        (focus)="focus=true" 
+                                        (blur)="focus=false"
+                                        required >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email</label>
+                            <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">  <i class="nc-icon nc-email-85"></i></span>
+                                </div>
+                                <input formControlName="email"
+                                        type="email" 
+                                        name="email"
+                                        id="email"
+                                        class="form-control" 
+                                        placeholder="Email" 
+                                        (focus)="focus1=true" 
+                                        (blur)="focus1=false"
+                                        required >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea formControlName="msg"
+                                  type="text"
+                                  name="msg"
+                                  id="msg"
+                                  class="form-control" 
+                                  rows="4" 
+                                  placeholder="お問い合わせ内容を入力..." ></textarea>
+                    </div>
+                    <div *ngIf="isInvlidForm('username')" class="alert alert-danger">
+                        <div *ngIf="contactForm.controls['username'].errors.required">
+                            名前は必須です.
+                        </div>
+                    </div>
+                    <div *ngIf="isInvlidForm('email')" class="alert alert-danger">
+                        <div *ngIf="contactForm.controls['email'].errors.required">
+                            Emailは必須です.
+                        </div>
+                        <div *ngIf="contactForm.controls['email'].errors.pattern">
+                            Emailを正しく入力してください.
+                        </div>
+                    </div>
+                    <div *ngIf="isInvlidForm('msg')" class="alert alert-danger">
+                        <div *ngIf="contactForm.controls['msg'].errors.required">
+                            メッセージを入力してください.
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button [disabled]="!contactForm.valid" type="submit" class="btn btn-danger btn-round btn-lg">送信する</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

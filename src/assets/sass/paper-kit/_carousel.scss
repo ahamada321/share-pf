@@ -88,7 +88,8 @@
     bottom: 0px;
 }
 .carousel-indicators li{
-    background-color: $white-color;
+    // background-color: $white-color;
+    background-color: rgba(204, 204, 204, 0.49);
     border: 0 none;
 }
 .carousel-indicators .active{
