@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
-import { HomeComponent } from './static-page/home/home.component';
-import { LandingComponent } from './static-page/landing/landing.component';
+import { AuthModule } from './auth/auth.module';
 import { RentalModule } from './rental/rental.module';
 import { UserModule } from './user/user.module';
 
 import { PresentationModule } from './static-page/presentation/presentation.module';
 import { HomeModule } from './static-page/home/home.module';
+import { HomeComponent } from './static-page/home/home.component';
+import { LandingComponent } from './static-page/landing/landing.component';
 import { PresentationComponent } from './static-page/presentation/presentation.component';
 import { Page404Component } from './static-page/page404/page404.component';
 import { TermsOfServiceComponent } from './static-page/terms-service/terms-service.component';
@@ -47,6 +49,9 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     SweetAlert2Module.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    AuthModule,
     HomeModule,
     RentalModule,
     UserModule,

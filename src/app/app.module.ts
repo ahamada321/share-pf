@@ -10,13 +10,11 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { FooterComponent } from './common/footer/footer.component';
-import { AuthModule } from './auth/auth.module';
 import { LandingComponent } from './static-page/landing/landing.component';
 import { Page404Component } from './static-page/page404/page404.component';
 import { TermsOfServiceComponent } from './static-page/terms-service/terms-service.component';
 import { PrivacyPolicyComponent } from './static-page/privacy-policy/privacy-policy.component';
 import { FAQComponent } from './static-page/faq/faq.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PartnershipComponent } from './static-page/partnership/partnership.component';
 import { UserguideComponent } from './static-page/userguide/userguide.component';
 import { UsersVoiceComponent } from './static-page/usersvoice/usersvoice.component';
@@ -47,9 +45,6 @@ import { AboutUsComponent } from './static-page/aboutus/aboutus.component';
     AppRoutingModule,
     RouterModule,
     NgbModule.forRoot(),
-    AuthModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
