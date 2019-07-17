@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { Review } from './service/review.model';
 import { ReviewService } from './service/review.service';
 import { SwalPartialTargets } from '@sweetalert2/ngx-sweetalert2';
-import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-review',

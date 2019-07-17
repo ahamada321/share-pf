@@ -12,7 +12,6 @@ import Swal from 'sweetalert2'
   styleUrls: ['./user-mybookings.component.scss']
 })
 export class UserMyBookingsComponent implements OnInit, OnDestroy {
-
   bookings: Booking[] = []
   bookingDeleteIndex: number = undefined
 
