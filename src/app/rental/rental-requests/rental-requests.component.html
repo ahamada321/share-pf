@@ -15,7 +15,7 @@
       <div class="container">
         <div class="row">
           <ng-container *ngIf="payments && payments.length > 0">
-          <div *ngFor="let payment of payments" class='col-md-3 col-xs-6'>
+          <div *ngFor="let payment of payments; let i = index" class='col-md-3 col-xs-6'>
             <!-- <app-rental-requests-list-item [booking]="bookin"></app-rental-requests-list-item> -->
             <div class="card" data-background="declined">
               <div class="card-image">
@@ -30,22 +30,33 @@
                   <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
                   <div>Status: {{ payment.booking.status }}</div>
                 </div>
-                <div class="card-footer">
-                  <div class="author">
-                    <a href="#pablo">
-                      <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
-                      <span> {{ payment.fromUser.username }}</span>
-                    </a>
-                  </div>
+                <div class="author">
+                  <a href="#pablo">
+                    <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
+                    <span> {{ payment.fromUser.username }}</span>
+                  </a>
                 </div>
               </div>
-              <div class="card-footer" *ngIf="payment.status === 'pending' && payment.booking.status === 'pending'">
-                <hr>
-                <button class="btn btn-sm btn-danger" (click)="acceptPayment(payment)">受ける</button>
-                <button class="btn btn-sm" (click)="declinePayment(payment)">断る</button>
-                <button class="btn btn-sm btn-warning" (click)="openDialog(payment)">提案する</button>
-                <!-- <app-review></app-review> -->  
+
+              <div *ngIf="!isExpired(payment.booking.startAt)" class="card-footer">
+                <div *ngIf="payment.booking.status === 'pending'">
+                  <p><button class="btn btn-primary" (click)="acceptPayment(payment)">引き受ける</button></p>
+                  <p><button class="btn btn-gray" (click)="declinePayment(i, payment)">ことわる</button></p>
+                  <p><button class="btn btn-danger" (click)="openDialog(payment)">日時の調整提案</button></p>
+                </div>
               </div>
+              <div *ngIf="isExpired(payment.booking.startAt)" class="card-footer">
+                <!-- <div *ngIf="payment.booking.status === 'active'">
+                  <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
+                  <div *ngIf="booking.review">
+                    <button class="btn btn-gray" disabled>レビュー済</button>
+                  </div>    
+                </div> -->
+                <div *ngIf="payment.booking.status !== 'active'">
+                    <button class="btn btn-gray" disabled>自動キャンセル</button>
+                </div>
+              </div>
+
             </div>
           </div>
           </ng-container>

@@ -113,11 +113,10 @@ export class RentalRequestsComponent implements OnInit, OnDestroy {
     )
   }
 
-  declinePayment(payment) {
+  declinePayment(index, payment) {
     this.paymentService.declinePayment(payment).subscribe(
       (json) => {
-        // Update frontend UI
-        payment.status ='declined'
+        this.payments.splice(index, 1) // Update frontend UI
       },
       (errorResponse: HttpErrorResponse) => { }
     )
@@ -130,5 +129,10 @@ export class RentalRequestsComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this.getPendingPayments()
     })
+  }
+
+  isExpired(startAt) {
+    const timeNow = moment() // Attention: just "moment()" is already applied timezone!
+    return moment(startAt).diff(timeNow) < 0
   }
 }
