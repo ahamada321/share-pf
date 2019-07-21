@@ -18,7 +18,7 @@ import { RentalBookingComponent } from './rental-booking/rental-booking.componen
 import { RentalManageComponent } from './rental-manage/rental-manage.component';
 import { RentalManageScheduleComponent, TimePickerModal } from './rental-manage/rental-manage-schedule/rental-manage-schedule.component';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
-import { RentalRequestsComponent } from './rental-requests/rental-requests.component';
+import { RentalRequestsComponent, RentalRequestsDialog } from './rental-requests/rental-requests.component';
 import { RentalRevenueComponent } from './rental-revenue/rental-revenue.component';
 // import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
@@ -64,6 +64,7 @@ const routes: Routes = [{
         RentalCreateComponent,
         RentalEditComponent,
         RentalRequestsComponent,
+        RentalRequestsDialog,
         RentalRevenueComponent,
         // RentalDetailUpdateComponent, // This is replaced from RentalEditComponent.
         BottomNavbarComponent,
@@ -86,13 +87,16 @@ const routes: Routes = [{
           // ImageUploadModule
           FullCalendarModule,
           JwBootstrapSwitchNg2Module
-        ],
-      entryComponents: [TimePickerModal],
+      ],
+      entryComponents: [
+        RentalRequestsDialog,
+        TimePickerModal
+      ],
       providers: [
           RentalService,
           BookingService,
           BookingHelperService,
-        ],
+      ],
       bootstrap: []
 })
 export class RentalModule { }

@@ -3,7 +3,7 @@ import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class Rental {
 
-    static readonly CATEGORIES = ["カテゴリ1", "カテゴリ2"]
+    static readonly CATEGORIES = ["カテゴリ1", "カテゴリ2"];
     _id: string;
     shared: Boolean;
     lastLogin: string;
@@ -62,5 +62,6 @@ export class Rental {
 
     rating: number;
     user: any;
+    brand: any;
     bookings: Booking[];
 }

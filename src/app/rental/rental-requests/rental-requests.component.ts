@@ -1,7 +1,73 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Booking } from '../rental-booking/services/booking.model';
 import { BookingService } from '../rental-booking/services/booking.service';
 import { PaymentService } from 'src/app/common/components/payment/services/payment.service';
+import { MatDialog } from '@angular/material';
+import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2'
+import * as moment from "moment"
+
+
+@Component({
+  selector: 'app-rental-request-dialog',
+  templateUrl: './rental-requests-dialog.html'
+})
+export class RentalRequestsDialog {
+  @Input() payment: any
+
+  constructor(private bookingService: BookingService,
+              private dialogService: MatDialog ) { }
+
+  onBookingReady(newBooking: Booking) {
+    let bookingData = this.payment.booking
+    bookingData.oldStartAt = bookingData.startAt
+    bookingData.oldEndAt = bookingData.endAt
+    bookingData.startAt = newBooking.startAt
+    bookingData.endAt = newBooking.endAt
+    bookingData.status = "re-pending"
+
+    Swal.fire({
+      title: '以下の日時で再提案します',
+      text: moment(bookingData.startAt).format("YYYY/MM/DD/HH:mm") + '〜' + moment(bookingData.endAt).format("HH:mm") + 'で提案しなおしますか？',
+      input: 'textarea',
+      inputPlaceholder: '希望日時に沿えない理由をメッセージで伝えることができます...',
+      confirmButtonClass: "btn btn-primary btn-lg",
+      cancelButtonClass: "btn btn-gray btn-lg",
+      // cancelButtonText: "キャンセル",
+      showCancelButton: true,
+      buttonsStyling: false,
+      allowOutsideClick: false
+    }).then((result) => {
+      if(!result.dismiss) {
+        if(result.value) {
+          bookingData.comment = result.value
+        }
+        this.bookingService.updateBooking(bookingData).subscribe(
+          (newBookingData: any) => {
+            this.showSwalSuccess()
+          },
+          (errorResponse: HttpErrorResponse) => {
+            // this.errors = errorResponse.error.errors
+          }
+        )
+      }
+    })
+  }
+
+  showSwalSuccess() {
+    Swal.fire({
+      type: 'success',
+      title: '予約日時を再提案しました！',
+      confirmButtonClass: "btn btn-primary btn-lg",
+      buttonsStyling: false,
+      allowOutsideClick: false,
+      timer: 5000
+    }).then((result) => {
+      this.dialogService.closeAll()
+    // this.router.navigate(['/login'])
+    })
+  }
+}
 
 
 @Component({
@@ -10,23 +76,16 @@ import { PaymentService } from 'src/app/common/components/payment/services/payme
   styleUrls: ['./rental-requests.component.scss']
 })
 export class RentalRequestsComponent implements OnInit, OnDestroy {
-
-  bookings: Booking[] = []
   payments: any[]
 
-  constructor(private bookingService: BookingService,
-              private paymentService: PaymentService ) { }
+  constructor(
+    private paymentService: PaymentService,
+    public dialogService: MatDialog ) { }
 
   ngOnInit() {
     let navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.add('navbar-transparent');
 
-    this.bookingService.getUserBookings().subscribe(
-      (bookings: Booking[]) => {
-        this.bookings = bookings
-      },
-      () => { }
-    )
     this.getPendingPayments()
   }
 
@@ -40,9 +99,7 @@ export class RentalRequestsComponent implements OnInit, OnDestroy {
       (payments: any) => {
         this.payments = payments
       },
-      () => {
-
-      }
+      (errorResponse: HttpErrorResponse) => { }
     )
   }
 
@@ -52,8 +109,7 @@ export class RentalRequestsComponent implements OnInit, OnDestroy {
         // Update frontend UI
         payment.status ='paid'
       },
-      (err) => {
-      }
+      (errorResponse: HttpErrorResponse) => { }
     )
   }
 
@@ -63,8 +119,16 @@ export class RentalRequestsComponent implements OnInit, OnDestroy {
         // Update frontend UI
         payment.status ='declined'
       },
-      (err) => {
-      }
+      (errorResponse: HttpErrorResponse) => { }
     )
+  }
+
+  openDialog(payment) {
+    const dialogRef = this.dialogService.open(RentalRequestsDialog)
+    dialogRef.componentInstance.payment = payment
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getPendingPayments()
+    })
   }
 }

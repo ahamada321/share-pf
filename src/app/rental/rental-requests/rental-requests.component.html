@@ -28,7 +28,7 @@
                   <div>Revenue: {{payment.ownerRevenue}} JPY</div>
                   <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
                   <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
-                  <div>Status: {{payment.status}}</div>
+                  <div>Status: {{ payment.booking.status }}</div>
                 </div>
                 <div class="card-footer">
                   <div class="author">
@@ -39,17 +39,18 @@
                   </div>
                 </div>
               </div>
-              <hr>
-              <div class="card-footer" *ngIf="payment.status === 'pending'">
-                <button class="btn btn-sm btn-danger" (click)="acceptPayment(payment)">Accept</button>
-                <button class="btn btn-sm" (click)="declinePayment(payment)">Decline</button>
+              <div class="card-footer" *ngIf="payment.status === 'pending' && payment.booking.status === 'pending'">
+                <hr>
+                <button class="btn btn-sm btn-danger" (click)="acceptPayment(payment)">受ける</button>
+                <button class="btn btn-sm" (click)="declinePayment(payment)">断る</button>
+                <button class="btn btn-sm btn-warning" (click)="openDialog(payment)">提案する</button>
                 <!-- <app-review></app-review> -->  
               </div>
             </div>
           </div>
           </ng-container>
           <div class="col-md-4">
-              <div *ngIf="payments && payments.length==0" class="card card-pricing">
+              <div *ngIf="!payments || payments.length==0" class="card card-pricing">
                 <a routerLink="/rentals">
                   <div class="card-body">
                     <!-- <h3 class="card-category">No bookings found!</h3> -->

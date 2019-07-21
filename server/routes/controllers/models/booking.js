@@ -7,6 +7,9 @@ const bookingSchema = new Schema({
 
     startAt: { type: Date, required: "Starting date is required" },
     endAt: { type: Date, required: "Ending date is required" },
+    oldStartAt: Date,
+    oldEndAt: Date,
+    comment: String,
     days: Number,
     courseTime: Number,
     totalPrice: Number,

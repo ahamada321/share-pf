@@ -61,6 +61,7 @@ const rentalSchema = new Schema({
     businesshour_endTime_sat: { hour: {type: Number, default: 19}, minute: {type: Number, default: 0}, second: {type: Number, default: 0} },
 
     user: { type: Schema.Types.ObjectId, ref: "User" },
+    brand: { type: Schema.Types.ObjectId, ref: "User" },
     bookings: [{ type: Schema.Types.ObjectId, ref: "Booking"}]
     
 });

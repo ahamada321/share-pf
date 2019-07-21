@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
-import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbCalendar, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment-timezone';
-import { RentalService } from 'src/app/rental/service/rental.service';
 import { BookingService } from 'src/app/rental/rental-booking/services/booking.service';
 import { Rental } from 'src/app/rental/service/rental.model';
 import { Booking } from 'src/app/rental/rental-booking/services/booking.model';
@@ -28,11 +27,10 @@ export class BookingSelecterComponent implements OnInit {
   @Output() newBookingInfo = new EventEmitter()
   @Output() chosenDateTime = new EventEmitter()
 
-
   constructor(
     private calendar: NgbCalendar,
     private bookingService: BookingService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     // Initilize ngbDatepicker
     this.selectedDate = calendar.getToday()
@@ -103,8 +101,8 @@ export class BookingSelecterComponent implements OnInit {
     const selected_date = moment(selectedDate).subtract(1, 'month').format('YYYY-MM-DD') // Subtract 1 month to adapt NgbDateStruct to moment()
 
     for(let booking of this.rental.bookings) {
-      if(booking.status == 'block') {
-        if(selected_date == moment(booking.startAt).format('YYYY-MM-DD')) {
+      if(booking.status === 'block') {
+        if(selected_date === moment(booking.startAt).format('YYYY-MM-DD')) {
           this.isDateBlock_flg = true
         }
       }
@@ -118,7 +116,7 @@ export class BookingSelecterComponent implements OnInit {
     const reqStart = moment(startAt)
     const reqEnd = moment(startAt).add(this.chosenCourseTime, 'minute').subtract(1, 'minute')
     if(rentalBookings && rentalBookings.length === 0) {
-        return true
+      return true
     } 
     else {
         isValid = rentalBookings.every((booking) => {
@@ -131,7 +129,7 @@ export class BookingSelecterComponent implements OnInit {
     }
   }
 
-  selectDateTime(startAt){
+  selectDateTime(startAt) {
     this.newBooking.startAt = moment(startAt).format()
     this.newBooking.endAt = moment(startAt).add(this.chosenCourseTime, 'minute').subtract(1, 'minute').format()
   
@@ -139,7 +137,6 @@ export class BookingSelecterComponent implements OnInit {
     this.newBooking.totalPrice = this.rental.hourlyPrice * (this.chosenCourseTime / 60)
   
     this.chosenDateTime.emit(true)
-  
     this.newBookingInfo.emit(this.newBooking)
   }
 

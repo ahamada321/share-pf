@@ -6,6 +6,10 @@ export class Booking {
     _id: string
     startAt: string
     endAt: string
+    oldStartAt: string
+    oldEndAt: string
+    comment: string
+
     days: number
     courseTime: number
     totalPrice: number

@@ -10,17 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         BookingSelecterComponent
-      ],
-      imports: [
-          CommonModule,
-          NgbModule,
-          FormsModule,
-          ReactiveFormsModule,
-
-        ],
-      exports: [BookingSelecterComponent],
-      providers: [
-        ],
-      bootstrap: []
+    ],
+    imports: [
+        CommonModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
+    exports: [BookingSelecterComponent],
+    providers: [],
+    bootstrap: []
 })
 export class BookingSelecterModule { }

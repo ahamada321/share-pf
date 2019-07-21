@@ -29,19 +29,25 @@
                       <div>Date：{{ booking.startAt | formatDate }}</div>
                       <div>Start time ：{{ booking.startAt | formatTime }}</div>
                       <div>Course time：{{ booking.courseTime }}min</div>
+                      <div>Status : {{ booking.status }}</div>
                     </div>
                   </div>
                 </a>
                 <!-- <hr> -->
-                <div class="card-footer">
+                <div *ngIf="booking.status !== 're-pending'" class="card-footer">
                   <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
                     <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
                     <div>待ち合わせ場所を調整する</div>
                   </a>
                   <br>
-                  <button *ngIf="!isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセルする</button>
+                  <button *ngIf="!isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
                   <!-- <button *ngIf="isExpired(booking.startAt)" class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">レビューする</button> -->
                   <app-review *ngIf="!booking.review && isExpired(booking.startAt)" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>  
+                </div>
+                <div *ngIf="booking.status === 're-pending'" class="card-footer">
+                  <button class="btn btn-sm btn-danger" (click)="acceptPayment(booking.payment)">変更提案を受け入れる</button>
+                  <button class="btn btn-sm" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
+                  <button class="btn btn-sm btn-warning" (click)="openDialog(booking)">再提案する</button>
                 </div>
             </div>
           </div>
