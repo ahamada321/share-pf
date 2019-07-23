@@ -118,7 +118,7 @@
 
                   <div *ngIf="!isExpired(payment.booking.startAt)" class="card-footer">
                     <div *ngIf="payment.booking.status === 'pending'">
-                      <p><button class="btn btn-primary" (click)="acceptPayment(payment)">引き受ける</button></p>
+                      <p><button class="btn btn-primary" (click)="acceptPayment(i, payment)">引き受ける</button></p>
                       <p><button class="btn btn-gray" (click)="declinePayment(i, payment)">ことわる</button></p>
                       <p><button class="btn btn-danger" (click)="openDialog(payment)">日時の調整提案</button></p>
                     </div>

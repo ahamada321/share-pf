@@ -103,11 +103,10 @@ export class RentalRequestsComponent implements OnInit, OnDestroy {
     )
   }
 
-  acceptPayment(payment) {
+  acceptPayment(index, payment) {
     this.paymentService.acceptPayment(payment).subscribe(
       (json) => {
-        // Update frontend UI
-        payment.status ='paid'
+        this.payments.splice(index, 1) // Update frontend UI
       },
       (errorResponse: HttpErrorResponse) => { }
     )

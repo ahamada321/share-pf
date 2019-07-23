@@ -73,5 +73,4 @@ export class RegisterComponent implements OnInit, OnDestroy {
       }
     )
   }
-
 }
