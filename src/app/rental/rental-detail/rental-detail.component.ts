@@ -11,6 +11,7 @@ import { BookingService } from '../rental-booking/services/booking.service';
 import { EventInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import * as moment from 'moment-timezone'
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 //t = current time
@@ -45,6 +46,7 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
                 private reviewService: ReviewService,
                 public router: Router,
                 public auth: MyOriginAuthService,
+                public sanitizer: DomSanitizer,
                 ) {
                   router.events.subscribe(s => {
                     if (s instanceof NavigationEnd) {
@@ -86,6 +88,10 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
           this.getReviews(rental._id)
         }
       )
+    }
+
+    getVideoUrl(url: string) {
+      return this.sanitizer.bypassSecurityTrustUrl(url)
     }
 
     getAvgRating(rentalId: string) {
