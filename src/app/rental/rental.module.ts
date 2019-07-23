@@ -33,6 +33,7 @@ import { RentalService } from './service/rental.service';
 import { BookingService } from './rental-booking/services/booking.service';
 import { BookingHelperService } from './rental-booking/services/booking.helper.service';
 import { BarRatingModule } from 'ngx-bar-rating';
+import { RentalManageBookingsComponent } from './rental-manage/rental-manage-bookings/rental-manage-bookings.component';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -43,10 +44,11 @@ const routes: Routes = [{
         { path: '', component: RentalListComponent },
         { path: 'new', component: RentalCreateComponent, canActivate: [AuthGuard] },
         { path: 'manage', component: RentalManageComponent, canActivate: [AuthGuard] },
-        { path: 'requests', component: RentalRequestsComponent, canActivate: [AuthGuard] },
+        { path: 'manage/requests', component: RentalRequestsComponent, canActivate: [AuthGuard] }, // OEM mode
+        { path: 'manage/bookings', component: RentalManageBookingsComponent, canActivate: [AuthGuard] }, // OEM mode
         { path: 'revenue', component: RentalRevenueComponent, canActivate: [AuthGuard] },
         { path: ':rentalId', component: RentalDetailComponent },
-        { path: ':rentalId/booking', component: RentalBookingComponent, canActivate: [AuthGuard] },
+        { path: ':rentalId/booking', component: RentalBookingComponent, canActivate: [AuthGuard] }, // Going to replace to "createbooking"
         { path: ':rentalId/edit', component: RentalEditComponent, canActivate: [AuthGuard] },
         { path: ':rentalId/editschedule', component: RentalManageScheduleComponent, canActivate: [AuthGuard] },
     ]
@@ -60,6 +62,7 @@ const routes: Routes = [{
         RentalDetailComponent,
         RentalBookingComponent,
         RentalManageComponent,
+        RentalManageBookingsComponent,
         RentalManageScheduleComponent,
         RentalCreateComponent,
         RentalEditComponent,

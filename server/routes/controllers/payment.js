@@ -85,6 +85,7 @@ exports.getPendingPayments = function(req, res) {
 
     Payment.where({toUser: user})
             .where({status: 'pending'})
+            .populate('fromUser')
             .populate({
                 // populate both 'booking' and 'rental'
                 path: 'booking',
@@ -93,7 +94,6 @@ exports.getPendingPayments = function(req, res) {
                     populate: {path: 'bookings'} // This is using for repropose booking date from rental owner.
                 }
             })
-            .populate('fromUser')
             .exec(function(err, foundPayments) {
         if(err) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
@@ -107,13 +107,13 @@ exports.getPaidPayments = function(req, res) {
 
     Payment.where({toUser: user})
             .where({status: 'paid'})
+            .populate('fromUser')
             .populate({
                 // populate both 'booking' and 'rental'
                 path: 'booking',
                 populate: {path: 'rental'}
             })
             .select('-fromStripeCustomerId -tokenId')
-            .populate('fromUser')
             .exec(function(err, foundPaidPayments) {
         if(err) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
