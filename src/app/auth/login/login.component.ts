@@ -4,7 +4,6 @@ import { MyOriginAuthService } from '../service/auth.service';
 import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider } from "angularx-social-login";
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2'
 
@@ -15,11 +14,10 @@ import Swal from 'sweetalert2'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  authState: Subscription
   isFBloggedIn: boolean
   pressedFBButton: boolean = false
-  footer : Date = new Date();
-
+  footer: Date = new Date();
+  user: any
 
   focus: any;
   focus1: any;
@@ -39,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     let navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.add('navbar-transparent');
 
-    this.authState = this.seeFBLoginState()
+    this.seeFBLoginState()
     this.initForm()
     this.route.params.subscribe(
       (params) => {
@@ -58,15 +56,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     let navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.remove('navbar-transparent');
     
-    // this.authState.unsubscribe()
   }
 
-  signInWithFB(user) {
-    if(!user) {
+  signInWithFB() {
+    if(!this.user) {
       this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
       this.pressedFBButton = true
     } else {
-      this.auth.FBlogin(user).subscribe(
+      this.auth.FBlogin(this.user).subscribe(
         (token) => {
           this.router.navigate(['/rentals'])
         },
@@ -81,10 +78,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   seeFBLoginState() {
     return this.socialAuthService.authState.subscribe((user) => {
-      this.isFBloggedIn = (user != null);
+      this.user = user
+      this.isFBloggedIn = (this.user != null);
 
-      if(this.pressedFBButton && user) {
-        this.signInWithFB(user)
+      if(this.pressedFBButton && this.user) {
+        this.signInWithFB()
       }
     })
   }

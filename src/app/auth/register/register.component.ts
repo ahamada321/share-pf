@@ -5,7 +5,6 @@ import { FacebookLoginProvider } from "angularx-social-login";
 import { HttpErrorResponse } from '@angular/common/http'
 import { Router } from '@angular/router'
 import { User } from 'src/app/user/service/user.model';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -15,7 +14,6 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   isFBloggedIn: boolean
-  authState: Subscription
 
   focus: any;
   focus1: any;
@@ -38,7 +36,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         navbar.classList.add('navbar-transparent');
 
 
-    this.authState = this.seeFBLoginState()
+    this.seeFBLoginState()
   }
   
   ngOnDestroy() {
@@ -48,7 +46,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     let navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.remove('navbar-transparent');
 
-    // this.authState.unsubscribe()
   }
 
   signInWithFB(): void {
