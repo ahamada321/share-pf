@@ -147,7 +147,7 @@ export class UserMyBookingsComponent implements OnInit, OnDestroy {
   showSwalSuccess() {
     Swal.fire({
         title: '予約キャンセルされました',
-        text: '担当トレーナー承認前なのでご登録クレジットカードに請求はいきませんが、トレーナーにご迷惑にならぬよう予約後のキャンセルはできる限りしないようお願いいたします。',
+        text: '担当トレーナー承認前なのでご登録クレジットカードに請求はされません。トレーナーにご迷惑にならぬよう予約後のキャンセルはできる限りしないようお願いいたします。',
         // type: 'success',
         confirmButtonClass: 'btn btn-danger btn-lg',
         buttonsStyling: false,

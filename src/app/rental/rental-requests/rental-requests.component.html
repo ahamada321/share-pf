@@ -47,7 +47,7 @@
                   </div>
                   <div *ngIf="!isExpired(payment.booking.startAt)" class="card-footer">
                     <div *ngIf="payment.booking.status === 'pending'">
-                      <p><button class="btn btn-primary" (click)="acceptPayment(payment)">引き受ける</button></p>
+                      <p><button class="btn btn-primary" (click)="acceptPayment(i, payment)">引き受ける</button></p>
                       <p><button class="btn btn-gray" (click)="declinePayment(i, payment)">ことわる</button></p>
                       <p><button class="btn btn-danger" (click)="openDialog(payment)">日時の調整提案</button></p>
                     </div>
@@ -115,26 +115,11 @@
                       </a>
                     </div>
                   </div>
-
-                  <div *ngIf="!isExpired(payment.booking.startAt)" class="card-footer">
-                    <div *ngIf="payment.booking.status === 'pending'">
-                      <p><button class="btn btn-primary" (click)="acceptPayment(i, payment)">引き受ける</button></p>
-                      <p><button class="btn btn-gray" (click)="declinePayment(i, payment)">ことわる</button></p>
-                      <p><button class="btn btn-danger" (click)="openDialog(payment)">日時の調整提案</button></p>
-                    </div>
-                  </div>
                   <div *ngIf="isExpired(payment.booking.startAt)" class="card-footer">
-                    <!-- <div *ngIf="payment.booking.status === 'active'">
-                      <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
-                      <div *ngIf="booking.review">
-                        <button class="btn btn-gray" disabled>レビュー済</button>
-                      </div>
-                    </div> -->
                     <div *ngIf="payment.booking.status !== 'active'">
                         <button class="btn btn-gray" disabled>自動キャンセル</button>
                     </div>
                   </div>
-
                 </div>
               </div>
             </ng-container>

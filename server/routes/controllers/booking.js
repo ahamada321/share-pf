@@ -258,7 +258,7 @@ exports.deleteBooking = function(req, res) { // Under development! Not working c
         if(foundBooking.user.id !== user.id) {
             return res.status(422).send({errors: [{title: "Invalid request!", detail: "You cannot delete other users booking!"}]})
         }
-        if(foundBooking.status !== 'active') {
+        if(foundBooking.status === 'active') {
             return res.status(422).send({errors: [{title: "Invalid request!", detail: "Cannot delete active booking!"}]})
         }
         

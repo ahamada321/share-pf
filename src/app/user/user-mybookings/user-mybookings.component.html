@@ -14,55 +14,64 @@
     <div class="section text-center">
       <div class="container">
         <div class="row">
-          <ng-container *ngIf="bookings.length > 0">
-          <div *ngFor="let booking of bookings; let i = index" class='col-md-3 col-xs-6'>
-            <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
-            <div class="card">
-                <a routerLink="/rentals/{{booking.rental._id}}">
-                  <div class="card-image">
-                    <img class="img" src="{{booking.rental.image}}">
-                  </div>
-                  <div class="card-body">
-                    <label class="label label-warning">{{ booking.rental.province }}</label>
-                    <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
-                    <div class="card-description">
-                      <div>Date：{{ booking.startAt | formatDate }}</div>
-                      <div>Start time ：{{ booking.startAt | formatTime }}</div>
-                      <div>Course time：{{ booking.courseTime }}min</div>
-                      <div>Status : {{ booking.status }}</div>
-                    </div>
-                  </div>
-                </a>
-                <!-- <hr> -->
-                <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
-                  <div *ngIf="booking.status === 'active'">
-                    <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
-                      <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
-                      <div>待ち合わせ場所を調整する</div>
-                    </a>
-                  </div>
-                  <div *ngIf="booking.status === 'pending'">
-                    <button class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
-                  </div>
-                  <div *ngIf="booking.status === 're-pending'">
-                    <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment)">日時変更を受入れる</button></p>
-                    <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセル</button></p>
-                    <p><button class="btn btn-danger" (click)="openDialog(booking)">日時を再調整する</button></p>
-                  </div>
-                </div>
-                <div *ngIf="isExpired(booking.startAt)" class="card-footer">
-                  <div *ngIf="booking.status === 'active'">
-                    <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
-                    <div *ngIf="booking.review">
-                      <button class="btn btn-gray" disabled>レビュー済</button>
-                    </div>    
-                  </div>
-                  <div *ngIf="booking.status !== 'active'">
-                      <button class="btn btn-gray" disabled>自動キャンセル</button>
-                  </div>
-                </div>
-            </div>
+          <div class="col-md-12 ml-auto mr-auto">
+            <h2 class="title">Pending bookings</h2>
+            <h5 class="description">予約リクエスト一覧です.先生からの確認をお待ちください.</h5>
+            <div class="space-top"></div>
           </div>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="bookings.length > 0">
+            <ng-container *ngFor="let booking of bookings; let i = index">
+              <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
+              <div *ngIf="!isExpired(booking.startAt) && (booking.status==='pending' || booking.status==='re-pending')" class='col-md-3 col-xs-6'>
+                <div class="card">
+                    <a routerLink="/rentals/{{booking.rental._id}}">
+                      <div class="card-image">
+                        <img class="img" src="{{booking.rental.image}}">
+                      </div>
+                      <div class="card-body">
+                        <label class="label label-warning">{{ booking.rental.province }}</label>
+                        <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
+                        <div class="card-description">
+                          <div>Date：{{ booking.startAt | formatDate }}</div>
+                          <div>Start time ：{{ booking.startAt | formatTime }}</div>
+                          <div>Course time：{{ booking.courseTime }}min</div>
+                          <div>Status : {{ booking.status }}</div>
+                        </div>
+                      </div>
+                    </a>
+                    <!-- <hr> -->
+                    <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
+                      <div *ngIf="booking.status === 'active'">
+                        <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
+                          <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
+                          <div>待ち合わせ場所を調整する</div>
+                        </a>
+                      </div>
+                      <div *ngIf="booking.status === 'pending'">
+                        <button class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
+                      </div>
+                      <div *ngIf="booking.status === 're-pending'">
+                        <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment)">日時変更を受入れる</button></p>
+                        <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセル</button></p>
+                        <p><button class="btn btn-danger" (click)="openDialog(booking)">日時を再調整する</button></p>
+                      </div>
+                    </div>
+                    <div *ngIf="isExpired(booking.startAt)" class="card-footer">
+                      <div *ngIf="booking.status === 'active'">
+                        <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
+                        <div *ngIf="booking.review">
+                          <button class="btn btn-gray" disabled>レビュー済</button>
+                        </div>    
+                      </div>
+                      <div *ngIf="booking.status !== 'active'">
+                          <button class="btn btn-gray" disabled>自動キャンセル</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </ng-container>
           </ng-container>
           <div class="col-md-4">
               <div *ngIf="bookings.length==0" class="card card-pricing">
@@ -79,6 +88,159 @@
               </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-12 ml-auto mr-auto">
+            <h2 class="title">Upcoming bookings</h2>
+            <h5 class="description">日時が正式確定した予約リストです！詳細場所の連絡をLINEで行ってください.</h5>
+            <div class="space-top"></div>
+          </div>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="bookings.length > 0">
+            <ng-container *ngFor="let booking of bookings; let i = index">
+              <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
+              <div *ngIf="booking.status==='active'" class='col-md-3 col-xs-6'>
+                <div class="card">
+                    <a routerLink="/rentals/{{booking.rental._id}}">
+                      <div class="card-image">
+                        <img class="img" src="{{booking.rental.image}}">
+                      </div>
+                      <div class="card-body">
+                        <label class="label label-warning">{{ booking.rental.province }}</label>
+                        <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
+                        <div class="card-description">
+                          <div>Date：{{ booking.startAt | formatDate }}</div>
+                          <div>Start time ：{{ booking.startAt | formatTime }}</div>
+                          <div>Course time：{{ booking.courseTime }}min</div>
+                          <div>Status : {{ booking.status }}</div>
+                        </div>
+                      </div>
+                    </a>
+                    <!-- <hr> -->
+                    <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
+                      <div *ngIf="booking.status === 'active'">
+                        <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
+                          <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
+                          <div>待ち合わせ場所を調整する</div>
+                        </a>
+                      </div>
+                      <div *ngIf="booking.status === 'pending'">
+                        <button class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
+                      </div>
+                      <div *ngIf="booking.status === 're-pending'">
+                        <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment)">日時変更を受入れる</button></p>
+                        <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセル</button></p>
+                        <p><button class="btn btn-danger" (click)="openDialog(booking)">日時を再調整する</button></p>
+                      </div>
+                    </div>
+                    <div *ngIf="isExpired(booking.startAt)" class="card-footer">
+                      <div *ngIf="booking.status === 'active'">
+                        <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
+                        <div *ngIf="booking.review">
+                          <button class="btn btn-gray" disabled>レビュー済</button>
+                        </div>    
+                      </div>
+                      <div *ngIf="booking.status !== 'active'">
+                          <button class="btn btn-gray" disabled>自動キャンセル</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <div class="col-md-4">
+              <div *ngIf="bookings.length==0" class="card card-pricing">
+                <a routerLink="/rentals">
+                  <div class="card-body">
+                    <!-- <h3 class="card-category">No bookings found!</h3> -->
+                    <h3 class="card-title">No bookings found !</h3>
+                    <p class="card-description"></p>
+                    <div class="card-footer">
+                      <p class="btn btn-warning btn-round">Find my Trainer</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-md-12 ml-auto mr-auto">
+            <h2 class="title">Expired bookings</h2>
+            <h5 class="description">時間ぎれにより確定できなかった予約リストです.</h5>
+            <div class="space-top"></div>
+          </div>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="bookings.length > 0">
+            <ng-container *ngFor="let booking of bookings; let i = index">
+              <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
+              <div *ngIf="isExpired(booking.startAt) && (booking.status==='pending' || booking.status==='re-pending')" class='col-md-3 col-xs-6'>
+                  <div class="card">
+                    <a routerLink="/rentals/{{booking.rental._id}}">
+                      <div class="card-image">
+                        <img class="img" src="{{booking.rental.image}}">
+                      </div>
+                      <div class="card-body">
+                        <label class="label label-warning">{{ booking.rental.province }}</label>
+                        <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
+                        <div class="card-description">
+                          <div>Date：{{ booking.startAt | formatDate }}</div>
+                          <div>Start time ：{{ booking.startAt | formatTime }}</div>
+                          <div>Course time：{{ booking.courseTime }}min</div>
+                          <div>Status : {{ booking.status }}</div>
+                        </div>
+                      </div>
+                    </a>
+                    <!-- <hr> -->
+                    <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
+                      <div *ngIf="booking.status === 'active'">
+                        <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
+                          <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
+                          <div>待ち合わせ場所を調整する</div>
+                        </a>
+                      </div>
+                      <div *ngIf="booking.status === 'pending'">
+                        <button class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
+                      </div>
+                      <div *ngIf="booking.status === 're-pending'">
+                        <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment)">日時変更を受入れる</button></p>
+                        <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセル</button></p>
+                        <p><button class="btn btn-danger" (click)="openDialog(booking)">日時を再調整する</button></p>
+                      </div>
+                    </div>
+                    <div *ngIf="isExpired(booking.startAt)" class="card-footer">
+                      <div *ngIf="booking.status === 'active'">
+                        <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
+                        <div *ngIf="booking.review">
+                          <button class="btn btn-gray" disabled>レビュー済</button>
+                        </div>    
+                      </div>
+                      <div *ngIf="booking.status !== 'active'">
+                          <button class="btn btn-gray" disabled>自動キャンセル</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <div class="col-md-4">
+              <div *ngIf="bookings.length==0" class="card card-pricing">
+                <a routerLink="/rentals">
+                  <div class="card-body">
+                    <!-- <h3 class="card-category">No bookings found!</h3> -->
+                    <h3 class="card-title">No bookings found !</h3>
+                    <p class="card-description"></p>
+                    <div class="card-footer">
+                      <p class="btn btn-warning btn-round">Find my Trainer</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+          </div>
+        </div>
+  
       </div>
     </div>
   </div>
