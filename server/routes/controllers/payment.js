@@ -196,14 +196,21 @@ exports.declinePayment = function(req, res) {
         return res.status(422).send({errors: [{title: "Invalid request!", detail: "Cannot delete active bookings payment!"}]})
     }
 
-    Booking.deleteOne({id: booking._id}, (err) => { // Delete Booking
+    Booking.findById(booking._id) 
+    .populate('rental')
+    .exec(function(err, foundBooking) {
         if(err) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
         }
-        sendEmailTo(payment.fromUser.email, REQUEST_DECLINED_BY_OWNER, booking, req.hostname)
-
-        Payment.updateMany({_id: payment._id}, {status: 'declined'}, function(){})
-        Rental.updateMany({_id: booking.rental}, {$pull: {bookings: booking._id}}, ()=>{}) // Delete Booking from Rental
-        return res.json({status: 'deleted'})
+        foundBooking.remove(function(err) {
+            if (err) {
+                return res.status(422).send({errors: normalizeErrors(err.errors)})
+            }
+            sendEmailTo(payment.fromUser.email, REQUEST_DECLINED_BY_OWNER, foundBooking, req.hostname)
+            Payment.updateMany({_id: payment._id}, {status: 'declined'}, function(){})
+            Rental.updateMany({_id: foundBooking.rental._id}, {$pull: {bookings: foundBooking._id}}, ()=>{}) // Delete Booking from Rental
+    
+            return res.json({"status": "deleted"})
+        })
     })
 }

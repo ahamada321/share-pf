@@ -130,8 +130,8 @@ export class UserMyBookingsComponent implements OnInit, OnDestroy {
       title: '予約をキャンセルしますか?',
       text: "担当トレーナー承認前なのでキャンセルが可能です",
       type: 'warning',
-      confirmButtonClass: 'btn btn-danger',
-      cancelButtonClass: 'btn',
+      confirmButtonClass: 'btn btn-danger btn-lg',
+      cancelButtonClass: 'btn btn-gray btn-lg',
       buttonsStyling: false,
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -148,7 +148,7 @@ export class UserMyBookingsComponent implements OnInit, OnDestroy {
     Swal.fire({
         title: '予約キャンセルされました',
         text: '担当トレーナー承認前なのでご登録クレジットカードに請求はされません。トレーナーにご迷惑にならぬよう予約後のキャンセルはできる限りしないようお願いいたします。',
-        // type: 'success',
+        type: 'error',
         confirmButtonClass: 'btn btn-danger btn-lg',
         buttonsStyling: false,
         allowOutsideClick: false
