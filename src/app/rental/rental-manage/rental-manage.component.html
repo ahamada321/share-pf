@@ -16,7 +16,7 @@
         <div class="row">
           <ng-container *ngIf="rentals && rentals.length > 0">
             <div *ngFor="let rental of rentals; let i = index" class="col-md-3 col-xs-6">
-              <!-- <app-rental-requests-list-item [booking]="bookin"></app-rental-requests-list-item> -->
+              <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
               <div class="card" data-background="declined">
                 <div class="card-image">
                   <a routerLink="/rentals/{{rental._id}}">

@@ -75,7 +75,7 @@
                     <ng-container *ngIf="payments && payments.length > 0">
                         <ng-container *ngFor="let payment of payments; let i = index">
                             <div *ngIf="isExpired(payment.booking.startAt)"  class='col-md-3 col-xs-6'>
-                                <!-- <app-rental-requests-list-item [booking]="bookin"></app-rental-requests-list-item> -->
+                                <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
                                 <div class="card" data-background="declined">
                                     <div class="card-image">
                                         <img class="img" src="{{ payment.booking.rental.image }}">

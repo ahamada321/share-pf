@@ -7,7 +7,8 @@ import { AuthGuard } from '../auth/service/auth.guard';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 import { UserComponent } from './user.component';
-import { UserMyBookingsComponent, UserMyBookingDialog } from './user-mybookings/user-mybookings.component';
+import { UserMyBookingsComponent } from './user-mybookings/user-mybookings.component';
+import { UserPendingComponent, UserPendingDialog } from './user-pending/user-pending.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 
@@ -25,6 +26,7 @@ const routes: Routes = [{
   children: [
     { path: 'settings', component: UserSettingsComponent, canActivate: [AuthGuard] },
   // { path: ':rentalId/edit', component: RentalDetailUpdateComponent }
+    { path: 'pending', component: UserPendingComponent },
     { path: 'mybookings', component: UserMyBookingsComponent },
     { path: '', redirectTo: 'profile', pathMatch: 'full' }
   ]
@@ -34,7 +36,8 @@ const routes: Routes = [{
   declarations: [
     UserComponent,
     UserMyBookingsComponent, 
-    UserMyBookingDialog,
+    UserPendingComponent,
+    UserPendingDialog,
     UserProfileComponent,  
     UserSettingsComponent,
     FormatDatePipe,
@@ -53,7 +56,7 @@ const routes: Routes = [{
     BookingSelecterModule
   ],
   entryComponents: [
-    UserMyBookingDialog
+    UserPendingDialog
   ],
   providers: [],
   bootstrap: []

@@ -55,7 +55,7 @@
                         <div ngbDropdown class="nav-item clickable dropdown">
                             <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; オーナー機能</div>
                             <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
-                                <a class="dropdown-item" [routerLink]="['/rentals/manage/requests']"><i class="nc-icon nc-bell-55"></i>&nbsp; 予約リクエスト管理</a>
+                                <a class="dropdown-item" [routerLink]="['/rentals/manage/incoming']"><i class="nc-icon nc-bell-55"></i>&nbsp; 予約リクエスト管理</a>
                                 <a class="dropdown-item" [routerLink]="['/rentals/manage/bookings']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 商品予約状況</a>
                                 <a class="dropdown-item" [routerLink]="['/rentals/manage']"><i class="nc-icon nc-album-2"></i>&nbsp; 商品管理</a>
                                 <a class="dropdown-item" [routerLink]="['/rentals/revenue']"><i class="nc-icon nc-chart-bar-32"></i>&nbsp; 収益レポート</a>
@@ -66,8 +66,9 @@
                     <div ngbDropdown class="nav-item clickable dropdown">
                         <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; {{auth.getUsername()}}さん</div>
                         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
-                            <a class="dropdown-item" [routerLink]="['/user/mybookings']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; My bookings</a>
-                            <a class="dropdown-item" [routerLink]="['/user/settings']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; Settings</a>
+                            <a class="dropdown-item" [routerLink]="['/user/pending']"><i class="nc-icon nc-bell-55"></i>&nbsp; 日時調整中の予約</a>
+                            <a class="dropdown-item" [routerLink]="['/user/mybookings']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 日時確定した予約</a>
+                            <a class="dropdown-item" [routerLink]="['/user/settings']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; 設定</a>
                         </div>
                     </div>
                     <li class="nav-item clickable">

@@ -18,7 +18,7 @@ import { RentalBookingComponent } from './rental-booking/rental-booking.componen
 import { RentalManageComponent } from './rental-manage/rental-manage.component';
 import { RentalManageScheduleComponent, TimePickerModal } from './rental-manage/rental-manage-schedule/rental-manage-schedule.component';
 import { RentalCreateComponent } from './rental-create/rental-create.component';
-import { RentalRequestsComponent, RentalRequestsDialog } from './rental-requests/rental-requests.component';
+import { RentalIncomingComponent, RentalIncomingDialog } from './rental-incoming/rental-incoming.component';
 import { RentalRevenueComponent } from './rental-revenue/rental-revenue.component';
 // import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
@@ -44,7 +44,7 @@ const routes: Routes = [{
         { path: '', component: RentalListComponent },
         { path: 'new', component: RentalCreateComponent, canActivate: [AuthGuard] },
         { path: 'manage', component: RentalManageComponent, canActivate: [AuthGuard] },
-        { path: 'manage/requests', component: RentalRequestsComponent, canActivate: [AuthGuard] }, // OEM mode
+        { path: 'manage/incoming', component: RentalIncomingComponent, canActivate: [AuthGuard] }, // OEM mode
         { path: 'manage/bookings', component: RentalManageBookingsComponent, canActivate: [AuthGuard] }, // OEM mode
         { path: 'revenue', component: RentalRevenueComponent, canActivate: [AuthGuard] },
         { path: ':rentalId', component: RentalDetailComponent },
@@ -66,8 +66,8 @@ const routes: Routes = [{
         RentalManageScheduleComponent,
         RentalCreateComponent,
         RentalEditComponent,
-        RentalRequestsComponent,
-        RentalRequestsDialog,
+        RentalIncomingComponent,
+        RentalIncomingDialog,
         RentalRevenueComponent,
         // RentalDetailUpdateComponent, // This is replaced from RentalEditComponent.
         BottomNavbarComponent,
@@ -92,7 +92,7 @@ const routes: Routes = [{
           JwBootstrapSwitchNg2Module
       ],
       entryComponents: [
-        RentalRequestsDialog,
+        RentalIncomingDialog,
         TimePickerModal
       ],
       providers: [

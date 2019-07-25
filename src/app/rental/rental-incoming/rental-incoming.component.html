@@ -1,4 +1,4 @@
-<section id="rentalRequests">
+<section id="RentalIncoming">
   <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/ana-bernardo.jpg');">
     <div class="filter"></div>
     <div class="container">
@@ -24,7 +24,7 @@
           <ng-container *ngIf="payments && payments.length > 0">
             <ng-container *ngFor="let payment of payments; let i = index" >
               <div *ngIf="!isExpired(payment.booking.startAt)" class='col-md-3 col-xs-6'>
-                <!-- <app-rental-requests-list-item [booking]="bookin"></app-rental-requests-list-item> -->
+                <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
                 <div class="card" data-background="declined">
                   <div class="card-image">
                     <img class="img" src="{{ payment.booking.rental.image }}">
@@ -94,7 +94,7 @@
           <ng-container *ngIf="payments && payments.length > 0">
             <ng-container *ngFor="let payment of payments; let i = index">
               <div *ngIf="isExpired(payment.booking.startAt) && payment.booking.status !== 'active'" class='col-md-3 col-xs-6'>
-                <!-- <app-rental-requests-list-item [booking]="bookin"></app-rental-requests-list-item> -->
+                <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
                 <div class="card" data-background="declined">
                   <div class="card-image">
                     <img class="img" src="{{ payment.booking.rental.image }}">

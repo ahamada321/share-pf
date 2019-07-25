@@ -9,10 +9,10 @@ import * as moment from "moment"
 
 
 @Component({
-  selector: 'app-rental-request-dialog',
-  templateUrl: './rental-requests-dialog.html'
+  selector: 'app-rental-incoming-dialog',
+  templateUrl: './rental-incoming-dialog.html'
 })
-export class RentalRequestsDialog {
+export class RentalIncomingDialog {
   @Input() payment: any
 
   constructor(private bookingService: BookingService,
@@ -71,11 +71,11 @@ export class RentalRequestsDialog {
 
 
 @Component({
-  selector: 'app-rental-requests',
-  templateUrl: './rental-requests.component.html',
-  styleUrls: ['./rental-requests.component.scss']
+  selector: 'app-rental-incoming',
+  templateUrl: './rental-incoming.component.html',
+  styleUrls: ['./rental-incoming.component.scss']
 })
-export class RentalRequestsComponent implements OnInit, OnDestroy {
+export class RentalIncomingComponent implements OnInit, OnDestroy {
   payments: any[]
 
   constructor(
@@ -122,7 +122,7 @@ export class RentalRequestsComponent implements OnInit, OnDestroy {
   }
 
   openDialog(payment) {
-    const dialogRef = this.dialogService.open(RentalRequestsDialog)
+    const dialogRef = this.dialogService.open(RentalIncomingDialog)
     dialogRef.componentInstance.payment = payment
 
     dialogRef.afterClosed().subscribe(result => {

@@ -145,7 +145,7 @@ export class RentalBookingComponent implements OnInit, OnDestroy {
             timer: 5000
         }).then((result) => {
             //this.newBookingCreated.emit(newBooking)
-            this.router.navigate(['/user/mybookings'])
+            this.router.navigate(['/user/pending'])
         })
       }
 }
