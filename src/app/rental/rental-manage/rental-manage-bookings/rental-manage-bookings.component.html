@@ -13,133 +13,123 @@
     <div class="main">
         <div class="section text-center">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <h2 class="title">Upcoming Bookings</h2>
-                        <h5 class="description">予約確定している予約リストです.</h5>
-                        <div class="space-top"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <ng-container *ngIf="payments && payments.length > 0">
-                        <ng-container *ngFor="let payment of payments">
-                            <div *ngIf="!isExpired(payment.booking.startAt)" class="col-md-3 col-xs-6">
-                                <div class="card" data-background="declined">
-                                    <div class="card-image">
-                                        <img class="img" src="{{ payment.booking.rental.image }}">
-                                    </div>
-                                    <div class="card-body">
-                                        <label class="label label-warning">{{ payment.booking.rental.province }}</label>
-                                        <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
-                                        <div class="card-description">
-                                        <div>Revenue: {{payment.ownerRevenue}} JPY</div>
-                                        <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
-                                        <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
-                                        <div>Status: {{ payment.booking.status }}</div>
+                <ngb-tabset [justify]="'center'" type="pills" class="nav-pills-danger">
+                    <ngb-tab title="開始前">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-md-12 ml-auto mr-auto">
+                                    <h2 class="title">Upcoming Bookings</h2>
+                                    <h5 class="description">予約確定している予約リストです.</h5>
+                                    <div class="space-top"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <ng-container *ngIf="payments && payments.length > 0">
+                                    <ng-container *ngFor="let payment of payments">
+                                        <div *ngIf="!isExpired(payment.booking.startAt)" class="col-md-3 col-xs-6">
+                                            <div class="card" data-background="declined">
+                                                <div class="card-image">
+                                                    <img class="img" src="{{ payment.booking.rental.image }}">
+                                                </div>
+                                                <div class="card-body">
+                                                    <label class="label label-warning">{{ payment.booking.rental.province }}</label>
+                                                    <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
+                                                    <div class="card-description">
+                                                    <div>Revenue: {{payment.ownerRevenue}} JPY</div>
+                                                    <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
+                                                    <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
+                                                    <div>Status: {{ payment.booking.status }}</div>
+                                                    </div>
+                                                    <div class="author">
+                                                        <a href="#pablo">
+                                                            <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
+                                                            <span> {{ payment.fromUser.username }}</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="author">
-                                            <a href="#pablo">
-                                                <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
-                                                <span> {{ payment.fromUser.username }}</span>
-                                            </a>
-                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <div *ngIf="!payments || payments.length==0" class="col-md-4">
+                                    <div class="card card-pricing">
+                                        <a routerLink="/rentals">
+                                            <div class="card-body">
+                                                <!-- <h3 class="card-category">No bookings found!</h3> -->
+                                                <h3 class="card-title">No active bookings yet!</h3>
+                                                <!-- <p class="card-description"></p>
+                                                <div class="card-footer">
+                                                <p class="btn btn-warning btn-round">Find my Trainer</p>
+                                                </div> -->
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </ng-container>
-                    </ng-container>
-                    <div *ngIf="!payments || payments.length==0" class="col-md-4">
-                        <div class="card card-pricing">
-                            <a routerLink="/rentals">
-                            <div class="card-body">
-                                <!-- <h3 class="card-category">No bookings found!</h3> -->
-                                <h3 class="card-title">No active bookings yet!</h3>
-                                <!-- <p class="card-description"></p>
-                                <div class="card-footer">
-                                <p class="btn btn-warning btn-round">Find my Trainer</p>
-                                </div> -->
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="終了レッスン">
+                        <ng-template ngbTabContent>
+                            <div class="row">
+                                <div class="col-md-12 ml-auto mr-auto">
+                                    <h2 class="title">Finished Bookings</h2>
+                                    <h5 class="description">終了した予約リクエストです.</h5>
+                                    <div class="space-top"></div>
+                                </div>
                             </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <h2 class="title">Finished Bookings</h2>
-                        <h5 class="description">終了した予約リストです.</h5>
-                        <div class="space-top"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <ng-container *ngIf="payments && payments.length > 0">
-                        <ng-container *ngFor="let payment of payments; let i = index">
-                            <div *ngIf="isExpired(payment.booking.startAt)"  class='col-md-3 col-xs-6'>
-                                <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
-                                <div class="card" data-background="declined">
-                                    <div class="card-image">
-                                        <img class="img" src="{{ payment.booking.rental.image }}">
-                                    </div>
-                                    <div class="card-body">
-                                        <label class="label label-warning">{{ payment.booking.rental.province }}</label>
-                                        <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
-                                        <div class="card-description">
-                                        <div>Revenue: {{payment.ownerRevenue}} JPY</div>
-                                        <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
-                                        <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
-                                        <div>Status: {{ payment.booking.status }}</div>
+                            <div class="row">
+                                <ng-container *ngIf="payments && payments.length > 0">
+                                    <ng-container *ngFor="let payment of payments; let i = index">
+                                        <div *ngIf="isExpired(payment.booking.startAt)"  class='col-md-3 col-xs-6'>
+                                            <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
+                                            <div class="card" data-background="declined">
+                                                <div class="card-image">
+                                                    <img class="img" src="{{ payment.booking.rental.image }}">
+                                                </div>
+                                                <div class="card-body">
+                                                    <label class="label label-warning">{{ payment.booking.rental.province }}</label>
+                                                    <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
+                                                    <div class="card-description">
+                                                    <div>Revenue: {{payment.ownerRevenue}} JPY</div>
+                                                    <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
+                                                    <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
+                                                    <div>Status: {{ payment.booking.status }}</div>
+                                                    </div>
+                                                    <div class="author">
+                                                        <a href="#pablo">
+                                                            <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
+                                                            <span> {{ payment.fromUser.username }}</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <app-review *ngIf="!payment.booking.review" [bookingId]="payment.booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
+                                                    <div *ngIf="payment.booking.review">
+                                                        <button class="btn btn-gray" disabled>レビュー済</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="author">
-                                            <a href="#pablo">
-                                                <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
-                                                <span> {{ payment.fromUser.username }}</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <app-review *ngIf="!payment.booking.review" [bookingId]="payment.booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
-                                        <div *ngIf="payment.booking.review">
-                                            <button class="btn btn-gray" disabled>レビュー済</button>
-                                        </div>    
+                                    </ng-container>
+                                </ng-container>
+                                <div *ngIf="!payments || payments.length==0" class="col-md-4">
+                                    <div class="card card-pricing">
+                                        <a routerLink="/rentals">
+                                            <div class="card-body">
+                                                <!-- <h3 class="card-category">No bookings found!</h3> -->
+                                                <h3 class="card-title">No finished bookings yet!</h3>
+                                                <!-- <p class="card-description"></p>
+                                                <div class="card-footer">
+                                                <p class="btn btn-warning btn-round">Find my Trainer</p>
+                                                </div> -->
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </ng-container>
-                    </ng-container>
-                    <div *ngIf="!payments || payments.length==0" class="col-md-4">
-                        <div class="card card-pricing">
-                            <a routerLink="/rentals">
-                            <div class="card-body">
-                                <!-- <h3 class="card-category">No bookings found!</h3> -->
-                                <h3 class="card-title">No finished bookings yet!</h3>
-                                <!-- <p class="card-description"></p>
-                                <div class="card-footer">
-                                <p class="btn btn-warning btn-round">Find my Trainer</p>
-                                </div> -->
-                            </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-                <div class="row">
-                    <div class="col-md-10 ml-auto mr-auto">
-                        <!-- <full-calendar #calendar
-                                        defaultView="dayGridMonth" 
-                                        [plugins]="calendarPlugins" 
-                                        [longPressDelay]="300"
-                                        [selectable]="true"
-                                        [events]="calendarEvents"
-                                        [businessHours]="calendarBusinessHours"
-                                        (dateClick)="handleDateClick($event)"
-                                        (select)="handleDragSelect($event)"
-                                        (eventClick)="handleEventClick($event)"
-                                        ></full-calendar> -->
-                    </div>
-                </div>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
             </div>
         </div>
     </div>
