@@ -50,10 +50,9 @@
                     </li>
                 </ng-container>
                 <ng-container *ngIf="auth.isAuthenticated()">
-                    <ng-container *ngIf="auth.getUserRole() == 'Owner'">
-                        
-                        <div ngbDropdown class="nav-item clickable dropdown">
-                            <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; オーナー機能</div>
+                    <ng-container *ngIf="auth.getUserRole() === 'Owner'">
+                        <div ngbDropdown class="nav-item dropdown clickable">
+                            <div ngbDropdownToggle class="nav-link dropdown-toggle"><i class="nc-icon nc-single-02"></i>&nbsp; オーナー機能</div>
                             <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
                                 <a class="dropdown-item" [routerLink]="['/rentals/manage/incoming']"><i class="nc-icon nc-bell-55"></i>&nbsp; 予約リクエスト管理</a>
                                 <a class="dropdown-item" [routerLink]="['/rentals/manage/bookings']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 予約確定した商品</a>
@@ -63,8 +62,8 @@
                             </div>
                         </div>
                     </ng-container>
-                    <div ngbDropdown class="nav-item clickable dropdown">
-                        <div class="nav-link dropdown-toggle" ngbDropdownToggle><i class="nc-icon nc-single-02"></i>&nbsp; {{auth.getUsername()}}さん</div>
+                    <div ngbDropdown class="nav-item dropdown clickable">
+                        <div ngbDropdownToggle class="nav-link dropdown-toggle"><i class="nc-icon nc-single-02"></i>&nbsp; {{auth.getUsername()}}さん</div>
                         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
                             <a class="dropdown-item" [routerLink]="['/user/pending']"><i class="nc-icon nc-bell-55"></i>&nbsp; 日時調整中の予約</a>
                             <a class="dropdown-item" [routerLink]="['/user/mybookings']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 日時確定した予約</a>
