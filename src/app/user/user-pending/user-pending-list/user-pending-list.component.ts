@@ -23,7 +23,7 @@ export class UserPendingDialog {
       text: moment(newBooking.startAt).format("YYYY/MM/DD/HH:mm") 
             + '〜' + moment(newBooking.endAt).format("HH:mm") + 'で提案しなおしますか？',
       input: 'textarea',
-      inputPlaceholder: '任意でメッセージを添えることができます...',
+      inputPlaceholder: '任意でメッセージを伝えられます...',
       confirmButtonClass: "btn btn-primary btn-lg",
       cancelButtonClass: "btn btn-gray btn-lg",
       // cancelButtonText: "キャンセル",
