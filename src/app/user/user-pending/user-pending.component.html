@@ -23,47 +23,12 @@
                   <div class="space-top"></div>
                 </div>
               </div>
+              <div *ngIf="bookings && bookings.length > 0">
+                <app-user-pending-list [bookings]="bookings"></app-user-pending-list>
+              </div>
               <div class="row">
-                <ng-container *ngIf="bookings.length > 0">
-                  <ng-container *ngFor="let booking of bookings; let i = index">
-                    <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
-                    <div *ngIf="!isExpired(booking.startAt) && (booking.status==='pending' || booking.status==='re-pending')" class='col-md-3 col-xs-6'>
-                      <div class="card">
-                        <a routerLink="/rentals/{{booking.rental._id}}">
-                          <div class="card-image">
-                            <img class="img" src="{{booking.rental.image}}">
-                          </div>
-                          <div class="card-body">
-                            <label class="label label-warning">{{ booking.rental.province }}</label>
-                            <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
-                            <div class="card-description">
-                              <div>Date：{{ booking.startAt | formatDate }}</div>
-                              <div>Start time ：{{ booking.startAt | formatTime }}</div>
-                              <div>Course time：{{ booking.courseTime }}min</div>
-                              <div>Status : {{ booking.status }}</div>
-                            </div>
-                          </div>
-                        </a>
-                        <!-- <hr> -->
-                        <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
-                          <div *ngIf="booking.status === 'pending'">
-                            <button class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
-                          </div>
-                          <div *ngIf="booking.status === 're-pending'">
-                            <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment)">日時変更を受入れる</button></p>
-                            <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセル</button></p>
-                            <p><button class="btn btn-danger" (click)="openDialog(booking)">日時を再調整する</button></p>
-                          </div>
-                        </div>
-                        <div *ngIf="isExpired(booking.startAt)" class="card-footer">
-                          <button class="btn btn-gray" disabled>自動キャンセル</button>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
-                <div class="col-md-4">
-                  <div *ngIf="bookings.length==0" class="card card-pricing">
+                <div *ngIf="bookings.length==0" class="col-md-4">
+                  <div class="card card-pricing">
                     <a routerLink="/rentals">
                       <div class="card-body">
                         <!-- <h3 class="card-category">No bookings found!</h3> -->
@@ -88,59 +53,8 @@
                   <div class="space-top"></div>
                 </div>
               </div>
-              <div class="row">
-                <ng-container *ngIf="bookings.length > 0">
-                  <ng-container *ngFor="let booking of bookings; let i = index">
-                    <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
-                    <div *ngIf="isExpired(booking.startAt) && (booking.status==='pending' || booking.status==='re-pending')" class='col-md-3 col-xs-6'>
-                      <div class="card">
-                        <a routerLink="/rentals/{{booking.rental._id}}">
-                          <div class="card-image">
-                            <img class="img" src="{{booking.rental.image}}">
-                          </div>
-                          <div class="card-body">
-                            <label class="label label-warning">{{ booking.rental.province }}</label>
-                            <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
-                            <div class="card-description">
-                              <div>Date：{{ booking.startAt | formatDate }}</div>
-                              <div>Start time ：{{ booking.startAt | formatTime }}</div>
-                              <div>Course time：{{ booking.courseTime }}min</div>
-                              <div>Status : {{ booking.status }}</div>
-                            </div>
-                          </div>
-                        </a>
-                        <!-- <hr> -->
-                        <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
-                          <div *ngIf="booking.status === 'pending'">
-                            <button class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
-                          </div>
-                          <div *ngIf="booking.status === 're-pending'">
-                            <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment)">日時変更を受入れる</button></p>
-                            <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約をキャンセル</button></p>
-                            <p><button class="btn btn-danger" (click)="openDialog(booking)">日時を再調整する</button></p>
-                          </div>
-                        </div>
-                        <div *ngIf="isExpired(booking.startAt)" class="card-footer">
-                          <button class="btn btn-gray" disabled>自動キャンセル</button>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
-                <div class="col-md-4">
-                  <div *ngIf="bookings.length==0" class="card card-pricing">
-                    <a routerLink="/rentals">
-                      <div class="card-body">
-                        <!-- <h3 class="card-category">No bookings found!</h3> -->
-                        <h3 class="card-title">No bookings found !</h3>
-                        <p class="card-description"></p>
-                        <div class="card-footer">
-                          <p class="btn btn-warning btn-round">Find my Trainer</p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
+              <div *ngIf="bookings && bookings.length > 0">
+                <app-user-pending-list [filterExpired]="true" [bookings]="bookings"></app-user-pending-list>
               </div>
             </ng-template>
           </ngb-tab>

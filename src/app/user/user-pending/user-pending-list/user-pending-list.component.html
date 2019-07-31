@@ -1,0 +1,76 @@
+
+  <div class="row">
+    <div class="col-md-10 ml-auto mr-auto">
+      <div class="table-responsive">
+        <table class="table table-shopping">
+          <thead>
+            <tr>
+              <th class="text-center">Trainer name</th>
+              <th>Reply</th>
+              <th>Booking date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let booking of bookings; let i = index">
+              <!-- Pending bookings -->
+              <ng-container *ngIf="!filterExpired">
+                <tr *ngIf="!isExpired(booking.startAt) && (booking.status==='pending' || booking.status==='re-pending')">
+                  <td class="td-product">
+                    <a routerLink="/rentals/{{ booking.rental._id }}">
+                      <div class="img-container">
+                        <img class="img" src="{{ booking.rental.image }}" />
+                      </div>
+                      <br>
+                      <strong>{{ booking.rental.rentalname }}</strong>
+                    </a>
+                  </td>
+                  <td class="td-product">
+                    <div *ngIf="booking.status === 'pending'">
+                      <button class="btn btn-danger" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">予約キャンセル</button>
+                    </div>
+                    <div *ngIf="booking.status === 're-pending'">
+                      <p><button class="btn btn-primary" (click)="acceptPayment(booking.payment); bookingDeleteIndex = i">日時変更を受入れる</button></p>
+                      <p><button class="btn btn-gray" (click)="deleteConfirmation(booking._id); bookingDeleteIndex = i">&nbsp; 予約をキャンセル&nbsp; </button></p>
+                      <p><button class="btn btn-danger" (click)="openDialog(booking)">&nbsp; 日時を再調整する&nbsp; </button></p>
+                    </div>
+                  </td>
+                  <td class="td-product">
+                      <p>Date: {{ booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                      <p>Start: {{ booking.startAt |  date: "HH:mm" }}</p>
+                      <p>{{ booking.courseTime }} min</p>
+                  </td>
+                  <td>{{ booking.status }}</td>
+                </tr>
+              </ng-container>
+
+              <!-- Expired bookings -->
+              <ng-container *ngIf="filterExpired">
+                <tr *ngIf="isExpired(booking.startAt) && (booking.status==='pending' || booking.status==='re-pending')">
+                  <td class="td-product">
+                    <a routerLink="/rentals/{{ booking.rental._id }}">
+                      <div class="img-container">
+                        <img class="img" src="{{ booking.rental.image }}" />
+                      </div>
+                      <br>
+                      <strong>{{ booking.rental.rentalname }}</strong>
+                    </a>
+                  </td>
+                  <td>Expired</td>
+                  <td>
+                    <p>Date: {{ booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                    <p>Start: {{ booking.startAt |  date: "HH:mm" }}</p>
+                    <p>{{ booking.courseTime }} min</p>
+                  </td>
+                  <td>
+                    {{ booking.status }}
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <!-- <ngb-pagination [collectionSize]="50" [(page)]="pageIndex" aria-label="Default pagination"></ngb-pagination> -->
+    </div>
+  </div>

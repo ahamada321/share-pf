@@ -7,6 +7,7 @@ const paymentSchema = new Schema({
     fromStripeCustomerId: String,
     toUser: { type: Schema.Types.ObjectId, ref: "User"},
     booking: { type: Schema.Types.ObjectId, ref: "Booking"},
+    declineComment: String,
     ownerRevenue: Number,
     tokenId: String,
     charge: Schema.Types.Mixed,

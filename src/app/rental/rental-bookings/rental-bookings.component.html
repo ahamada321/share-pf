@@ -1,0 +1,84 @@
+<section id="rentalManageBookings">
+  <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/ana-bernardo.jpg');">
+    <div class="filter"></div>
+      <div class="container">
+        <div class="space-50"></div>
+        <div class="motto text-center">
+          <h1>Manage Bookings</h1>
+          <h3>You can manage your rentals bookings here.</h3>
+          <br />
+        </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section text-center">
+      <div class="container">
+        <ngb-tabset [justify]="'center'" type="pills" class="nav-pills-danger">
+          <ngb-tab title="開始前">
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="col-md-12 ml-auto mr-auto">
+                  <h2 class="title">Upcoming Bookings</h2>
+                  <h5 class="description">予約確定している予約リストです.</h5>
+                  <div class="space-top"></div>
+                </div>
+              </div>
+
+              <ng-container *ngIf="payments && payments.length > 0">
+                <app-rental-bookings-list [payments]="payments"></app-rental-bookings-list>
+              </ng-container>
+
+              <div class="row">
+                <div *ngIf="!payments || payments.length==0" class="col-md-4">
+                  <div class="card card-pricing">
+                    <a routerLink="/rentals">
+                      <div class="card-body">
+                        <h3 class="card-title">No active bookings yet!</h3>
+                        <!-- <p class="card-description"></p>
+                        <div class="card-footer">
+                        <p class="btn btn-warning btn-round">Find my Trainer</p>
+                        </div> -->
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="終了レッスン">
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="col-md-12 ml-auto mr-auto">
+                  <h2 class="title">Finished Bookings</h2>
+                  <h5 class="description">終了した予約リクエストです.</h5>
+                  <div class="space-top"></div>
+                </div>
+              </div>
+
+              <ng-container *ngIf="payments && payments.length > 0">
+                <app-rental-bookings-list [filterFinished]="true" [payments]="payments"></app-rental-bookings-list>
+              </ng-container>
+
+              <div class="row">
+                <div *ngIf="!payments || payments.length==0" class="col-md-4">
+                  <div class="card card-pricing">
+                    <a routerLink="/rentals">
+                      <div class="card-body">
+                        <!-- <h3 class="card-category">No bookings found!</h3> -->
+                        <h3 class="card-title">No finished bookings yet!</h3>
+                        <!-- <p class="card-description"></p>
+                        <div class="card-footer">
+                        <p class="btn btn-warning btn-round">Find my Trainer</p>
+                        </div> -->
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</section>

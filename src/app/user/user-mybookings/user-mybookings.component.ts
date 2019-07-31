@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Booking } from 'src/app/rental/rental-booking/services/booking.model';
+import { Booking } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.model';
 import { Review } from 'src/app/common/components/review/service/review.model';
-import { BookingService } from 'src/app/rental/rental-booking/services/booking.service';
+import { BookingService } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.service';
 import { PaymentService } from 'src/app/common/components/payment/services/payment.service';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment-timezone';

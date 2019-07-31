@@ -24,5 +24,23 @@
                       商品オーナーは住所が正しく入力できているか確認をお願いいたします。
                       もし解決が難しい場合はサポートフォームにお問い合わせください。
     </agm-info-window>
+
+    <div *ngIf="enableMarkers && (markers && markers.length>0)">
+      <agm-marker 
+          *ngFor="let marker of markers; let i = index"
+          (markerClick)="onMarkerClick(infoWindow)"
+          [latitude]="marker.lat"
+          [longitude]="marker.lng"
+          >
+        <agm-info-window #infoWindow>
+          <h4>{{ marker.studioName }}</h4>
+          <br>
+          <p>
+            TEL：{{ marker.phoneNumber }}<br>
+            {{ marker.address }}    
+          </p>
+        </agm-info-window>
+      </agm-marker>
+    </div>
   </agm-map>
 </div>

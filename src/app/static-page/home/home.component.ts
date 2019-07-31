@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
 import { MyOriginAuthService } from '../../auth/service/auth.service';
 import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider } from "angularx-social-login";
@@ -35,8 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor( public el: ElementRef,
                 private auth: MyOriginAuthService, 
                 private socialAuthService: AuthService,
-                private router: Router,
-                private zone: NgZone ) { }
+                private router: Router ) { }
 
   @HostListener('window:scroll', ['$event'])
   checkScroll() {

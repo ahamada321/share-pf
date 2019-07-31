@@ -23,40 +23,12 @@
                   <div class="space-top"></div>
                 </div>
               </div>
+
+              <div *ngIf="payments && payments.length > 0">
+                <app-rental-incoming-list [payments]="payments"></app-rental-incoming-list>
+              </div>
+
               <div class="row">
-                <ng-container *ngIf="payments && payments.length > 0">
-                  <ng-container *ngFor="let payment of payments; let i = index" >
-                    <div *ngIf="!isExpired(payment.booking.startAt)" class='col-md-3 col-xs-6'>
-                      <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
-                      <div class="card" data-background="declined">
-                        <div class="card-image">
-                          <img class="img" src="{{ payment.booking.rental.image }}">
-                        </div>
-                        <div class="card-body">
-                          <label class="label label-warning">{{ payment.booking.rental.province }}</label>
-                          <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
-                          <div class="card-description">
-                            <div>Revenue: {{payment.ownerRevenue}} JPY</div>
-                            <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
-                            <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
-                            <div>Status: {{ payment.booking.status }}</div>
-                          </div>
-                          <div class="author">
-                            <a href="#pablo">
-                              <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
-                              <span> {{ payment.fromUser.username }}</span>
-                            </a>
-                          </div>
-                        </div>
-                        <div *ngIf="payment.booking.status === 'pending'" class="card-footer">
-                          <p><button class="btn btn-primary" (click)="acceptPayment(i, payment)">引き受ける</button></p>
-                          <p><button class="btn btn-gray" (click)="declinePayment(i, payment)">ことわる</button></p>
-                          <p><button class="btn btn-danger" (click)="openDialog(payment)">日時の調整提案</button></p>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
                 <div  *ngIf="!payments || payments.length==0" class="col-md-4">
                   <div class="card card-pricing">
                     <a routerLink="/rentals">
@@ -83,53 +55,11 @@
                   <div class="space-top"></div>
                 </div>
               </div>
-              <div class="row">
-                <ng-container *ngIf="payments && payments.length > 0">
-                  <ng-container *ngFor="let payment of payments; let i = index">
-                    <div *ngIf="isExpired(payment.booking.startAt) && payment.booking.status !== 'active'" class='col-md-3 col-xs-6'>
-                      <!-- <app-rental-incoming-list-item [booking]="bookin"></app-rental-incoming-list-item> -->
-                      <div class="card" data-background="declined">
-                        <div class="card-image">
-                          <img class="img" src="{{ payment.booking.rental.image }}">
-                        </div>
-                        <div class="card-body">
-                          <label class="label label-warning">{{ payment.booking.rental.province }}</label>
-                          <h5 class="card-title">{{ payment.booking.rental.rentalname }} Trainer</h5>
-                          <div class="card-description">
-                            <div>Revenue: {{payment.ownerRevenue}} JPY</div>
-                            <div>Date: {{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</div>
-                            <div>Time: {{ payment.booking.startAt |  date: "HH:mm" }} 〜 {{ payment.booking.endAt | date: "HH:mm" }}</div>
-                            <div>Status: {{ payment.booking.status }}</div>
-                          </div>
-                          <div class="author">
-                            <a href="#pablo">
-                              <img src="assets/img/faces/joe-gardner-2.jpg" alt="..." class="avatar img-raised">
-                              <span> {{ payment.fromUser.username }}</span>
-                            </a>
-                          </div>
-                        </div>
-                        <div *ngIf="payment.booking.status !== 'active'" class="card-footer">
-                          <button class="btn btn-gray" disabled>自動キャンセル</button>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
-                <div  *ngIf="!payments || payments.length==0" class="col-md-4">
-                  <div class="card card-pricing">
-                    <a routerLink="/rentals">
-                      <div class="card-body">
-                        <!-- <h3 class="card-category">No bookings found!</h3> -->
-                        <h3 class="card-title">No expired bookings yet!</h3>
-                        <!-- <p class="card-description"></p>
-                        <div class="card-footer">
-                          <p class="btn btn-warning btn-round">Find my Trainer</p>
-                        </div> -->
-                      </div>
-                    </a>
-                  </div>
-                </div>
+
+              <div *ngIf="payments && payments.length > 0">
+                <app-rental-incoming-list [filterExpired]="true" [payments]="payments"></app-rental-incoming-list>
               </div>
+
             </ng-template>
           </ngb-tab>
         </ngb-tabset>

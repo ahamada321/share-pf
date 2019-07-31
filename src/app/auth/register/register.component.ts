@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { MyOriginAuthService } from '../service/auth.service'
 import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider } from "angularx-social-login";
@@ -25,8 +25,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor( private auth: MyOriginAuthService, 
                private socialAuthService: AuthService,
-               private router: Router,
-               private zone: NgZone ) { }
+               private router: Router ) { }
 
   ngOnInit() {
     let body = document.getElementsByTagName('body')[0];

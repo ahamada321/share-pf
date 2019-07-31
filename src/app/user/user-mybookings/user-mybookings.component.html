@@ -19,50 +19,16 @@
               <div class="row">
                 <div class="col-md-12 ml-auto mr-auto">
                   <h2 class="title">Upcoming bookings</h2>
-                  <h5 class="description">日時が確定した予約リストです！待ち合わせ詳細場所の連絡をLINEで行ってください.</h5>
+                  <h5 class="description">日時が確定した予約リストです！先生との連絡はLINEで行えます.</h5>
                   <div class="space-top"></div>
                 </div>
               </div>
+
+              <ng-container *ngIf="bookings && bookings.length > 0">
+                <app-user-mybookings-list [bookings]="bookings"></app-user-mybookings-list>
+              </ng-container>
+
               <div class="row">
-                <ng-container *ngIf="bookings.length > 0">
-                  <ng-container *ngFor="let booking of bookings; let i = index">
-                    <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
-                    <div *ngIf="!isExpired(booking.startAt) && booking.status==='active'" class='col-md-3 col-xs-6'>
-                      <div class="card">
-                        <a routerLink="/rentals/{{booking.rental._id}}">
-                          <div class="card-image">
-                            <img class="img" src="{{booking.rental.image}}">
-                          </div>
-                          <div class="card-body">
-                            <label class="label label-warning">{{ booking.rental.province }}</label>
-                            <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
-                            <div class="card-description">
-                              <div>Date：{{ booking.startAt | formatDate }}</div>
-                              <div>Start time ：{{ booking.startAt | formatTime }}</div>
-                              <div>Course time：{{ booking.courseTime }}min</div>
-                              <div>Status : {{ booking.status }}</div>
-                            </div>
-                          </div>
-                        </a>
-                        <!-- <hr> -->
-                        <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
-                          <div *ngIf="booking.status === 'active'">
-                            <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
-                              <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
-                              <div>待ち合わせ場所を調整する</div>
-                            </a>
-                          </div>
-                        </div>
-                        <div *ngIf="isExpired(booking.startAt)" class="card-footer">
-                          <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
-                          <div *ngIf="booking.review">
-                            <button class="btn btn-gray" disabled>レビュー済</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
                 <div class="col-md-4">
                   <div *ngIf="bookings.length==0" class="card card-pricing">
                     <a routerLink="/rentals">
@@ -89,46 +55,12 @@
                   <div class="space-top"></div>
                 </div>
               </div>
+
+              <ng-container *ngIf="bookings && bookings.length > 0">
+                <app-user-mybookings-list [filterFinished]="true" [bookings]="bookings"></app-user-mybookings-list>
+              </ng-container>
+
               <div class="row">
-                <ng-container *ngIf="bookings.length > 0">
-                  <ng-container *ngFor="let booking of bookings; let i = index">
-                    <!-- <app-mybooking-list-item [booking]="bookin"></app-mybooking-list-item> -->
-                    <div *ngIf="isExpired(booking.startAt) && booking.status==='active'" class='col-md-3 col-xs-6'>
-                      <div class="card">
-                        <a routerLink="/rentals/{{booking.rental._id}}">
-                          <div class="card-image">
-                            <img class="img" src="{{booking.rental.image}}">
-                          </div>
-                          <div class="card-body">
-                            <label class="label label-warning">{{ booking.rental.province }}</label>
-                            <h5 class="card-title">{{ booking.rental.rentalname }}</h5>
-                            <div class="card-description">
-                              <div>Date：{{ booking.startAt | formatDate }}</div>
-                              <div>Start time ：{{ booking.startAt | formatTime }}</div>
-                              <div>Course time：{{ booking.courseTime }}min</div>
-                              <div>Status : {{ booking.status }}</div>
-                            </div>
-                          </div>
-                        </a>
-                        <!-- <hr> -->
-                        <div *ngIf="!isExpired(booking.startAt)"  class="card-footer">
-                          <div *ngIf="booking.status === 'active'">
-                            <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
-                              <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
-                              <div>待ち合わせ場所を調整する</div>
-                            </a>
-                          </div>
-                        </div>
-                        <div *ngIf="isExpired(booking.startAt)" class="card-footer">
-                          <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
-                          <div *ngIf="booking.review">
-                            <button class="btn btn-gray" disabled>レビュー済</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
                 <div class="col-md-4">
                   <div *ngIf="bookings.length==0" class="card card-pricing">
                     <a routerLink="/rentals">

@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
-import { RentalService } from '../service/rental.service';
+import { RentalService } from '../../service/rental.service';
 import { BookingService } from './services/booking.service';
 import { BookingHelperService } from './services/booking.helper.service';
 // import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material';
-import { Rental } from '../service/rental.model';
+import { Rental } from '../../service/rental.model';
 import { Booking } from './services/booking.model';
 import { HttpErrorResponse } from '@angular/common/http';
 

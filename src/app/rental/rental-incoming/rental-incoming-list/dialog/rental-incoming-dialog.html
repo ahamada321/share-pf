@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>日時の調整提案</h2>
+<h2 mat-dialog-title>振替日時を提案</h2>
 <mat-dialog-content class="mat-typography">
   <p>予約リクエスト日時の都合がつかない場合は日時の調整提案ができます。</p>
   <p>受付不可日が事前にわかっている場合は早めにスケジュール管理ページから予約ブロックして機会損失を防ぎましょう。</p>
@@ -9,7 +9,7 @@
       <app-booking-selecter
         [rental]="payment.booking.rental" 
         [chosenCourseTime]="payment.booking.courseTime" 
-        (newBookingInfo)="onBookingReady($event)" 
+        (newBookingInfo)="onBookingReady($event, payment.booking)" 
         ></app-booking-selecter>
     </div>
   </div>

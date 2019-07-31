@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Booking } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.model';
 import { Review } from 'src/app/common/components/review/service/review.model';
 import { BookingService } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.service';
@@ -8,36 +8,24 @@ import * as moment from 'moment-timezone';
 
 
 @Component({
-  selector: 'app-user-pending',
-  templateUrl: './user-pending.component.html',
-  styleUrls: ['./user-pending.component.scss']
+  selector: 'app-user-mybookings-list',
+  templateUrl: './user-mybookings-list.component.html',
+  styleUrls: ['./user-mybookings-list.component.scss']
 })
-export class UserPendingComponent implements OnInit, OnDestroy {
-  bookings: Booking[] = []
+export class UserMyBookingsListComponent implements OnInit {
+  @Input() filterFinished: boolean = false
+  @Input() bookings: Booking[]
+  bookingDeleteIndex: number = undefined
 
   constructor(private bookingService: BookingService,
               private paymentService: PaymentService,
               public dialogService: MatDialog ) { }
 
   ngOnInit() {
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.add('navbar-transparent');
-
-    this.getUserBookings()
   }
 
-  ngOnDestroy() {
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.remove('navbar-transparent');
-  }
-
-  getUserBookings() {
-    this.bookingService.getUserBookings().subscribe(
-      (bookings: Booking[]) => {
-        this.bookings = bookings
-      },
-      () => { }
-    )
+  reviewHandler(index: number, review: Review) {
+    this.bookings[index]['review'] = review // Update Frontend
   }
 
   isExpired(startAt) {

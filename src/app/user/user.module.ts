@@ -8,7 +8,8 @@ import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 import { UserComponent } from './user.component';
 import { UserMyBookingsComponent } from './user-mybookings/user-mybookings.component';
-import { UserPendingComponent, UserPendingDialog } from './user-pending/user-pending.component';
+import { UserPendingComponent } from './user-pending/user-pending.component';
+import { UserPendingListComponent, UserPendingDialog } from './user-pending/user-pending-list/user-pending-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 
@@ -18,6 +19,7 @@ import { ImageUploadModule } from '../common/components/image-upload/image-uploa
 import { ReviewModule } from '../common/components/review/review.module';
 import { MaterialModule } from '../common/modules/matmodule/matmodule';
 import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
+import { UserMyBookingsListComponent } from './user-mybookings/user-mybookings-list/user-mybookings-list.component';
 
 
 const routes: Routes = [{
@@ -26,8 +28,8 @@ const routes: Routes = [{
   children: [
     { path: 'settings', component: UserSettingsComponent, canActivate: [AuthGuard] },
   // { path: ':rentalId/edit', component: RentalDetailUpdateComponent }
-    { path: 'pending', component: UserPendingComponent },
-    { path: 'mybookings', component: UserMyBookingsComponent },
+    { path: 'pending', component: UserPendingComponent, canActivate: [AuthGuard] },
+    { path: 'mybookings', component: UserMyBookingsComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'profile', pathMatch: 'full' }
   ]
 }]
@@ -36,7 +38,9 @@ const routes: Routes = [{
   declarations: [
     UserComponent,
     UserMyBookingsComponent, 
+    UserMyBookingsListComponent,
     UserPendingComponent,
+    UserPendingListComponent,
     UserPendingDialog,
     UserProfileComponent,  
     UserSettingsComponent,

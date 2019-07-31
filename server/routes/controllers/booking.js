@@ -56,7 +56,38 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '新しい提案日時：' + startAt + ' 〜 ' + endAt + '\n\n'
                     + '元のリクエスト日時：' + oldStartAt + ' 〜 ' + oldEndAt + '\n\n'
                     + '場所：' + booking.rental.province + '\n\n'
-                    + 'トレーナーからのコメント：' + booking.comment + '\n\n'
+                    + '先生からのコメント：' + booking.comment + '\n\n'
+                    + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
+                    + 'URL：' +  "https:\/\/" + hostname + '\/user\/pending'
+                    + '\n\n\n\n'
+                    + 'Anytime Personal Trainer.inc'
+            }
+        } else {
+            msg = {
+                to: sendTo,
+                from: 'noreply@ap-trainer.com',
+                subject: '「' + booking.rental.rentalname + ' Trainer」の予約再調整リクエストが来ています！',
+                text: '「' + booking.rental.rentalname + ' Trainer」の予約再調整リクエストが以下の日時で来ています。受理されますか？\n\n'
+                    + '新しい提案日時：' + startAt + ' 〜 ' + endAt + '\n\n'
+                    + '元のリクエスト日時：' + oldStartAt + ' 〜 ' + oldEndAt + '\n\n'
+                    + '場所：' + booking.rental.province + '\n\n'
+                    + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
+                    + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/incoming'
+                    + '\n\n\n\n'
+                    + 'Anytime Personal Trainer.inc'
+            }
+        }
+    } else if (sendMsg == RE_RE_REQUEST_RECIEVED) {
+        if(booking.comment) {
+            msg = {
+                to: sendTo,
+                from: 'noreply@ap-trainer.com',
+                subject: '「' + booking.rental.rentalname + ' Trainer」の予約再調整リクエストが来ています！',
+                text: '「' + booking.rental.rentalname + ' Trainer」の予約再調整リクエストが以下の日時で来ています。受理されますか？\n\n'
+                    + '新しい提案日時：' + startAt + ' 〜 ' + endAt + '\n\n'
+                    + '元のリクエスト日時：' + oldStartAt + ' 〜 ' + oldEndAt + '\n\n'
+                    + '場所：' + booking.rental.province + '\n\n'
+                    + '生徒からのコメント：' + booking.comment + '\n\n'
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                     + '\n\n\n\n'
@@ -294,7 +325,7 @@ exports.updateBooking = function(req, res) {
         }
 
         if(foundBooking.user.id === user.id) {
-            sendEmailTo(foundBooking.rental.user.email, RE_REQUEST_RECIEVED, bookingData, req.hostname)
+            sendEmailTo(foundBooking.rental.user.email, RE_RE_REQUEST_RECIEVED, bookingData, req.hostname)
         } else if(foundBooking.rental.user.id === user.id) {
             sendEmailTo(foundBooking.user.email, RE_REQUEST_RECIEVED, bookingData, req.hostname)
         } else {
@@ -318,8 +349,9 @@ exports.getUserBookings = function(req,res) {
             .populate({
                 // populate 'rental' and 'bookings' in 'rental'
                 path: 'rental',
-                populate: {path: 'bookings'} // This is using for re-proposal dates window.
+                populate: { path: 'bookings' } // This is using for re-proposal dates window.
             })
+            .sort({ "startAt": -1 })
             .exec(function(err, foundBookings) {
         if(err) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})

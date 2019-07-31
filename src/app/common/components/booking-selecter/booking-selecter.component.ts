@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbCalendar, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment-timezone';
-import { BookingService } from 'src/app/rental/rental-booking/services/booking.service';
+import { BookingService } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.service';
 import { Rental } from 'src/app/rental/service/rental.model';
-import { Booking } from 'src/app/rental/rental-booking/services/booking.model';
+import { Booking } from 'src/app/rental/rental-detail/rental-detail-booking/services/booking.model';
 import { ActivatedRoute } from '@angular/router';
 
 

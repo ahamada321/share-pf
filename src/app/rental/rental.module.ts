@@ -3,26 +3,32 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { MaterialModule } from '../common/modules/matmodule/matmodule';
 import { ChartsModule } from 'ng2-charts';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AuthGuard } from '../auth/service/auth.guard';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
+import { BarRatingModule } from 'ngx-bar-rating';
 
 import { RentalComponent } from './rental.component';
 import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list/rental-list-item/rental-list-item.component';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
 import { RentalEditComponent } from './rental-edit/rental-edit.component';
-import { RentalBookingComponent } from './rental-booking/rental-booking.component';
+import { RentalBookingComponent } from './rental-detail/rental-detail-booking/rental-booking.component';
 import { RentalManageComponent } from './rental-manage/rental-manage.component';
 import { RentalManageScheduleComponent, TimePickerModal } from './rental-manage/rental-manage-schedule/rental-manage-schedule.component';
+
+import { RentalIncomingComponent } from './rental-incoming/rental-incoming.component';
+import { RentalIncomingListComponent, RentalIncomingDialog, RentalIncomingSelectPlaceDialog } from './rental-incoming/rental-incoming-list/rental-incoming-list.component';
+import { RentalBookingsComponent } from './rental-bookings/rental-bookings.component';
+import { RentalBookingsListComponent } from './rental-bookings/rental-bookings-list/rental-bookings-list.component';
+
 import { RentalCreateComponent } from './rental-create/rental-create.component';
-import { RentalIncomingComponent, RentalIncomingDialog } from './rental-incoming/rental-incoming.component';
 import { RentalRevenueComponent } from './rental-revenue/rental-revenue.component';
 // import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
-
 import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.module';
 import { PaymentModule } from '../common/components/payment/payment.module';
 import { ReviewModule } from '../common/components/review/review.module';
@@ -30,10 +36,8 @@ import { EditableModule } from '../common/components/editable/editable.module';
 import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
 
 import { RentalService } from './service/rental.service';
-import { BookingService } from './rental-booking/services/booking.service';
-import { BookingHelperService } from './rental-booking/services/booking.helper.service';
-import { BarRatingModule } from 'ngx-bar-rating';
-import { RentalManageBookingsComponent } from './rental-manage/rental-manage-bookings/rental-manage-bookings.component';
+import { BookingService } from './rental-detail/rental-detail-booking/services/booking.service';
+import { BookingHelperService } from './rental-detail/rental-detail-booking/services/booking.helper.service';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -45,7 +49,7 @@ const routes: Routes = [{
         { path: 'new', component: RentalCreateComponent, canActivate: [AuthGuard] },
         { path: 'manage', component: RentalManageComponent, canActivate: [AuthGuard] },
         { path: 'manage/incoming', component: RentalIncomingComponent, canActivate: [AuthGuard] }, // OEM mode
-        { path: 'manage/bookings', component: RentalManageBookingsComponent, canActivate: [AuthGuard] }, // OEM mode
+        { path: 'manage/bookings', component: RentalBookingsComponent, canActivate: [AuthGuard] }, // OEM mode
         { path: 'revenue', component: RentalRevenueComponent, canActivate: [AuthGuard] },
         { path: ':rentalId', component: RentalDetailComponent },
         { path: ':rentalId/booking', component: RentalBookingComponent, canActivate: [AuthGuard] }, // Going to replace to "createbooking"
@@ -61,13 +65,16 @@ const routes: Routes = [{
         RentalListItemComponent,
         RentalDetailComponent,
         RentalBookingComponent,
+        RentalIncomingComponent,
+        RentalIncomingListComponent,
+        RentalIncomingDialog,
+        RentalIncomingSelectPlaceDialog,
         RentalManageComponent,
-        RentalManageBookingsComponent,
+        RentalBookingsComponent,
+        RentalBookingsListComponent,
         RentalManageScheduleComponent,
         RentalCreateComponent,
         RentalEditComponent,
-        RentalIncomingComponent,
-        RentalIncomingDialog,
         RentalRevenueComponent,
         // RentalDetailUpdateComponent, // This is replaced from RentalEditComponent.
         BottomNavbarComponent,
@@ -78,6 +85,7 @@ const routes: Routes = [{
           RouterModule.forChild(routes),
           FormsModule,
           ReactiveFormsModule,
+          AngularMultiSelectModule,
           NgbModule,
           MaterialModule,
           EditableModule,
@@ -93,6 +101,7 @@ const routes: Routes = [{
       ],
       entryComponents: [
         RentalIncomingDialog,
+        RentalIncomingSelectPlaceDialog,
         TimePickerModal
       ],
       providers: [

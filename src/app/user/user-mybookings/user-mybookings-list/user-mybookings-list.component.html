@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-md-10 ml-auto mr-auto">
+      <div class="table-responsive">
+        <table class="table table-shopping">
+          <thead>
+            <tr>
+              <th class="text-center">Trainer name</th>
+              <th>Place</th>
+              <th>Reply</th>
+              <th>Booking date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let booking of bookings; let i = index">
+              <!-- Upcoming bookings -->
+              <ng-container *ngIf="!filterFinished">
+                <tr *ngIf="!isExpired(booking.startAt) && booking.status==='active'">
+                  <td class="td-product">
+                    <a routerLink="/rentals/{{ booking.rental._id }}">
+                      <div class="img-container">
+                        <img class="img" src="{{ booking.rental.image }}" />
+                      </div>
+                      <br>
+                      <strong>{{ booking.rental.rentalname }}</strong>
+                    </a>
+                  </td>
+                  <td class="td-product">
+                      <p>Place info</p>
+                  </td>
+                  <td class="td-product">
+                    <a href="https://works.do/R/ti/p/ahamada321@aerume" target="_blank">
+                      <img src="./assets/img/icons/line-square-default.png" alt="LINEで待ち合わせ場所調整する">
+                    </a>
+                    <p>先生と連絡をとる</p>
+                  </td>
+                  <td class="td-product">
+                      <p>Date: {{ booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                      <p>Start: {{ booking.startAt |  date: "HH:mm" }}</p>
+                      <p>{{ booking.courseTime }} min</p>
+                  </td>
+                  <td>{{ booking.status }}</td>
+                </tr>
+              </ng-container>
+
+              <!-- Finished Bookings -->
+              <ng-container *ngIf="filterFinished">
+                <tr *ngIf="isExpired(booking.startAt) && booking.status==='active'">
+                  <td class="td-product">
+                    <a routerLink="/rentals/{{ booking.rental._id }}">
+                      <div class="img-container">
+                        <img class="img" src="{{ booking.rental.image }}" />
+                      </div>
+                      <br>
+                      <strong>{{ booking.rental.rentalname }}</strong>
+                    </a>
+                  </td>
+                  <td class="td-product">
+                    <p>Place info</p>
+                  </td>
+                  <td class="td-product">
+                      <app-review *ngIf="!booking.review" [bookingId]="booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
+                      <div *ngIf="booking.review">
+                          <button class="btn btn-gray" disabled>レビュー済</button>
+                      </div>
+                  </td>
+                  <td class="td-product">
+                      <p>Date: {{ booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                      <p>Start: {{ booking.startAt |  date: "HH:mm" }}</p>
+                      <p>{{ booking.courseTime }} min</p>
+                  </td>
+                  <td>Finished</td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <!-- <ngb-pagination [collectionSize]="50" [(page)]="pageIndex" aria-label="Default pagination"></ngb-pagination> -->
+    </div>
+  </div>

@@ -14,8 +14,8 @@ import { Rental } from '../../service/rental.model';
 import { RentalService } from '../../service/rental.service';
 import Swal from 'sweetalert2'
 import * as moment from 'moment-timezone';
-import { Booking } from '../../rental-booking/services/booking.model';
-import { BookingService } from '../../rental-booking/services/booking.service';
+import { Booking } from '../../rental-detail/rental-detail-booking/services/booking.model';
+import { BookingService } from '../../rental-detail/rental-detail-booking/services/booking.service';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import { Booking } from '../rental-booking/services/booking.model';
+import { Booking } from '../rental-detail/rental-detail-booking/services/booking.model';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export class Rental {

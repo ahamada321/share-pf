@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MyOriginAuthService } from '../service/auth.service';
 import { AuthService } from "angularx-social-login";
@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               private socialAuthService: AuthService,
               private router: Router,
               private route: ActivatedRoute,
-              private zone: NgZone ) { }
+              private zone: NgZone,
+              private ref:ChangeDetectorRef ) { }
 
   ngOnInit() {
     let navbar = document.getElementsByTagName('nav')[0];
@@ -68,9 +69,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['/rentals'])
         },
         (errorResponse: HttpErrorResponse) => {
-          this.zone.run(() => { // In order to detect changes here immidiately.
-            this.errors = errorResponse.error.errors
-          })
+          // this.zone.run(() => { // In order to detect changes here immidiately.
+          //   this.errors = errorResponse.error.errors
+          // })
+          this.errors = errorResponse.error.errors
+          this.ref.detectChanges() // In order to detect changes here immidiately.
         }
       )
     }

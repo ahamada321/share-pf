@@ -5,11 +5,11 @@ import * as moment from "moment"
 
 
 @Component({
-  selector: 'app-rental-manage-bookings',
-  templateUrl: './rental-manage-bookings.component.html',
-  styleUrls: ['./rental-manage-bookings.component.scss']
+  selector: 'app-rental-bookings',
+  templateUrl: './rental-bookings.component.html',
+  styleUrls: ['./rental-bookings.component.scss']
 })
-export class RentalManageBookingsComponent implements OnInit, OnDestroy {
+export class RentalBookingsComponent implements OnInit, OnDestroy {
   payments: any[]
 
   constructor(private paymentService: PaymentService) { }

@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>レッスン場所の予約</h2>
+<mat-dialog-content>
+
+  <div class="row">
+    <div class="col-md ml-auto mr-auto">
+      <div class="info info-horizontal">
+        <div class="icon icon-danger">
+          <i class="nc-icon nc-sound-wave"></i>
+        </div>
+        <div class="description">
+          <h4 class="info-title"> 生徒からのリクエスト内容 </h4>
+          <p>　希望日：{{ payment.booking.startAt |  date: "yyyy / MM / dd" }}</p>
+          <p>開始時刻：{{ payment.booking.startAt |  date: "HH：mm" }}</p>
+          <p>　コース：{{ payment.booking.courseTime }} min</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md ml-auto mr-auto text-center">
+      <h4 class="title">最寄りスタジオを電話で予約</h4>
+      <app-googlemaps class="map-container" [location]="payment.booking.rental.province + ', ' + payment.booking.rental.nearStation"></app-googlemaps>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md ml-auto mr-auto text-center">
+      <h4 class="title">予約したスタジオ情報を入力</h4>
+        <div class="form-group">
+          <angular2-multiselect [data]="dropdownList1" [(ngModel)]="selectedItems1"
+                                [settings]="dropdownSettings1"
+                                (onSelect)="onItemSelect($event)"
+                                (onDeSelect)="OnItemDeSelect($event)"
+                                (onSelectAll)="onSelectAll($event)"
+                                (onDeSelectAll)="onDeSelectAll($event)">
+          </angular2-multiselect>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" value="" placeholder="スタジオ利用料金" class="form-control" />
+            <div class="input-group-append">
+              <span class="input-group-text">円</span>
+            </div>
+          </div>
+        </div>
+        <div class="description">
+          <p>ご入力いただいたスタジオ情報を生徒に共有します。</p>
+          <p>スタジオ利用料金は当日生徒に直接スタジオに支払うようお伝えください。</p>
+          <p>生徒の希望日時でスタジオ予約ができない場合、振替日時を提案できます。</p>
+        </div>
+        <div class="space-top"></div>
+        <textarea class="form-control" placeholder="任意でメッセージで添えることができます..." rows="3" ></textarea>
+        <div class="space-top"></div>
+        <p><button class="btn btn-primary" (click)="onBookingReady()">予約を確定する</button></p>
+        <p><button class="btn btn-warning" (click)="onReProposal()" >振替日時を提案</button></p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

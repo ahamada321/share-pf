@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-10 ml-auto mr-auto">
+    <div class="table-responsive">
+      <table class="table table-shopping">
+        <thead>
+          <tr>
+            <th class="text-center">Trainer name</th>
+            <th>Place</th>
+            <th *ngIf="filterFinished">Reply</th>
+            <th>Booking date</th>
+            <th>Status</th>
+            <th>Booking user</th>
+            <th class="text-center">Revenue [JPY]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let payment of payments">
+            <!-- Upcoming bookings -->
+            <ng-container *ngIf="!filterFinished">
+              <tr *ngIf="!isExpired(payment.booking.startAt)">
+                <td class="td-product">
+                  <a routerLink="/rentals/{{ payment.booking.rental._id }}">
+                    <div class="img-container">
+                      <img class="img" src="{{ payment.booking.rental.image }}" />
+                    </div>
+                    <br>
+                    <strong>{{payment.booking.rental.rentalname}}</strong>
+                  </a>
+                </td>
+                <td class="td-product">
+                  <p>place info</p>
+                </td>
+                <td *ngIf="filterFinished"></td>
+                <td class="td-product">
+                  <p>Date: {{ payment.booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                  <p>Start: {{ payment.booking.startAt |  date: "HH:mm" }}</p>
+                  <p>{{ payment.booking.courseTime }} min</p>
+                </td>
+                <td>{{ payment.booking.status }}</td>
+                <td>{{ payment.fromUser.username }}</td>
+                <td class="text-center">{{ payment.ownerRevenue }} JPY</td>
+              </tr>
+            </ng-container>
+
+            <!-- Finished bookings -->
+            <ng-container *ngIf="filterFinished">
+              <tr *ngIf="isExpired(payment.booking.startAt)">
+                <td class="td-product">
+                  <a routerLink="/rentals/{{ payment.booking.rental._id }}">
+                    <div class="img-container">
+                      <img class="img" src="{{ payment.booking.rental.image }}" />
+                    </div>
+                    <br>
+                    <strong>{{payment.booking.rental.rentalname}}</strong>
+                  </a>
+                </td>
+                <td class="td-product">
+                  <p>place info</p>
+                </td>
+                <td *ngIf="filterFinished" class="td-product">
+                  <app-review *ngIf="!payment.booking.review" [bookingId]="payment.booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
+                  <div *ngIf="payment.booking.review">
+                    <button class="btn btn-gray" disabled>レビュー済</button>
+                  </div>
+                </td>
+                <td class="td-product">
+                  <p>Date: {{ payment.booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                  <p>Start: {{ payment.booking.startAt |  date: "HH:mm" }}</p>
+                  <p>{{ payment.booking.courseTime }} min</p>
+                </td>
+                <td>Finished</td>
+                <td>{{ payment.fromUser.username }}</td>
+                <td class="text-center">{{ payment.ownerRevenue }} JPY</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <!-- <ngb-pagination [collectionSize]="50" [(page)]="pageIndex" aria-label="Default pagination"></ngb-pagination> -->
+  </div>
+</div>

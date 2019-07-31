@@ -4,10 +4,10 @@ import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 
 import { Rental } from '../service/rental.model';
 import { Review } from 'src/app/common/components/review/service/review.model';
-import { Booking } from '../rental-booking/services/booking.model';
+import { Booking } from './rental-detail-booking/services/booking.model';
 import { RentalService } from '../service/rental.service';
 import { ReviewService } from 'src/app/common/components/review/service/review.service';
-import { BookingService } from '../rental-booking/services/booking.service';
+import { BookingService } from './rental-detail-booking/services/booking.service';
 import { EventInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import * as moment from 'moment-timezone'
@@ -124,7 +124,7 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
         // })
         
         for(let booking of this.rental.bookings) {
-            if(booking.status == 'pending') {
+            if(booking.status == 'pending' || booking.status == 're-pending') {
                 events.push({
                     //title: this.getUserName(booking.user), 
                     start: moment(booking.startAt).tz("Asia/Tokyo").format(), 

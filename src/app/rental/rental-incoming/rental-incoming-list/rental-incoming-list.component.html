@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-md-10 ml-auto mr-auto">
+    <div class="table-responsive">
+      <table class="table table-shopping">
+        <thead>
+          <tr>
+            <th class="text-center">Trainer name</th>
+            <th>Reply</th>
+            <th>Booking date</th>
+            <th>Status</th>
+            <th>Booking user</th>
+            <th class="text-center">Revenue [JPY]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let payment of payments; let i = index">
+            <!-- Incoming bookings -->
+            <ng-container *ngIf="!filterExpired">
+              <tr *ngIf="!isExpired(payment.booking.startAt)">
+                <td class="td-product">
+                  <a routerLink="/rentals/{{ payment.booking.rental._id }}">
+                    <div class="img-container">
+                      <img class="img" src="{{ payment.booking.rental.image }}" />
+                    </div>
+                    <br>
+                    <strong>{{payment.booking.rental.rentalname}}</strong>
+                  </a>
+                </td>
+                <td class="td-product">
+                  <div *ngIf="payment.booking.status === 're-pending'">
+                    <button class="btn btn-gray" disabled>返信待ち</button>
+                  </div>
+                  <div *ngIf="payment.booking.status === 'pending'">
+                    <p><button class="btn btn-primary" (click)="openSelectPlaceDialog(i, payment)">　引き受ける　</button></p>
+                    <p><button class="btn btn-gray" (click)="declineConfirmation(i, payment)">　お断りする　</button></p>
+                    <p><button class="btn btn-warning" (click)="openDialog(i, payment)">振替日時を提案</button></p>  
+                  </div>
+                </td>
+                <td class="td-product">
+                    <p>Date: {{ payment.booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                    <p>Start: {{ payment.booking.startAt |  date: "HH:mm" }}</p>
+                    <p>{{ payment.booking.courseTime }} min</p>
+                </td>
+                <td>{{ payment.booking.status }}</td>
+                <td>{{ payment.fromUser.username }}</td>
+                <td class="text-center">{{ payment.ownerRevenue }} JPY</td>
+              </tr>
+            </ng-container>
+
+            <!-- Expired bookings -->
+            <ng-container *ngIf="filterExpired">
+              <tr *ngIf="isExpired(payment.booking.startAt) && payment.booking.status !== 'active'">
+                <td class="td-product">
+                  <a routerLink="/rentals/{{ payment.booking.rental._id }}">
+                    <div class="img-container">
+                      <img class="img" src="{{ payment.booking.rental.image }}" />
+                    </div>
+                    <br>
+                    <strong>{{payment.booking.rental.rentalname}}</strong>
+                  </a>
+                </td>
+                <td>Expired</td>
+                <td class="td-product">
+                    <p>Date: {{ payment.booking.startAt |  date: "yyyy/MM/dd" }}</p>
+                    <p>Start: {{ payment.booking.startAt |  date: "HH:mm" }}</p>
+                    <p>{{ payment.booking.courseTime }} min</p>
+                </td>
+                <td>Expired</td>
+                <td>{{ payment.fromUser.username }}</td>
+                <td class="text-center">{{ payment.ownerRevenue }} JPY</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <!-- <ngb-pagination [collectionSize]="50" [(page)]="pageIndex" aria-label="Default pagination"></ngb-pagination> -->
+  </div>
+</div>

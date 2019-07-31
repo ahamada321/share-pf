@@ -17,25 +17,41 @@ const REQUEST_DECLINED_BY_USER = 'request_declined_by_user'
 const REQUEST_ACCEPTED_BY_USER = 'request_accepted_by_user'
 
 
-function sendEmailTo(sendTo, sendMsg, booking, hostname) {
+function sendEmailTo(sendTo, sendMsg, booking, hostname, comment) {
     let msg = {}
     const startAt = moment(booking.startAt).tz("Asia/Tokyo").format("YYYY/MM/DD/HH:mm")
     const endAt = moment(booking.endAt).tz("Asia/Tokyo").format("HH:mm")
 
-    if(sendMsg == REQUEST_DECLINED_BY_OWNER) {
-        msg = {
-            to: sendTo,
-            from: "noreply@ap-trainer.com",
-            subject: "「" + booking.rental.rentalname + " Trainer」への予約リクエストは受理されませんでした",
-            text: "商品名：" + booking.rental.rentalname + " \n\n"
-                + "日時：" + startAt + ' 〜 ' + endAt + " \n\n"
-                + "場所：" + booking.rental.province + "\n\n"
-                + "への予約リクエストは受理されませんでした。たまたま「" + booking.rental.rentalname + " Trainer」の都合がつかなかった場合もありますので、また別の日程で予約にチャレンジしてみてください！\n\n"
-                + "他の商品の方が予約しやすい場合もあります。"
-                + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+    if(sendMsg === REQUEST_DECLINED_BY_OWNER) {
+        if(comment) {
+            msg = {
+                to: sendTo,
+                from: "noreply@ap-trainer.com",
+                subject: "「" + booking.rental.rentalname + " Trainer」への予約リクエストは受理されませんでした",
+                text: "商品名：" + booking.rental.rentalname + " \n\n"
+                    + "日時：" + startAt + ' 〜 ' + endAt + " \n\n"
+                    + "場所：" + booking.rental.province + "\n\n"
+                    + "への予約リクエストは受理されませんでした。\n\n"
+                    + '先生からのコメント：' + comment
+                    + '\n\n\n\n'
+                    + 'Anytime Personal Trainer.inc'
+            }
+        } else {
+            msg = {
+                to: sendTo,
+                from: "noreply@ap-trainer.com",
+                subject: "「" + booking.rental.rentalname + " Trainer」への予約リクエストは受理されませんでした",
+                text: "商品名：" + booking.rental.rentalname + " \n\n"
+                    + "日時：" + startAt + ' 〜 ' + endAt + " \n\n"
+                    + "場所：" + booking.rental.province + "\n\n"
+                    + "への予約リクエストは受理されませんでした。\n\n"
+                    + "たまたま「" + booking.rental.rentalname + " Trainer」の都合がつかなかった場合もありますので、また別の日程で予約にチャレンジしてみてください！\n\n"
+                    + "他の商品の方が予約しやすい場合もあります。"
+                    + '\n\n\n\n'
+                    + 'Anytime Personal Trainer.inc'
+            }
         }
-    } else if (sendMsg == REQUEST_ACCEPTED_BY_OWNER) {
+    } else if (sendMsg === REQUEST_ACCEPTED_BY_OWNER) {
         msg = {
             to: sendTo,
             from: "noreply@ap-trainer.com",
@@ -47,7 +63,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '\n\n\n\n'
                 + 'Anytime Personal Trainer.inc'
         }
-    } else if (sendMsg == REQUEST_ACCEPTED_BY_USER) {
+    } else if (sendMsg === REQUEST_ACCEPTED_BY_USER) {
         msg = {
             to: sendTo,
             from: "noreply@ap-trainer.com",
@@ -59,7 +75,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '\n\n\n\n'
                 + 'Anytime Personal Trainer.inc'
         }
-    } else if (sendMsg == REQUEST_DECLINED_BY_USER) {
+    } else if (sendMsg === REQUEST_DECLINED_BY_USER) {
         msg = {
             to: sendTo,
             from: "noreply@ap-trainer.com",
@@ -83,17 +99,18 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
 exports.getPendingPayments = function(req, res) {
     const user = res.locals.user
 
-    Payment.where({toUser: user})
-            .where({status: 'pending'})
+    Payment.where({toUser: user, status: 'pending'})
             .populate('fromUser')
             .populate({
                 // populate both 'booking' and 'rental'
                 path: 'booking',
+                // options: {sort: {'startAt': -1}}, // This not works
                 populate: {
                     path: 'rental',
-                    populate: {path: 'bookings'} // This is using for repropose booking date from rental owner.
+                    populate: {path: 'bookings'} // Using for reproposal booking date from rental owner.
                 }
             })
+            .sort( {'booking.startAt': -1} ) // This not works
             .exec(function(err, foundPayments) {
         if(err) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
@@ -105,8 +122,7 @@ exports.getPendingPayments = function(req, res) {
 exports.getPaidPayments = function(req, res) {
     const user = res.locals.user
 
-    Payment.where({toUser: user})
-            .where({status: 'paid'})
+    Payment.where({toUser: user, status: 'paid'})
             .populate('fromUser')
             .populate({
                 // populate both 'booking' and 'rental'
@@ -206,7 +222,7 @@ exports.declinePayment = function(req, res) {
             if (err) {
                 return res.status(422).send({errors: normalizeErrors(err.errors)})
             }
-            sendEmailTo(payment.fromUser.email, REQUEST_DECLINED_BY_OWNER, foundBooking, req.hostname)
+            sendEmailTo(payment.fromUser.email, REQUEST_DECLINED_BY_OWNER, foundBooking, req.hostname, payment.declineComment)
             Payment.updateMany({_id: payment._id}, {status: 'declined'}, function(){})
             Rental.updateMany({_id: foundBooking.rental._id}, {$pull: {bookings: foundBooking._id}}, ()=>{}) // Delete Booking from Rental
     

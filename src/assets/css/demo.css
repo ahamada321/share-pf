@@ -304,14 +304,15 @@
     margin-bottom: 7px;
 }
 
-.img-container {
+/* Disabled by Hamada */
+/* .img-container {
     width: 100%;
     overflow: hidden;
 }
 
 .img-container img {
     width: 100%;
-}
+} */
 
 .lightbox img {
     width: 100%;
