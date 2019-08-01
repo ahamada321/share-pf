@@ -15,6 +15,7 @@ const CUSTOMER_SHARE = 0.7
 const REQUEST_SEND = 'request_send'
 const REQUEST_RECIEVED = 'request_recieved'
 const RE_REQUEST_RECIEVED = 're_request_recieved'
+const RE_RE_REQUEST_RECIEVED = 're_re_request_recieved'
 
 function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     let msg = {}
@@ -23,7 +24,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
     const oldStartAt = moment(booking.oldStartAt).tz("Asia/Tokyo").format("YYYY/MM/DD/HH:mm")
     const oldEndAt = moment(booking.oldEndAt).tz("Asia/Tokyo").format("HH:mm")
 
-    if(sendMsg == REQUEST_SEND) {
+    if(sendMsg === REQUEST_SEND) {
         msg = {
             to: sendTo,
             from: 'noreply@ap-trainer.com',
@@ -33,7 +34,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '\n\n\n\n'
                 + 'Anytime Personal Trainer.inc'
         }
-    } else if (sendMsg == REQUEST_RECIEVED) {
+    } else if (sendMsg === REQUEST_RECIEVED) {
         msg = {
             to: sendTo,
             from: 'noreply@ap-trainer.com',
@@ -46,7 +47,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '\n\n\n\n'
                 + 'Anytime Personal Trainer.inc'
         }
-    } else if (sendMsg == RE_REQUEST_RECIEVED) {
+    } else if (sendMsg === RE_REQUEST_RECIEVED) {
         if(booking.comment) {
             msg = {
                 to: sendTo,
@@ -77,7 +78,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + 'Anytime Personal Trainer.inc'
             }
         }
-    } else if (sendMsg == RE_RE_REQUEST_RECIEVED) {
+    } else if (sendMsg === RE_RE_REQUEST_RECIEVED) {
         if(booking.comment) {
             msg = {
                 to: sendTo,
@@ -334,7 +335,7 @@ exports.updateBooking = function(req, res) {
 
         try {
             const updatedBooking = Booking.updateMany({ _id: foundBooking.id}, bookingData, () => {})
-            return res.json(updatedBooking)
+            return res.json({"status": "updated"})
         } catch(err) {
             return res.json(err)
         }

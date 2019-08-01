@@ -15,7 +15,7 @@ export class UserPendingDialog {
   @Input() booking: Booking
 
   constructor(private bookingService: BookingService,
-              public dialogService: MatDialog ) { }
+              private dialogService: MatDialog ) { }
 
   onBookingReady(newBooking: Booking) {
     Swal.fire({
@@ -42,8 +42,8 @@ export class UserPendingDialog {
           bookingData.comment = result.value
         }
         this.bookingService.updateBooking(bookingData).subscribe(
-          (updatedBooking: Booking) => {
-            this.booking = updatedBooking
+          (updatedBooking) => {
+            // this.booking = updatedBooking
             this.showSwalSuccess()
           },
           (errorResponse) => {
@@ -143,9 +143,17 @@ export class UserPendingDialog {
       const dialogRef = this.dialogService.open(UserPendingDialog)
       dialogRef.componentInstance.booking = booking
       dialogRef.afterClosed().subscribe(result => {
-        // this.getUserBookings()
-        // need to update frontend ui
+        // this.getUserBookings() // Update frontend UI and current booking info
       })
+    }
+
+    private getUserBookings() {
+      this.bookingService.getUserBookings().subscribe(
+        (bookings: Booking[]) => {
+          this.bookings = bookings
+        },
+        () => { }
+      )
     }
 
     isExpired(startAt) {

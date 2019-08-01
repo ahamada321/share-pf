@@ -48,7 +48,7 @@ export class GoogleMapsComponent {
                     address: '東京都新宿区歌舞伎町3-3-3',
                     nearStation: '新宿駅'
                 }]
-                this.getPlaces()
+                // this.getPlaces()
 
                 this.ref.detectChanges()
             },

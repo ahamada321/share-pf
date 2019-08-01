@@ -13,148 +13,148 @@ import * as moment from "moment"
     templateUrl: './dialog/rental-incoming-select-place-dialog.html',
     styleUrls: ['./dialog/rental-incoming-select-place-dialog.scss']
   
-  })
-  export class RentalIncomingSelectPlaceDialog implements OnInit {
-    @Input() payment: any
-    @Input() index: any
-  
-    dropdownList1 = [
-      {"id":1,"itemName":"Aスタジオ"},
-      {"id":2,"itemName":"Bスタジオ"}
-    ];
-    selectedItems1 = [
-    ];
-    dropdownSettings1 = {
-      singleSelection: true,
-      text:"予約スタジオを選択",
-      selectAllText:'Select All',
-      unSelectAllText:'UnSelect All',
-      enableSearchFilter: true,
-      classes:""
-    };
-  
-    constructor(private bookingService: BookingService,
-                private paymentService: PaymentService,
-                private dialogService: MatDialog,
-                private dialogRef: MatDialogRef<RentalIncomingSelectPlaceDialog>,
-                ) { }
-  
-    ngOnInit() {
-    }
+})
+export class RentalIncomingSelectPlaceDialog implements OnInit {
+  @Input() payment: any
+  @Input() index: any
 
-    onItemSelect(item:any){
-      // console.log(item);
-      // console.log(this.selectedItems);
+  dropdownList1 = [
+    {"id":1,"itemName":"Aスタジオ"},
+    {"id":2,"itemName":"Bスタジオ"}
+  ];
+  selectedItems1 = [
+  ];
+  dropdownSettings1 = {
+    singleSelection: true,
+    text:"予約スタジオを選択",
+    selectAllText:'Select All',
+    unSelectAllText:'UnSelect All',
+    enableSearchFilter: true,
+    classes:""
+  };
+
+  constructor(private bookingService: BookingService,
+              private paymentService: PaymentService,
+              private dialogService: MatDialog,
+              private dialogRef: MatDialogRef<RentalIncomingSelectPlaceDialog>,
+              ) { }
+
+  ngOnInit() {
+  }
+
+  onItemSelect(item:any){
+    // console.log(item);
+    // console.log(this.selectedItems);
   }
   OnItemDeSelect(item:any){
     // console.log(item);
     // console.log(this.selectedItems);
-}
-onSelectAll(items: any){
-    // console.log(items);
-}
-onDeSelectAll(items: any){
-    // console.log(items);
-}
-  
-    onReProposal() {
-      this.dialogRef.close(true);
-    }
-  
-    onBookingReady() {
-      let bookingData = this.payment.booking
-      bookingData.status = "re-pending"
-      // need to add studio info and comment
-  
-      this.bookingService.updateBooking(bookingData).subscribe(
-        (newBookingData: any) => {
-          this.acceptPayment()
-        },
-        (errorResponse: HttpErrorResponse) => {
-          // this.errors = errorResponse.error.errors
-        }
-      )
-    }
-  
-    private acceptPayment() {
-      this.paymentService.acceptPayment(this.payment).subscribe(
-        (json) => {
-          Swal.fire({
-            type: 'success',
-            title: '予約確定しました！',
-            confirmButtonClass: "btn btn-primary btn-lg",
-            buttonsStyling: false,
-            allowOutsideClick: false,
-            timer: 5000
-          }).then(() => {
-            this.dialogService.closeAll()
-          })
-        },
-        (errorResponse: HttpErrorResponse) => { }
-      )
-    }
   }
+  onSelectAll(items: any){
+      // console.log(items);
+  }
+  onDeSelectAll(items: any){
+      // console.log(items);
+  }
+
+  onReProposal() {
+    this.dialogRef.close(true)
+  }
+
+  onBookingReady() {
+    let bookingData = this.payment.booking
+    bookingData.status = "re-pending"
+    // need to add studio info and comment
+
+    this.bookingService.updateBooking(bookingData).subscribe(
+      (updatedBooking) => {
+        this.acceptPayment()
+      },
+      (errorResponse: HttpErrorResponse) => {
+        // this.errors = errorResponse.error.errors
+      }
+    )
+  }
+
+  private acceptPayment() {
+    this.paymentService.acceptPayment(this.payment).subscribe(
+      (json) => {
+        Swal.fire({
+          type: 'success',
+          title: '予約確定しました！',
+          confirmButtonClass: "btn btn-primary btn-lg",
+          buttonsStyling: false,
+          allowOutsideClick: false,
+          timer: 5000
+        }).then(() => {
+          this.dialogRef.close()
+        })
+      },
+      (errorResponse: HttpErrorResponse) => { }
+    )
+  }
+}
   
   
-  @Component({
-    selector: 'app-rental-incoming-dialog',
-    templateUrl: './dialog/rental-incoming-dialog.html'
-  })
-  export class RentalIncomingDialog {
-    @Input() payment: any
-  
-    constructor(private bookingService: BookingService,
-                private dialogService: MatDialog ) { }
-  
-    onBookingReady(newBooking: Booking, currentBooking: Booking) {  
-      Swal.fire({
-        title: '以下の日時で再提案します',
-        text: moment(newBooking.startAt).format("YYYY/MM/DD/HH:mm") + '〜' + moment(newBooking.endAt).format("HH:mm") + 'で提案しなおしますか？',
-        input: 'textarea',
-        inputPlaceholder: '希望日時に沿えない理由をメッセージで伝えることができます...',
-        confirmButtonClass: "btn btn-primary btn-lg",
-        cancelButtonClass: "btn btn-gray btn-lg",
-        // cancelButtonText: "キャンセル",
-        showCancelButton: true,
-        buttonsStyling: false,
-        allowOutsideClick: false
-      }).then((result) => {
-        if(!result.dismiss) {
-          let bookingData = currentBooking
-          bookingData.oldStartAt = bookingData.startAt
-          bookingData.oldEndAt = bookingData.endAt
-          bookingData.startAt = newBooking.startAt
-          bookingData.endAt = newBooking.endAt
-          bookingData.status = "re-pending"
-          if(result.value) {
-            bookingData.comment = result.value
+@Component({
+  selector: 'app-rental-incoming-dialog',
+  templateUrl: './dialog/rental-incoming-dialog.html'
+})
+export class RentalIncomingDialog {
+  @Input() payment: any
+
+  constructor(private bookingService: BookingService,
+              private dialogRef: MatDialogRef<RentalIncomingDialog>,
+              private dialogService: MatDialog ) { }
+
+  onBookingReady(newBooking: Booking, currentBooking: Booking) {  
+    Swal.fire({
+      title: '以下の日時で再提案します',
+      text: moment(newBooking.startAt).format("YYYY/MM/DD/HH:mm") + '〜' + moment(newBooking.endAt).format("HH:mm") + 'で提案しなおしますか？',
+      input: 'textarea',
+      inputPlaceholder: '希望日時に沿えない理由をメッセージで伝えることができます...',
+      confirmButtonClass: "btn btn-primary btn-lg",
+      cancelButtonClass: "btn btn-gray btn-lg",
+      // cancelButtonText: "キャンセル",
+      showCancelButton: true,
+      buttonsStyling: false,
+      allowOutsideClick: false
+    }).then((result) => {
+      if(!result.dismiss) {
+        let bookingData = currentBooking
+        bookingData.oldStartAt = bookingData.startAt
+        bookingData.oldEndAt = bookingData.endAt
+        bookingData.startAt = newBooking.startAt
+        bookingData.endAt = newBooking.endAt
+        bookingData.status = "re-pending"
+        if(result.value) {
+          bookingData.comment = result.value
+        }
+        this.bookingService.updateBooking(bookingData).subscribe(
+          (updatedBooking) => {
+            this.showSwalSuccess()
+          },
+          (errorResponse: HttpErrorResponse) => {
+            // this.errors = errorResponse.error.errors
           }
-          this.bookingService.updateBooking(bookingData).subscribe(
-            (updatedBooking: Booking) => {
-              this.payment.booking = updatedBooking
-              this.showSwalSuccess()
-            },
-            (errorResponse: HttpErrorResponse) => {
-              // this.errors = errorResponse.error.errors
-            }
-          )
-        }
-      })
-    }
-  
-    showSwalSuccess() {
-      Swal.fire({
-        type: 'success',
-        title: '予約日時を再提案しました！',
-        confirmButtonClass: "btn btn-primary btn-lg",
-        buttonsStyling: false,
-        allowOutsideClick: false,
-        timer: 5000
-      }).then((result) => {
-        this.dialogService.closeAll()
-      })
-    }
+        )
+      }
+    })
   }
+
+  private showSwalSuccess() {
+    Swal.fire({
+      type: 'success',
+      title: '予約日時を再提案しました！',
+      confirmButtonClass: "btn btn-primary btn-lg",
+      buttonsStyling: false,
+      allowOutsideClick: false,
+      timer: 5000
+    }).then((result) => {
+      this.dialogRef.close()
+    })
+  }
+}
 
 
 @Component({
@@ -167,7 +167,7 @@ export class RentalIncomingListComponent implements OnInit {
   @Input() payments: any;
 
   constructor(  private paymentService: PaymentService,
-                public dialogService: MatDialog ) { }
+                private dialogService: MatDialog ) { }
 
   ngOnInit() {
   }
@@ -182,12 +182,11 @@ export class RentalIncomingListComponent implements OnInit {
     dialogRef.componentInstance.payment = payment
     dialogRef.componentInstance.index = index
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if(result) {
+    dialogRef.afterClosed().subscribe((isReproposal) => {
+      if(isReproposal) {
         this.openDialog(index, payment)
       } else {
         // this.payments.splice(index, 1) // Update frontend UI
-        //need to update frontend ui
       }
     })
   }
@@ -195,10 +194,18 @@ export class RentalIncomingListComponent implements OnInit {
   openDialog(index, payment) {
     const dialogRef = this.dialogService.open(RentalIncomingDialog)
     dialogRef.componentInstance.payment = payment
-
     dialogRef.afterClosed().subscribe(result => {
-      
+      this.getPendingPayments()
     })
+  }
+
+  private getPendingPayments() {
+    this.paymentService.getPendingPayments().subscribe(
+      (payments: any) => {
+        this.payments = payments
+      },
+      (errorResponse: HttpErrorResponse) => { }
+    )
   }
 
   declineConfirmation(index, payment) {
@@ -236,8 +243,7 @@ export class RentalIncomingListComponent implements OnInit {
   private declinePayment(index, payment) {
     this.paymentService.declinePayment(payment).subscribe(
       (json) => {
-        // this.payments.splice(index, 1) // Update frontend UI
-        // need to reflesh frontend ui
+        this.payments.splice(index, 1) // Update frontend UI
       },
       (errorResponse: HttpErrorResponse) => { }
     )
