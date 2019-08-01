@@ -28,7 +28,7 @@ export class GoogleMapsService {
 
         return new Observable((observer) => {
             this.geoCoder.geocode({address: location}, (result, status) => {
-                if(status == 'OK') {
+                if(status === 'OK') {
                     const geometry = result[0].geometry.location
                     const coodinates = {lat: geometry.lat(), lng: geometry.lng()}
 

@@ -11,7 +11,7 @@ import * as moment from "moment"
 @Component({
     selector: 'app-rental-incoming-select-place-dialog',
     templateUrl: './dialog/rental-incoming-select-place-dialog.html',
-    // styleUrls: ['./rental-incoming.component.scss']
+    styleUrls: ['./dialog/rental-incoming-select-place-dialog.scss']
   
   })
   export class RentalIncomingSelectPlaceDialog implements OnInit {

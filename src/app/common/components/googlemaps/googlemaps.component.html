@@ -25,19 +25,19 @@
                       もし解決が難しい場合はサポートフォームにお問い合わせください。
     </agm-info-window>
 
-    <div *ngIf="enableMarkers && (markers && markers.length>0)">
+    <div *ngIf="places && places.length>0">
       <agm-marker 
-          *ngFor="let marker of markers; let i = index"
+          *ngFor="let place of places; let i = index"
           (markerClick)="onMarkerClick(infoWindow)"
-          [latitude]="marker.lat"
-          [longitude]="marker.lng"
+          [latitude]="place.lat"
+          [longitude]="place.lng"
           >
         <agm-info-window #infoWindow>
-          <h4>{{ marker.studioName }}</h4>
+          <h4>{{ place.placeName }}</h4>
           <br>
           <p>
-            TEL：{{ marker.phoneNumber }}<br>
-            {{ marker.address }}    
+            TEL：{{ place.tel }}<br>
+            {{ place.address }}    
           </p>
         </agm-info-window>
       </agm-marker>

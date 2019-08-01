@@ -20,7 +20,9 @@
   <div class="row">
     <div class="col-md ml-auto mr-auto text-center">
       <h4 class="title">最寄りスタジオを電話で予約</h4>
-      <app-googlemaps class="map-container" [location]="payment.booking.rental.province + ', ' + payment.booking.rental.nearStation"></app-googlemaps>
+      <div class="map-container">
+        <app-googlemaps [location]="payment.booking.rental.province + ', ' + payment.booking.rental.nearStation"></app-googlemaps>
+      </div>
     </div>
   </div>
 

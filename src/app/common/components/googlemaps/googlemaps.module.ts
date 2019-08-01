@@ -5,6 +5,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CamelizePipe } from 'ngx-pipes'
 import { GoogleMapsComponent } from './googlemaps.component';
 import { GoogleMapsService } from './service/googlemaps.service';
+import { PlaceService } from './service/place.service';
 import { environment } from 'src/environments/environment';
 
 
@@ -22,6 +23,7 @@ import { environment } from 'src/environments/environment';
   exports: [GoogleMapsComponent],
   providers: [
     GoogleMapsService,
+    PlaceService,
     CamelizePipe
   ],
   bootstrap: [],

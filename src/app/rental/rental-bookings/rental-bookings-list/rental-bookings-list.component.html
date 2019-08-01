@@ -28,7 +28,8 @@
                   </a>
                 </td>
                 <td class="td-product">
-                  <p>place info</p>
+                  <img src="./assets/img/icons/googlemap.png" alt="LINEで待ち合わせ場所調整する">
+                  <p>場所の確認</p>
                 </td>
                 <td *ngIf="filterFinished"></td>
                 <td class="td-product">
@@ -55,7 +56,8 @@
                   </a>
                 </td>
                 <td class="td-product">
-                  <p>place info</p>
+                  <img src="./assets/img/icons/googlemap.png" alt="LINEで待ち合わせ場所調整する">
+                  <p>場所の確認</p>
                 </td>
                 <td *ngIf="filterFinished" class="td-product">
                   <app-review *ngIf="!payment.booking.review" [bookingId]="payment.booking._id" (reviewSubmitted)="reviewHandler(i, $event)"></app-review>
