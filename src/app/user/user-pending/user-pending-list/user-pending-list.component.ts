@@ -81,7 +81,7 @@ export class UserPendingDialog {
   
     constructor(private bookingService: BookingService,
                 private paymentService: PaymentService,
-                public dialogService: MatDialog ) { }
+                private dialogService: MatDialog ) { }
 
     acceptPayment(payment) {
       const body = {
@@ -125,7 +125,6 @@ export class UserPendingDialog {
     private deleteBooking(bookingId: string) {
       this.bookingService.deleteBooking(bookingId).subscribe(
         (deletedBooking) => {
-          this.bookings.splice(this.bookingDeleteIndex, 1) // Update Frontend
           Swal.fire({
             type: 'error',
             title: '予約キャンセルされました',
@@ -134,6 +133,7 @@ export class UserPendingDialog {
             buttonsStyling: false,
             allowOutsideClick: false
           })
+          this.bookings.splice(this.bookingDeleteIndex, 1) // Update Frontend UI
         },
         (errorResponse) => { }
       )
@@ -143,7 +143,7 @@ export class UserPendingDialog {
       const dialogRef = this.dialogService.open(UserPendingDialog)
       dialogRef.componentInstance.booking = booking
       dialogRef.afterClosed().subscribe(result => {
-        // this.getUserBookings() // Update frontend UI and current booking info
+        this.getUserBookings() // Update frontend UI
       })
     }
 

@@ -183,11 +183,7 @@ export class RentalIncomingListComponent implements OnInit {
     dialogRef.componentInstance.index = index
 
     dialogRef.afterClosed().subscribe((isReproposal) => {
-      if(isReproposal) {
-        this.openDialog(index, payment)
-      } else {
-        // this.payments.splice(index, 1) // Update frontend UI
-      }
+      if(isReproposal) { this.openDialog(index, payment) }
     })
   }
 
@@ -195,7 +191,7 @@ export class RentalIncomingListComponent implements OnInit {
     const dialogRef = this.dialogService.open(RentalIncomingDialog)
     dialogRef.componentInstance.payment = payment
     dialogRef.afterClosed().subscribe(result => {
-      this.getPendingPayments()
+      this.getPendingPayments() // Update frontend UI.
     })
   }
 
