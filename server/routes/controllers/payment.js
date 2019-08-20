@@ -182,7 +182,7 @@ exports.acceptPayment = function(req, res) {
                 if(err) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
-                Booking.updateMany({ _id: booking}, { status: 'active'}, function(){})
+                Booking.updateOne({ _id: booking}, { status: 'active'}, function(){})
 
                 if(foundPayment.toUser.id === user.id) {
                     sendEmailTo(foundPayment.fromUser.email, REQUEST_ACCEPTED_BY_OWNER, booking, req.hostname)
@@ -192,7 +192,7 @@ exports.acceptPayment = function(req, res) {
                 }
                 return res.json({ status: 'paid'})
 
-                // User.updateMany({_id: foundPayment.toUser}, { $inc: {revenue: foundPayment.amount}}, function(err, user) {
+                // User.updateOne({_id: foundPayment.toUser}, { $inc: {revenue: foundPayment.amount}}, function(err, user) {
                 //     if(err) {
                 //         return res.status(422).send({errors: normalizeErrors(err.errors)})
                 //     }
@@ -223,8 +223,8 @@ exports.declinePayment = function(req, res) {
                 return res.status(422).send({errors: normalizeErrors(err.errors)})
             }
             sendEmailTo(payment.fromUser.email, REQUEST_DECLINED_BY_OWNER, foundBooking, req.hostname, payment.declineComment)
-            Payment.updateMany({_id: payment._id}, {status: 'declined'}, function(){})
-            Rental.updateMany({_id: foundBooking.rental._id}, {$pull: {bookings: foundBooking._id}}, ()=>{}) // Delete Booking from Rental
+            Payment.updateOne({_id: payment._id}, {status: 'declined'}, function(){})
+            Rental.updateOne({_id: foundBooking.rental._id}, {$pull: {bookings: foundBooking._id}}, ()=>{}) // Delete Booking from Rental
     
             return res.json({"status": "deleted"})
         })

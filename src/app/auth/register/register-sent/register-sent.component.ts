@@ -6,8 +6,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./register-sent.component.scss']
 })
 export class RegisterSentComponent implements OnInit, OnDestroy {
-  focus: any;
-  focus1: any;
 
   constructor() { }
 
