@@ -32,7 +32,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
             text: '現時点では予約は確定していません。「' + booking.rental.rentalname + ' Trainer」がリクエストを受理された場合に正式予約が完了します。\n\n'
                 + '予約が確定しない限りご請求が行くことはございません。'
                 + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+                + 'Aeru.me, Inc'
         }
     } else if (sendMsg === REQUEST_RECIEVED) {
         msg = {
@@ -45,7 +45,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                 + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                 + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+                + 'Aeru.me, Inc'
         }
     } else if (sendMsg === RE_REQUEST_RECIEVED) {
         if(booking.comment) {
@@ -61,7 +61,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/user\/pending'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         } else {
             msg = {
@@ -75,7 +75,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/incoming'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         }
     } else if (sendMsg === RE_RE_REQUEST_RECIEVED) {
@@ -92,7 +92,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         } else {
             msg = {
@@ -106,7 +106,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         }
     } else {
