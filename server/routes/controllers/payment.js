@@ -34,7 +34,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname, comment) {
                     + "への予約リクエストは受理されませんでした。\n\n"
                     + '先生からのコメント：' + comment
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         } else {
             msg = {
@@ -48,7 +48,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname, comment) {
                     + "たまたま「" + booking.rental.rentalname + " Trainer」の都合がつかなかった場合もありますので、また別の日程で予約にチャレンジしてみてください！\n\n"
                     + "他の商品の方が予約しやすい場合もあります。"
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         }
     } else if (sendMsg === REQUEST_ACCEPTED_BY_OWNER) {
@@ -61,7 +61,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname, comment) {
                 + '場所：' + booking.rental.province + '\n\n'
                 + 'これ以降のキャンセルはできません。時間に余裕を持って目的地に到着されるようお願いいたします。'
                 + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+                + 'Aeru.me, Inc'
         }
     } else if (sendMsg === REQUEST_ACCEPTED_BY_USER) {
         msg = {
@@ -73,7 +73,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname, comment) {
                 + '場所：' + booking.rental.province + '\n\n'
                 + 'これ以降のキャンセルはできません。生徒に満足される最高のおもてなしをしましょう！'
                 + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+                + 'Aeru.me, Inc'
         }
     } else if (sendMsg === REQUEST_DECLINED_BY_USER) {
         msg = {
@@ -87,7 +87,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname, comment) {
                 + "せっかくの予約機会を逃さぬよう、受付不可日はなるべく早めに予約ブロック機能で事前にブロックしておきましょう。\n\n"
                 + "予約ブロック機能はTrainer管理ページ内で設定できます。"
                 + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+                + 'Aeru.me, Inc'
         }
     } else {
         return res.status(422).send({errors: [{title: "Could not send email!", detail: "Please select appropriate email content!"}]})
@@ -182,7 +182,7 @@ exports.acceptPayment = function(req, res) {
                 if(err) {
                     return res.status(422).send({errors: normalizeErrors(err.errors)})
                 }
-                Booking.updateMany({ _id: booking}, { status: 'active'}, function(){})
+                Booking.updateOne({ _id: booking}, { status: 'active'}, function(){})
 
                 if(foundPayment.toUser.id === user.id) {
                     sendEmailTo(foundPayment.fromUser.email, REQUEST_ACCEPTED_BY_OWNER, booking, req.hostname)
@@ -192,7 +192,7 @@ exports.acceptPayment = function(req, res) {
                 }
                 return res.json({ status: 'paid'})
 
-                // User.updateMany({_id: foundPayment.toUser}, { $inc: {revenue: foundPayment.amount}}, function(err, user) {
+                // User.updateOne({_id: foundPayment.toUser}, { $inc: {revenue: foundPayment.amount}}, function(err, user) {
                 //     if(err) {
                 //         return res.status(422).send({errors: normalizeErrors(err.errors)})
                 //     }
@@ -223,8 +223,8 @@ exports.declinePayment = function(req, res) {
                 return res.status(422).send({errors: normalizeErrors(err.errors)})
             }
             sendEmailTo(payment.fromUser.email, REQUEST_DECLINED_BY_OWNER, foundBooking, req.hostname, payment.declineComment)
-            Payment.updateMany({_id: payment._id}, {status: 'declined'}, function(){})
-            Rental.updateMany({_id: foundBooking.rental._id}, {$pull: {bookings: foundBooking._id}}, ()=>{}) // Delete Booking from Rental
+            Payment.updateOne({_id: payment._id}, {status: 'declined'}, function(){})
+            Rental.updateOne({_id: foundBooking.rental._id}, {$pull: {bookings: foundBooking._id}}, ()=>{}) // Delete Booking from Rental
     
             return res.json({"status": "deleted"})
         })

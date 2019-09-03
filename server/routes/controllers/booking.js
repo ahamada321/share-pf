@@ -32,7 +32,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
             text: '現時点では予約は確定していません。「' + booking.rental.rentalname + ' Trainer」がリクエストを受理された場合に正式予約が完了します。\n\n'
                 + '予約が確定しない限りご請求が行くことはございません。'
                 + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+                + 'Aeru.me, Inc'
         }
     } else if (sendMsg === REQUEST_RECIEVED) {
         msg = {
@@ -45,7 +45,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                 + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                 + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                 + '\n\n\n\n'
-                + 'Anytime Personal Trainer.inc'
+                + 'Aeru.me, Inc'
         }
     } else if (sendMsg === RE_REQUEST_RECIEVED) {
         if(booking.comment) {
@@ -61,7 +61,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/user\/pending'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         } else {
             msg = {
@@ -75,7 +75,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/incoming'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         }
     } else if (sendMsg === RE_RE_REQUEST_RECIEVED) {
@@ -92,7 +92,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         } else {
             msg = {
@@ -106,7 +106,7 @@ function sendEmailTo(sendTo, sendMsg, booking, hostname) {
                     + '以下のURLからログインして、受理/否認のご連絡をお願いいたします。\n\n'
                     + 'URL：' +  "https:\/\/" + hostname + '\/rentals\/requests'
                     + '\n\n\n\n'
-                    + 'Anytime Personal Trainer.inc'
+                    + 'Aeru.me, Inc'
             }
         }
     } else {
@@ -132,7 +132,7 @@ async function createPayment(booking, toUser, paymentToken = null) {
                 source: paymentToken.id
             })
         }
-        User.updateMany({_id: user.id}, {$set: {customer: customer}}, () => {})
+        User.updateOne({_id: user.id}, {$set: {customer: customer}}, () => {})
 
         // Store booking user paymentToken and email to charge later.
         const payment = new Payment({
@@ -265,7 +265,7 @@ exports.createBooking = function(req, res) {
                     sendEmailTo(foundRental.user.email, REQUEST_RECIEVED, booking, req.hostname)
 
                     foundRental.save()
-                    User.updateMany({_id: user.id}, {$push: {bookings: booking}}, function(){})
+                    User.updateOne({_id: user.id}, {$push: {bookings: booking}}, function(){})
                     return res.json({startAt: booking.startAt, endAt: booking.endAt})
                 })
             }
@@ -298,9 +298,9 @@ exports.deleteBooking = function(req, res) { // Under development! Not working c
             if (err) {
                 return res.status(422).send({errors: normalizeErrors(err.errors)})
             }
-            Rental.updateMany({_id: foundBooking.rental.id}, {$pull: {bookings: foundBooking.id}}, ()=>{}) // Delete Booking from Rental
-            User.updateMany({ _id: foundBooking.user.id}, {$pull: {bookings: foundBooking.id}}, ()=>{}) // Delete Booking from User
-            Payment.updateMany({_id: foundBooking.payment.id}, {status: 'canseled by user'}, ()=>{})
+            Rental.updateOne({_id: foundBooking.rental.id}, {$pull: {bookings: foundBooking.id}}, ()=>{}) // Delete Booking from Rental
+            User.updateOne({ _id: foundBooking.user.id}, {$pull: {bookings: foundBooking.id}}, ()=>{}) // Delete Booking from User
+            Payment.updateOne({_id: foundBooking.payment.id}, {status: 'canseled by user'}, ()=>{})
             return res.json({"status": "deleted"})
         })
     })
@@ -334,7 +334,7 @@ exports.updateBooking = function(req, res) {
         }
 
         try {
-            const updatedBooking = Booking.updateMany({ _id: foundBooking.id}, bookingData, () => {})
+            const updatedBooking = Booking.updateOne({ _id: foundBooking.id}, bookingData, () => {})
             return res.json({"status": "updated"})
         } catch(err) {
             return res.json(err)

@@ -212,7 +212,7 @@ exports.updateUser = function(req, res) {
     const user = res.locals.user // This is logined user infomation.
 
     if(reqUserId == user.id) { // Checking logined user editing his/her profile.
-        User.updateMany({ _id: user.id}, userData, () => {})
+        User.updateOne({ _id: user.id}, userData, () => {})
 
         const token = jwt.sign({
             userId: user.id,

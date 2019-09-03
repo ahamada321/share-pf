@@ -102,7 +102,7 @@ exports.updateRental = function(req, res) {
                 }
 
                 try {
-                    const updatedRental = Rental.updateMany({ _id: foundRental.id}, rentalData, () => {})
+                    const updatedRental = Rental.updateOne({ _id: foundRental.id}, rentalData, () => {})
                     return res.json(updatedRental)
                 } catch(err) {
                     return res.json(err)
@@ -137,7 +137,7 @@ exports.createRental = function(req, res) {
             return res.status(422).send({errors: normalizeErrors(err.errors)})
         }
 
-        User.updateMany({ _id: user.id}, {$push: { rentals: newRental}}, function(){})
+        User.updateOne({ _id: user.id}, {$push: { rentals: newRental}}, function(){})
         return res.json(newRental)
     })
 }

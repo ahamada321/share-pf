@@ -48,7 +48,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
-    SweetAlert2Module.forRoot(),
+    SweetAlert2Module.forRoot({
+      buttonsStyling: false,
+      confirmButtonClass: "btn btn-danger btn-round btn-lg",
+      cancelButtonClass: "btn btn-gray btn-lg",
+    }),
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
