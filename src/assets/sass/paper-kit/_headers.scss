@@ -17,6 +17,9 @@
         height: 100%;
         z-index: -1;
     }
+    &.page-header-midium{
+        min-height: 80vh !important;
+    }
     &.page-header-small{
         min-height: 65vh !important;
         max-height: 700px;
