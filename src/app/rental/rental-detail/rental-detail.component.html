@@ -105,7 +105,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="video-responsive">
-                                        <iframe src="https://www.youtube.com/embed/rtSa_YxyODI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <iframe [src]="safeUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                     <!-- <div *ngIf="!rental.video" class="card-image">
                                         <img class="img" src="{{ rental.course60img }}" />
