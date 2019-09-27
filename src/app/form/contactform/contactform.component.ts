@@ -16,8 +16,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.add('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    // navbar.classList.add('navbar-transparent');
   }
   ngOnDestroy() {
     // let navbar = document.getElementsByTagName('nav')[0];
