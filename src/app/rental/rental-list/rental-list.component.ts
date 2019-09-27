@@ -14,8 +14,8 @@ export class RentalListComponent implements OnInit, OnDestroy {
   constructor(private rentalService: RentalService) { }
 
   ngOnInit() {
-    let navbar = document.getElementsByTagName('nav')[0];
-        navbar.classList.add('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    //     navbar.classList.add('navbar-transparent');
 
     const rentalObservable = this.rentalService.getRentals()
 

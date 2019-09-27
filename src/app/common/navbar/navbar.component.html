@@ -1,12 +1,14 @@
 <nav class="navbar navbar-expand-lg fixed-top" color-on-scroll="500">
     <div class="container">
         <div class="navbar-translate">
-            <ng-container *ngIf="auth.isAuthenticated()">
-                <a class="navbar-brand" routerLink="/rentals">Anytime Personal Trainer</a>
-            </ng-container>
-            <ng-container *ngIf="!auth.isAuthenticated()">
-                <a class="navbar-brand" routerLink="/">Anytime Personal Trainer</a>
-            </ng-container>
+            <!-- <ng-container *ngIf="auth.isAuthenticated()"> -->
+                <a class="navbar-brand" routerLink="/rentals">
+                    <img src="assets/img/logo/brand.png" alt="..." class="img-responsive img-no-padding">
+                </a>
+            <!-- </ng-container> -->
+            <!-- <ng-container *ngIf="!auth.isAuthenticated()">
+                <a class="navbar-brand" routerLink="/">AIRBRIDAL</a>
+            </ng-container> -->
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>

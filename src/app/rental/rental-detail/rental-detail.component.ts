@@ -61,8 +61,8 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-      let navbar = document.getElementsByTagName('nav')[0];
-          navbar.classList.add('navbar-transparent');
+      // let navbar = document.getElementsByTagName('nav')[0];
+      //     navbar.classList.add('navbar-transparent');
 
       this.route.params.subscribe(
         (params) => {

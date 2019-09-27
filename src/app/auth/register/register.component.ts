@@ -31,8 +31,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     let body = document.getElementsByTagName('body')[0];
         body.classList.add('full-screen');
         body.classList.add('register');
-    let navbar = document.getElementsByTagName('nav')[0];
-        navbar.classList.add('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    //     navbar.classList.add('navbar-transparent');
 
 
     this.seeFBLoginState()
@@ -42,8 +42,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     let body = document.getElementsByTagName('body')[0];
         body.classList.remove('full-screen');
         body.classList.remove('register');
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.remove('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    // navbar.classList.remove('navbar-transparent');
 
   }
 

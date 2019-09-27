@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               private ref:ChangeDetectorRef ) { }
 
   ngOnInit() {
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.add('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    // navbar.classList.add('navbar-transparent');
 
     this.seeFBLoginState()
     this.initForm()
@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.remove('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    // navbar.classList.remove('navbar-transparent');
     
   }
 

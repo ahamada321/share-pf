@@ -11,7 +11,7 @@
                                 <div class="space-110"></div>
                                 <div class="row">
                                     <div class="col-md-8 text-left motto">
-                                        <h1 class="title">{{ rental.rentalname }} Trainer</h1>
+                                        <h1 class="title">{{ rental.rentalname }}</h1>
                                         <h5>{{ rental.headlinedescription1 }}</h5>
                                     </div>
                                 </div>
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </ng-template>
-                <ng-template ngbSlide>
+                <!-- <ng-template ngbSlide>
                     <div class="page-header page-header-small" [ngStyle]="{'background-image' : 'url(' + rental.image2 + ')' }">
                         <div class="filter"></div>
                         <div class="content-center">
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                </ng-template>
+                </ng-template> -->
             </ngb-carousel>
         </div>
     </div>
@@ -49,8 +49,29 @@
                             {{ rental.description }}
                         </h5>
                         <br>
-                        <button (click)="smoothScroll('detail-of-lessons')" class="btn btn-danger btn-round">See Details</button>
                     </div>
+                    <br>
+                    <div class="col-md-8 mr-auto ml-auto">
+                        <button class="btn btn-just-icon btn-twitter">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-just-icon btn-facebook">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </button>
+                        <!-- <button class="btn btn-just-icon btn-youtube">
+                            <i class="fa fa-youtube" aria-hidden="true"></i>
+                        </button> -->
+                        <button class="btn btn-just-icon btn-instagram">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-just-icon">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <!-- <div class="space-50"></div>
+                    <div class="col-md-8 mr-auto ml-auto">
+                        <button (click)="smoothScroll('detail-of-lessons')" class="btn btn-danger btn-round">See Details</button>
+                    </div> -->
                 </div>
                 <br/><br/>
                 <div class="row">
@@ -105,6 +126,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="video-responsive">
+                                        <!-- <iframe src="https://www.youtube.com/embed/rtSa_YxyODI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                                         <iframe [src]="safeUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                     <!-- <div *ngIf="!rental.video" class="card-image">
@@ -254,7 +276,7 @@
         </div>
 
         <!--     *********     Callendar      *********      -->
-        <div class="section">
+        <!-- <div class="section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 mr-auto ml-auto">
@@ -274,7 +296,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!--     *********     Call to action      *********      -->
         <div class="section text-center">
@@ -282,7 +304,9 @@
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto text-center">
                         <h2 class="title">Let's book</h2>
-                        <p class="description">スケジュールと場所を確認して、問題なければ予約リクエストページへ進みましょう。待ち合わせの詳細場所は、予約完了後にLINEで直接トレーナーと連絡しながら決められます。</p>
+                        <p class="description">
+                            こちらからベンダーサイトへジャンプできます。
+                        </p>
                         <br>
                         <a *ngIf="!isYourRental()" routerLink="booking" class="btn btn-danger btn-round btn-lg">Go to booking</a>
                         <button *ngIf="isYourRental()" 
@@ -299,6 +323,6 @@
         </div>
     </div>
 </div>
-<app-googlemaps [location]="rental.province + ', ' + rental.nearStation"></app-googlemaps>
-<app-bottom-navbar [rental]="rental"></app-bottom-navbar>
+<!-- <app-googlemaps [location]="rental.province + ', ' + rental.nearStation"></app-googlemaps> -->
+<!-- <app-bottom-navbar [rental]="rental"></app-bottom-navbar> -->
 </section>

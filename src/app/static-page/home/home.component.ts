@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       body.classList.add('presentation-page');
       body.classList.add('loading');
       var navbar = document.getElementsByTagName('nav')[0];
-      navbar.classList.add('navbar-transparent');
+      // navbar.classList.add('navbar-transparent');
 
       this.seeFBLoginState()
 

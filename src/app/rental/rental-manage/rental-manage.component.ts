@@ -20,8 +20,8 @@ export class RentalManageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let body = document.getElementsByTagName('body')[0];
     body.classList.add('settings');
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.add('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    // navbar.classList.add('navbar-transparent');
 
     this.rentalService.getOwnerRentals().subscribe(
       (rentals: Rental[]) => {

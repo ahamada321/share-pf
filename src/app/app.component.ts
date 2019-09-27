@@ -39,14 +39,16 @@ export class AppComponent implements OnInit {
           const _location = this.location.path();
           const isLocationOfBooking = ( _location.split('/')[3] === 'booking' );
           const isLocationOfRevenue = ( _location.split('/')[2] === 'revenue' );
+          const isLocationOfHome = ( _location.split('/')[1] === 'home' );
 
-          if (number > 150 || window.pageYOffset > 150) {
-              // add logic
-              navbar.classList.remove('navbar-transparent');
-          } else if (!isLocationOfBooking && !isLocationOfRevenue) {
-              // remove logic
-              navbar.classList.add('navbar-transparent');
-          }
+          // Disable for Airbridal
+        //   if (number > 150 || window.pageYOffset > 150) {
+        //       // add logic
+        //       navbar.classList.remove('navbar-transparent');
+        //   } else if (!isLocationOfBooking && !isLocationOfRevenue && !isLocationOfHome) {
+        //       // remove logic
+        //       navbar.classList.add('navbar-transparent');
+        //   }
       });
       var ua = window.navigator.userAgent;
       var trident = ua.indexOf('Trident/');
