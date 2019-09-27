@@ -21,7 +21,7 @@ import { UserguideComponent } from './static-page/userguide/userguide.component'
 import { UsersVoiceComponent } from './static-page/usersvoice/usersvoice.component';
 import { ResultsComponent } from './static-page/results/results.component';
 import { AboutUsComponent } from './static-page/aboutus/aboutus.component';
-import { ContactformModule } from './form/contactform.module';
+import { ContactformModule } from './common/components/form/form.module';
 import { ContactFormComponent } from './form/contactform/contactform.component';
 import { TrialFormComponent } from './form/trialform/trialform.component';
 
