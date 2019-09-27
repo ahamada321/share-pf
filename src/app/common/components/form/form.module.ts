@@ -20,7 +20,7 @@ import { FormComponent } from './form.component';
         ReactiveFormsModule,
         RouterModule,
     ],
-    exports:[ ContactFormComponent, TrialFormComponent ],
+    exports:[ ContactFormComponent, TrialFormComponent, FormComponent ],
     providers: [ ContactformService ]
 })
 export class ContactformModule { }

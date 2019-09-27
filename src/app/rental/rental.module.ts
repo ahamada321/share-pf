@@ -38,6 +38,7 @@ import { BookingSelecterModule } from '../common/components/booking-selecter/boo
 import { RentalService } from './service/rental.service';
 import { BookingService } from './rental-detail/rental-detail-booking/services/booking.service';
 import { BookingHelperService } from './rental-detail/rental-detail-booking/services/booking.helper.service';
+import { ContactformModule } from '../common/components/form/form.module';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -93,6 +94,7 @@ const routes: Routes = [{
           GoogleMapsModule,
           PaymentModule,
           ReviewModule,
+          ContactformModule,
           BarRatingModule,
           BookingSelecterModule,
           // ImageUploadModule
