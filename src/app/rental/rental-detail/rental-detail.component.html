@@ -52,21 +52,37 @@
                     </div>
                     <br>
                     <div class="col-md-8 mr-auto ml-auto">
-                        <button class="btn btn-just-icon btn-twitter">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </button>
-                        <button class="btn btn-just-icon btn-facebook">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                        </button>
+                        <a 
+                            *ngIf="rental.twitter" 
+                            class="btn btn-just-icon btn-twitter"
+                            href="{{ rental.twitter }}"
+                            target="_blank"
+                            ><i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a 
+                            *ngIf="rental.facebook" 
+                            class="btn btn-just-icon btn-facebook"
+                            href="{{ rental.facebook }}"
+                            target="_blank"
+                            ><i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
                         <!-- <button class="btn btn-just-icon btn-youtube">
                             <i class="fa fa-youtube" aria-hidden="true"></i>
                         </button> -->
-                        <button class="btn btn-just-icon btn-instagram">
-                            <i class="fa fa-instagram" aria-hidden="true"></i>
-                        </button>
-                        <button class="btn btn-just-icon">
-                            <i class="fa fa-globe" aria-hidden="true"></i>
-                        </button>
+                        <a 
+                            *ngIf="rental.instagram" 
+                            class="btn btn-just-icon btn-instagram"
+                            href="{{ rental.instagram }}"
+                            target="_blank"
+                            ><i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a 
+                            *ngIf="rental.homepage" 
+                            class="btn btn-just-icon"
+                            href="{{ rental.homepage }}"
+                            target="_blank"
+                            ><i class="fa fa-globe" aria-hidden="true"></i>
+                        </a>
                     </div>
                     <!-- <div class="space-50"></div>
                     <div class="col-md-8 mr-auto ml-auto">

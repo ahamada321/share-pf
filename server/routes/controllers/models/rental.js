@@ -7,6 +7,10 @@ const rentalSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     shared: { type: Boolean, default: true },
     lineworksURL: String,
+    homepage: String,
+    facebook: String,
+    instagram: String,
+    twitter: String,
     email: String,
     rating: Number,
 

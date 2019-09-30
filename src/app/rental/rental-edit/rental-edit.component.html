@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="rental">
     <div class="page-header page-header-xs settings-background" [ngStyle]="{'background-image' : 'url(' + rental.image + ')' }">
         <div class="filter"></div>
     </div>
@@ -94,6 +94,22 @@
                         <div class="form-group">
                             <label>Email</label>
                             <input type="text" class="form-control border-input" placeholder="フォームからの連絡用アドレスを入力" [(ngModel)]="rental.email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>HP</label>
+                            <input type="text" class="form-control border-input" placeholder="HPのURLが入力できます" [(ngModel)]="rental.homepage" name="homepage">
+                        </div>
+                        <div class="form-group">
+                            <label>Facebook</label>
+                            <input type="text" class="form-control border-input" placeholder="FacebookURLが入力できます" [(ngModel)]="rental.facebook" name="facebook">
+                        </div>
+                        <div class="form-group">
+                            <label>Instagram</label>
+                            <input type="text" class="form-control border-input" placeholder="InstagramURLが入力できます" [(ngModel)]="rental.instagram" name="instagram">
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter</label>
+                            <input type="text" class="form-control border-input" placeholder="TwitterURLが入力できます" [(ngModel)]="rental.twitter" name="twitter">
                         </div>
                         
                         <div class="space-top"></div>

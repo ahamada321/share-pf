@@ -9,6 +9,10 @@ export class Rental {
     lastLogin: string;
     createdAt: string;
     lineworksURL: string;
+    homepage: string;
+    facebook: string;
+    instagram: string;
+    twitter: string;
 
     rentalname: string;
     email: string;
