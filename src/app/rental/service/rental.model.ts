@@ -11,6 +11,7 @@ export class Rental {
     lineworksURL: string;
 
     rentalname: string;
+    email: string;
     age: number;
     height: string;
     bust: string;
