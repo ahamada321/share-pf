@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2'
+import { RentalService } from '../service/rental.service';
+import { Rental } from '../service/rental.model';
 
 
 @Component({
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./rental-edit.component.scss']
 })
 export class RentalEditComponent implements OnInit {
-    userData: any
+    rental: Rental
     state_info = true;
     state_info1 = true;
     third_switch = true;
@@ -19,55 +20,52 @@ export class RentalEditComponent implements OnInit {
     data : Date = new Date();
 
     constructor(
-      private auth: MyOriginAuthService, 
-      private router: Router ) { }
+      private router: Router,
+      private route: ActivatedRoute,
+      private rentalService: RentalService,
+      ) { }
 
     ngOnInit() {
-        this.getUser()
+        this.route.params.subscribe(
+          (params) => {
+            this.getRental(params['rentalId'])
+          })
 
-        let body = document.getElementsByTagName('body')[0];
-        body.classList.add('settings');
         let navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.add('navbar-transparent');
     }
     ngOnDestroy(){
-        let body = document.getElementsByTagName('body')[0];
-        body.classList.remove('settings');
         let navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.remove('navbar-transparent');
     }
 
-    getUser() {
-        const userId = this.auth.getUserId()
-        this.auth.getUserById(userId).subscribe(
-          (foundUser) => {
-            this.userData = foundUser
-          },
-          (err) => { }
-        )
+    getRental(rentalId: string) {
+      this.rentalService.getRentalById(rentalId).subscribe(
+        (rental: Rental) => {
+          this.rental = rental
+        }
+      )
     }
 
-    updateUser(userForm: NgForm) {
-        this.auth.updateUser(this.userData._id, userForm.value).subscribe(
-          (UserUpdated) => {
-            userForm.reset(userForm.value)
-            this.showSwalSuccess()
-          },
-          (err) => { }
-        )
+    updateRental(rentalForm: NgForm) {
+      this.rentalService.updateRental(this.rental._id, this.rental).subscribe(
+        (updatedRental) => {
+          this.showSwalSuccess()
+        },
+        (err) => { }
+      )
     }
 
     private showSwalSuccess() {
         Swal.fire({
             // title: 'User infomation has been updated!',
-            text: 'User infomation has been updated!',
+            text: '商品情報を更新しました！',
             type: 'success',
             confirmButtonClass: "btn btn-primary btn-round btn-lg",
             buttonsStyling: false,
             timer: 5000
         }).then(() => {
-          this.router.navigate(['/rentals', {registered: 'success'}])
+          this.router.navigate(['/rentals/manage'])
         })
     }
-    
 }

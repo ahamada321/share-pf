@@ -11,54 +11,100 @@
             </div> -->
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto">
-                    <form class="settings-form" *ngIf="userData" #userForm="ngForm" (ngSubmit)="updateUser(userForm)">
+                    <form class="settings-form" *ngIf="rental" #rentalForm="ngForm" (ngSubmit)="updateRental(rentalForm)">
                         <div class="form-group">
-                            <label>Rental Name</label>
-                            <input type="text" class="form-control border-input" placeholder="Your Name" [(ngModel)]="userData.username" name="username" required>
+                            <label>商品名</label>
+                            <input 
+                                type="text" 
+                                class="form-control border-input" 
+                                placeholder="商品名" 
+                                [(ngModel)]="rental.rentalname" 
+                                name="rentalname" 
+                                maxlength="20" 
+                                required
+                                />
+                                <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 20 - rental.rentalname.length }}</span></small></h5>
                         </div>
                         <div class="form-group">
-                            <label>Rental Province</label>
+                            <label>商品概要</label>
+                            <textarea 
+                                [(ngModel)]="rental.headlinedescription1" 
+                                name="headlinedescription1"
+                                class="form-control textarea-limited" 
+                                placeholder="ヘッダーカバーテキストを入力できます。" 
+                                rows="4" 
+                                maxlength="120" 
+                                ></textarea>
+                            <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 120 - rental.headlinedescription1.length }}</span></small></h5>
+                        </div>
+                        <div class="form-group">
+                            <label>挨拶文</label>
+                            <textarea
+                                [(ngModel)]="rental.description" 
+                                name="description"
+                                class="form-control textarea-limited" 
+                                placeholder="Your trainer can see your description here. Let's introduse who you are." 
+                                rows="4" 
+                                maxlength="120" ></textarea>
+                            <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 120 - rental.description.length }}</span></small></h5>
+                        </div>
+                        <div class="form-group">
+                            <label>ベネフィット１</label>
+                            <input type="text" class="form-control border-input" placeholder="ベネフィット文章１" [(ngModel)]="rental.appeal1" name="appeal1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ベネフィット２</label>
+                            <input type="text" class="form-control border-input" placeholder="ベネフィット文章２" [(ngModel)]="rental.appeal2" name="appeal2" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ベネフィット３</label>
+                            <input type="text" class="form-control border-input" placeholder="ベネフィット文章３" [(ngModel)]="rental.appeal3" name="appeal3" required>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label>YoutubeURL</label>
+                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="rental.videourl" name="email" required>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label>Course 60 description</label>
+                            <textarea 
+                                class="form-control textarea-limited" 
+                                placeholder="Your trainer can see your description here. Let's introduse who you are." 
+                                [(ngModel)]="rental.course60Description" 
+                                name="course60Description"
+                                rows="3" 
+                                maxlength="150" ></textarea>
+                            <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 150 - rental.course60Description.length }}</span></small></h5>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label>90min images</label>
                             <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
-                        </div>
+                        </div> -->
                         <div class="form-group">
-                            <label>Rental Address</label>
-                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Rental Description</label>
-                            <textarea class="form-control textarea-limited" placeholder="Your trainer can see your description here. Let's introduse who you are." rows="3" maxlength="150" ></textarea>
-                            <h5><small><span id="textarea-limited-message" class="pull-right">150 characters left</span></small></h5>
-                        </div>
-                        <div class="form-group">
-                            <label>Rental Price</label>
-                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Rental images</label>
-                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Rental PV</label>
-                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Rental gallery images</label>
-                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+                            <label>Course 90 description</label>
+                            <textarea 
+                                class="form-control textarea-limited" 
+                                placeholder="Your trainer can see your description here. Let's introduse who you are." 
+                                [(ngModel)]="rental.course90Description" 
+                                name="course90Description"
+                                rows="3" 
+                                maxlength="150" ></textarea>
+                            <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 150 - rental.course90Description.length }}</span></small></h5>
                         </div>
                         
-
-                        <label>Notifications</label>
+                        <div class="space-top"></div>
+                        <!-- <label>Notifications</label> -->
                         <ul class="notifications">
-                            <!-- <li class="notification-item">
-                                Updates regarding platform changes
+                            <li class="notification-item">
+                                外部公開 / 非公開
                                 <bSwitch
                                     [switch-on-color]="'info'"
                                     [switch-off-color]="'info'"
-                                    [(ngModel)]="state_info"
-                                    name="first_switch">
+                                    [(ngModel)]="rental.shared"
+                                    name="shared">
                                 </bSwitch>
                             </li>
-                            <li class="notification-item">
+                            <!-- <li class="notification-item">
                                 Updates regarding product changes
                                 <bSwitch
                                     [switch-on-color]="'info'"
@@ -67,18 +113,9 @@
                                     name="second_switch">
                                 </bSwitch>
                             </li> -->
-                            <li class="notification-item">
-                                From our special Newsletters & Coupons
-                                <!-- <bSwitch
-                                    [switch-on-color]="'info'"
-                                    [switch-off-color]="'info'"
-                                    [(ngModel)]="third_switch"
-                                    name="third_switch">
-                                </bSwitch> -->
-                            </li>
                         </ul>
                         <div class="text-center">
-                            <button [disabled]="userForm.pristine" type="submit" class="btn btn-wd btn-info btn-round">Update</button>
+                            <button [disabled]="rentalForm.pristine" type="submit" class="btn btn-wd btn-info btn-round">Update</button>
                         </div>
                     </form>
 
