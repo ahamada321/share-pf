@@ -24,6 +24,9 @@ export class Rental {
     headlinedescription1: string;
     headlinedescription2: string;
     description: string;
+    appeal1: string;
+    appeal2: string;
+    appeal3: string;
     course60img: string;
     course90img: string;
     course60Description: string;
