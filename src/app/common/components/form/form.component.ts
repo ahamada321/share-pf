@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contactform } from './service/contactform.model';
 import { ContactformService } from './service/contactform.service';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2'
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
+  @Input() rentalemail: string
   focus: any;
   focus1: any;
   contactForm: FormGroup
@@ -47,6 +48,7 @@ export class FormComponent implements OnInit {
 
 
   sendMessage(contactForm) {
+    if(this.rentalemail) { contactForm.value.rentalemail = this.rentalemail}
     this.contactformService.sendFormMsg(contactForm.value).subscribe(
       (Message) => {
         contactForm.reset()

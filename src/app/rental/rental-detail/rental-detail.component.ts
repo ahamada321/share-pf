@@ -83,8 +83,8 @@ export class RentalDetailComponent implements OnInit, OnDestroy {
       this.rentalService.getRentalById(rentalId).subscribe(
         (rental: Rental) => {
           this.rental = rental;
-          this.initBusinessHours()
-          this.initEvents()
+          // this.initBusinessHours()
+          // this.initEvents()
           // this.getAvgRating(rental._id)
           this.getReviews(rental._id)
           this.getSafeUrl(rental.course60img)

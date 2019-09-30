@@ -316,7 +316,7 @@
                                 triggers="mouseenter:mouseleave"
                                 #pop="ngbPopover" 
                                 (click)="pop.open()">Go to booking</button> -->
-                        <app-form></app-form>
+                        <app-form *ngIf="rental" [rentalemail]="rental.email"></app-form>
 
                     </div>
                 </div>
