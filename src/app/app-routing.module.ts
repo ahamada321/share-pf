@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'usersvoice',  component: UsersVoiceComponent },
   { path: 'results',  component: ResultsComponent },
   { path: 'aboutus',  component: AboutUsComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'rentals', pathMatch: 'full' },
   { path: '**', component: Page404Component }
 ];
 

@@ -30,13 +30,6 @@ export class RentalEditComponent implements OnInit {
           (params) => {
             this.getRental(params['rentalId'])
           })
-
-        let navbar = document.getElementsByTagName('nav')[0];
-        navbar.classList.add('navbar-transparent');
-    }
-    ngOnDestroy(){
-        let navbar = document.getElementsByTagName('nav')[0];
-        navbar.classList.remove('navbar-transparent');
     }
 
     getRental(rentalId: string) {

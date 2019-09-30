@@ -1,11 +1,11 @@
 <section id="manageRentals">
-  <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/rawpixel-com.jpg');">
+  <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/airbridal-rental-page-bg.jpg');">
     <div class="filter"></div>
     <div class="container">
         <div class="space-50"></div>
         <div class="motto text-center">
-            <h1>Manage Rentals</h1>
-            <h3>You can manage your rentals here.</h3>
+            <h1>Manage</h1>
+            <h3>商品編集ページです</h3>
             <br />
         </div>
     </div>
@@ -25,10 +25,10 @@
                 </div>
                 <div class="card-body">
                   <label class="label label-warning">{{rental.province}}</label>
-                  <h5 class="card-title">{{rental.rentalname}} Trainer</h5>
+                  <h5 class="card-title">{{rental.rentalname}}</h5>
                   <div class="card-description">
                     <p><button class="btn btn-info" routerLink="/rentals/{{rental._id}}/edit">商品編集</button></p>
-                    <p><button class="btn btn-info" routerLink="/rentals/{{rental._id}}/editschedule">受付時間</button></p>
+                    <!-- <p><button class="btn btn-info" routerLink="/rentals/{{rental._id}}/editschedule">受付時間</button></p> -->
                     <!-- <p><button class="btn btn-danger" routerLink="/rentals/manage/revenue/{{rental._id}}">この商品の売上</button></p> -->
                     <!-- <p><button class="btn btn-danger" routerLink="/rentals/manage/bookings/{{rental._id}}">確定予約の確認</button></p> -->
                     <!-- <p><button class="btn btn-sm btn-wd btn-danger btn-round">Delete</button></p> -->
