@@ -3,6 +3,7 @@ import { Rental } from '../service/rental.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RentalService } from '../service/rental.service';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-rental-create',
@@ -23,10 +24,10 @@ export class RentalCreateComponent implements OnInit {
 
   }
 
-  createRental() {
+  createRental(rentalForm: NgForm) {
     this.rentalService.createRental(this.newRental).subscribe(
       (rental: Rental) => {
-        this.router.navigate(['/rentals/', rental._id])
+        this.router.navigate(['/rentals/manage'])
       },
       (errorResponse: HttpErrorResponse) => {
         this.errors = errorResponse.error.errors

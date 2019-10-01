@@ -111,12 +111,49 @@ exports.updateRental = function(req, res) {
 }
 
 exports.createRental = function(req, res) {
-    const { rentalname, age, height, bust, weight, image, video, province, nearStation, hourlyPrice, description, shared } = req.body
+    const { 
+        rentalname,
+        headlinedescription1,
+        description,
+        appeal1,
+        appeal2,
+        appeal3,
+        course60Description,
+        course90Description,
+        email,
+        homepage,
+        facebook,
+        instagram,
+        twitter,
+        age, 
+        height, 
+        bust, 
+        weight, 
+        image, 
+        video, 
+        province, 
+        nearStation, 
+        hourlyPrice, 
+        
+        shared 
+    } = req.body
     const user = res.locals.user
 
     //referring from ../models/rental.js
     const rental = new Rental({
         rentalname,
+        headlinedescription1,
+        description, 
+        appeal1,
+        appeal2,
+        appeal3,
+        course60Description,
+        course90Description,
+        email,
+        homepage,
+        facebook,
+        instagram,
+        twitter,
         age,
         height,
         bust,
@@ -126,7 +163,6 @@ exports.createRental = function(req, res) {
         province,
         nearStation,
         hourlyPrice,
-        description,
         shared
     })
 

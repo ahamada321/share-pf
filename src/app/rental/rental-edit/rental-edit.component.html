@@ -15,11 +15,11 @@
                         <div class="form-group">
                             <label>商品名</label>
                             <input 
+                                [(ngModel)]="rental.rentalname" 
+                                name="rentalname" 
                                 type="text" 
                                 class="form-control border-input" 
                                 placeholder="商品名" 
-                                [(ngModel)]="rental.rentalname" 
-                                name="rentalname" 
                                 maxlength="20" 
                                 required
                                 />
@@ -43,7 +43,7 @@
                                 [(ngModel)]="rental.description" 
                                 name="description"
                                 class="form-control textarea-limited" 
-                                placeholder="Your trainer can see your description here. Let's introduse who you are." 
+                                placeholder="紹介文を入力できます" 
                                 rows="4" 
                                 maxlength="120" ></textarea>
                             <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 120 - rental.description.length }}</span></small></h5>
@@ -69,7 +69,7 @@
                             <label>Course 60 description</label>
                             <textarea 
                                 class="form-control textarea-limited" 
-                                placeholder="Your trainer can see your description here. Let's introduse who you are." 
+                                placeholder="紹介文を入力できます" 
                                 [(ngModel)]="rental.course60Description" 
                                 name="course60Description"
                                 rows="3" 
@@ -84,7 +84,7 @@
                             <label>Course 90 description</label>
                             <textarea 
                                 class="form-control textarea-limited" 
-                                placeholder="Your trainer can see your description here. Let's introduse who you are." 
+                                placeholder="紹介文を入力できます" 
                                 [(ngModel)]="rental.course90Description" 
                                 name="course90Description"
                                 rows="3" 
