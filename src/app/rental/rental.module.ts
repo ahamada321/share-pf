@@ -25,7 +25,7 @@ import { RentalIncomingListComponent, RentalIncomingDialog, RentalIncomingSelect
 import { RentalBookingsComponent } from './rental-bookings/rental-bookings.component';
 import { RentalBookingsListComponent } from './rental-bookings/rental-bookings-list/rental-bookings-list.component';
 
-import { RentalCreateComponent } from './rental-create/rental-create.component';
+import { RentalNewComponent } from './rental-new/rental-new.component';
 import { RentalRevenueComponent } from './rental-revenue/rental-revenue.component';
 // import { RentalDetailUpdateComponent } from './rental-detail/rental-detail-update/rental-detail-update.component';
 import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.component';
@@ -46,7 +46,7 @@ const routes: Routes = [{
     component: RentalComponent,
     children: [
         { path: '', component: RentalListComponent },
-        { path: 'new', component: RentalCreateComponent, canActivate: [AuthGuard] },
+        { path: 'new', component: RentalNewComponent, canActivate: [AuthGuard] },
         { path: 'manage', component: RentalManageComponent, canActivate: [AuthGuard] },
         { path: 'manage/incoming', component: RentalIncomingComponent, canActivate: [AuthGuard] }, // OEM mode
         { path: 'manage/bookings', component: RentalBookingsComponent, canActivate: [AuthGuard] }, // OEM mode
@@ -73,7 +73,7 @@ const routes: Routes = [{
         RentalBookingsComponent,
         RentalBookingsListComponent,
         RentalManageScheduleComponent,
-        RentalCreateComponent,
+        RentalNewComponent,
         RentalEditComponent,
         RentalRevenueComponent,
         // RentalDetailUpdateComponent, // This is replaced from RentalEditComponent.

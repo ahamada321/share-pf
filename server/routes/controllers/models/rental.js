@@ -10,7 +10,7 @@ const rentalSchema = new Schema({
     email: String,
     rating: Number,
 
-    category: String,
+    selectedCategory: Object,
     rentalname: { type: String, required: true, max: [128, 'Too long, max is 128 characters.']},
     cardDescription: { type: String, required: true, lowercase: true },
     headlinedescription1: { type: String, lowercase: true },

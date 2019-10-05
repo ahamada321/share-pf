@@ -39,11 +39,12 @@ export class AppComponent implements OnInit {
           const _location = this.location.path();
           const isLocationOfBooking = ( _location.split('/')[3] === 'booking' );
           const isLocationOfRevenue = ( _location.split('/')[2] === 'revenue' );
+          const isLocationOfNew = ( _location.split('/')[2] === 'new' );
 
           if (number > 150 || window.pageYOffset > 150) {
               // add logic
               navbar.classList.remove('navbar-transparent');
-          } else if (!isLocationOfBooking && !isLocationOfRevenue) {
+          } else if (!isLocationOfBooking && !isLocationOfRevenue && !isLocationOfNew) {
               // remove logic
               navbar.classList.add('navbar-transparent');
           }

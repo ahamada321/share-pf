@@ -9,6 +9,7 @@ export class Rental {
     lastLogin: string;
     createdAt: string;
     lineworksURL: string;
+    selectedCategory: any[];
 
     rentalname: string;
     email: string;
