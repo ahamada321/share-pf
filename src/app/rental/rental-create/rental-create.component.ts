@@ -15,7 +15,10 @@ export class RentalCreateComponent implements OnInit {
   rentalCategories = Rental.CATEGORIES
   errors: any[] = []
 
-  constructor(private rentalService: RentalService, private router: Router) { }
+  constructor(
+    private rentalService: RentalService, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.newRental = new Rental()

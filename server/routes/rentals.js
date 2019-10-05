@@ -9,6 +9,11 @@ router.get('/secret', UserCtrl.authMiddleware, function(req, res) {
     res.json({"secret": true})
 })
 
+router.get('/favourite', UserCtrl.authMiddleware, RentalCtrl.getUserFavouriteRentals)
+
+router.get('/favourite/:id', UserCtrl.authMiddleware, RentalCtrl.toggleFavourite)
+
+
 router.get('/manage', UserCtrl.authMiddleware, RentalCtrl.getOwnerRentals)
 
 router.get('/:id', RentalCtrl.getRentalById)

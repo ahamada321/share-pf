@@ -393,7 +393,7 @@ export class RentalManageScheduleComponent implements OnInit, OnDestroy {
         allowOutsideClick: false
     }).then((result) => {
       if (result.value) {
-        const index = this.calendarEvents.findIndex((x) => x.id === arg.event.id);
+        const index = this.calendarEvents.findIndex((x) => x.id === arg.event.id)
         this.calendarEvents.splice(index, 1) // Dlete event from array.      
         arg.event.remove() // Update Frontend
 

@@ -1,7 +1,7 @@
 const Rental = require('./routes/controllers/models/rental')
 const Booking = require('./routes/controllers/models/booking')
-const User = require('./routes/controllers/models/user')
 const Payment = require('./routes/controllers/models/payment')
+const User = require('./routes/controllers/models/user')
 const Data = require('./template-data/db-data.json')
 
 class FakeDb {

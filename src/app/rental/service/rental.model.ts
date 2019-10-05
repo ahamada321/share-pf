@@ -67,5 +67,6 @@ export class Rental {
     rating: number;
     user: any;
     brand: any;
+    favouritesFrom: any[];
     bookings: Booking[];
 }

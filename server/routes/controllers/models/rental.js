@@ -66,6 +66,7 @@ const rentalSchema = new Schema({
 
     user: { type: Schema.Types.ObjectId, ref: "User" },
     brand: { type: Schema.Types.ObjectId, ref: "User" },
+    favouritesFrom: [{ type: Schema.Types.ObjectId, ref: "User" }],
     bookings: [{ type: Schema.Types.ObjectId, ref: "Booking"}]
     
 });
