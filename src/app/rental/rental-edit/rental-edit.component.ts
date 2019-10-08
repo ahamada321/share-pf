@@ -19,24 +19,38 @@ export class RentalEditComponent implements OnInit {
 
     data : Date = new Date();
 
+    // Select category
+    dropdownCategoryList = [
+      {"id":1,"itemName":"ウエディング"},
+      {"id":2,"itemName":"２次会"},
+      {"id":3,"itemName":"フラワー"},
+      {"id":4,"itemName":"あああ"}
+    ]
+    dropdownCategorySettings = { 
+      singleSelection: true, 
+      text:"カテゴリを選択",
+      enableSearchFilter: false,
+      classes:""
+    }
+
     constructor(
       private router: Router,
       private route: ActivatedRoute,
-      private rentalService: RentalService,
-      ) { }
+      private rentalService: RentalService
+    ) { }
 
     ngOnInit() {
-        this.route.params.subscribe(
-          (params) => {
-            this.getRental(params['rentalId'])
-          })
+      this.route.params.subscribe(
+        (params) => {
+          this.getRental(params['rentalId'])
+        })
 
-        let navbar = document.getElementsByTagName('nav')[0];
-        navbar.classList.add('navbar-transparent');
+      let navbar = document.getElementsByTagName('nav')[0];
+      navbar.classList.add('navbar-transparent');
     }
     ngOnDestroy(){
-        let navbar = document.getElementsByTagName('nav')[0];
-        navbar.classList.remove('navbar-transparent');
+      let navbar = document.getElementsByTagName('nav')[0];
+      navbar.classList.remove('navbar-transparent');
     }
 
     getRental(rentalId: string) {

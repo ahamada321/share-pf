@@ -1,13 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MyOriginAuthService } from 'src/app/auth/service/auth.service';
-import { RentalService } from '../../service/rental.service';
+import { RentalService } from 'src/app/rental/service/rental.service';
+
 
 @Component({
-  selector: 'app-rental-list-item',
-  templateUrl: './rental-list-item.component.html',
-  styleUrls: ['./rental-list-item.component.scss']
+  selector: 'app-myfavourite-list-item',
+  templateUrl: './myfavourite-list-item.component.html',
+  styleUrls: ['./myfavourite-list-item.component.scss']
 })
-export class RentalListItemComponent implements OnInit {
+export class MyfavouriteListItemComponent implements OnInit {
   @Input() rental: any
   isFavourite: boolean
 
@@ -38,5 +39,5 @@ export class RentalListItemComponent implements OnInit {
       (error) => {}
     )
   }
-
+  
 }

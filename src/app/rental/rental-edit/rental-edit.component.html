@@ -60,6 +60,7 @@
                             <label>ベネフィット３</label>
                             <input type="text" class="form-control border-input" placeholder="ベネフィット文章３" [(ngModel)]="rental.appeal3" name="appeal3" required>
                         </div>
+
                         <!-- <div class="form-group">
                             <label>YoutubeURL</label>
                             <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="rental.videourl" name="email" required>
@@ -76,10 +77,12 @@
                                 maxlength="150" ></textarea>
                             <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 150 - rental.course60Description.length }}</span></small></h5>
                         </div>
+
                         <!-- <div class="form-group">
                             <label>90min images</label>
                             <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
                         </div> -->
+
                         <div class="form-group">
                             <label>Course 90 description</label>
                             <textarea 
@@ -91,9 +94,19 @@
                                 maxlength="150" ></textarea>
                             <h5><small><span id="textarea-limited-message" class="pull-right">残文字数 {{ 150 - rental.course90Description.length }}</span></small></h5>
                         </div>
+
                         <div class="form-group">
                             <label>Email</label>
                             <input type="text" class="form-control border-input" placeholder="フォームからの連絡用アドレスを入力" [(ngModel)]="rental.email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>カテゴリ</label>
+                            <angular2-multiselect [data]="dropdownCategoryList" 
+                                                [settings]="dropdownCategorySettings" 
+                                                [(ngModel)]="rental.selectedCategory"
+                                                name="selectedCategory"
+                                                ></angular2-multiselect>
                         </div>
                         
                         <div class="space-top"></div>

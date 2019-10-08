@@ -1,0 +1,327 @@
+<section id="newRental">
+  <div class="space-70"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h2>商品登録ページ</h2>
+        <div class="space-top"></div>
+        <form #rentalForm="ngForm" (ngSubmit)="createRental(rentalForm)">
+        <!--<form [formGroup]="myGroup" action="" method="">-->
+          <div class="form-group">
+            <label for="rentalname">商品名</label>
+            <input [(ngModel)]="newRental.rentalname"
+                   name="rentalname"
+                   id="rentalname"
+                   type="text"
+                   class="form-control"
+                   placeholder="商品名" 
+                   maxlength="20" 
+                   required
+                   />
+            <h5><small><span id="textarea-limited-message" class="pull-right">
+              <div *ngIf="!newRental.rentalname">
+                残文字数 20
+              </div>
+              <div *ngIf="newRental.rentalname">
+                残文字数 {{ 20 - newRental.rentalname.length }}
+              </div>
+            </span></small></h5>
+          </div>
+
+          <div class="form-group">
+              <label>商品概要</label>
+              <textarea 
+                  [(ngModel)]="newRental.headlinedescription1" 
+                  name="headlinedescription1"
+                  class="form-control textarea-limited" 
+                  placeholder="ヘッダーカバーテキストを入力できます。" 
+                  rows="4" 
+                  maxlength="120" 
+                  ></textarea>
+              <h5><small><span id="textarea-limited-message" class="pull-right">
+                  <div *ngIf="!newRental.headlinedescription1">
+                      残文字数 120
+                  </div>
+                  <div *ngIf="newRental.headlinedescription1">
+                      残文字数 {{ 120 - newRental.headlinedescription1.length }}
+                  </div>
+              </span></small></h5>
+          </div>
+
+          <div class="form-group">
+              <label>挨拶文</label>
+              <textarea
+                  [(ngModel)]="newRental.description" 
+                  name="description"
+                  class="form-control textarea-limited" 
+                  placeholder="紹介文を入力できます." 
+                  rows="4" 
+                  maxlength="120"
+                  required
+                  ></textarea>
+              <h5><small><span id="textarea-limited-message" class="pull-right">
+                <div *ngIf="!newRental.description">
+                    残文字数 120
+                </div>
+                <div *ngIf="newRental.description">
+                    残文字数 {{ 120 - newRental.description.length }}
+                </div>
+              </span></small></h5>
+          </div>
+
+          <div class="form-group">
+              <label>ベネフィット１</label>
+              <input type="text" class="form-control border-input" placeholder="ベネフィット文章１" [(ngModel)]="newRental.appeal1" name="appeal1" required>
+          </div>
+          <div class="form-group">
+              <label>ベネフィット２</label>
+              <input type="text" class="form-control border-input" placeholder="ベネフィット文章２" [(ngModel)]="newRental.appeal2" name="appeal2" required>
+          </div>
+          <div class="form-group">
+              <label>ベネフィット３</label>
+              <input type="text" class="form-control border-input" placeholder="ベネフィット文章３" [(ngModel)]="newRental.appeal3" name="appeal3" required>
+          </div>
+
+          <div class="form-group">
+              <label>Course 60 description</label>
+              <textarea 
+                  class="form-control textarea-limited" 
+                  placeholder="紹介文を入力できます" 
+                  [(ngModel)]="newRental.course60Description" 
+                  name="course60Description"
+                  rows="3" 
+                  maxlength="150" ></textarea>
+              <h5><small><span id="textarea-limited-message" class="pull-right">
+                <div *ngIf="!newRental.description">
+                  残文字数 150
+                </div>
+                <div *ngIf="newRental.description">
+                  残文字数 {{ 150 - newRental.description.length }}
+                </div>
+              </span></small></h5>
+          </div>
+          <!-- <div class="form-group">
+              <label>90min images</label>
+              <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="userData.email" name="email" required>
+          </div> -->
+          <div class="form-group">
+            <label>Course 90 description</label>
+            <textarea 
+                class="form-control textarea-limited" 
+                placeholder="紹介文を入力できます" 
+                [(ngModel)]="newRental.course90Description" 
+                name="course90Description"
+                rows="3" 
+                maxlength="150" ></textarea>
+            <h5><small><span id="textarea-limited-message" class="pull-right">
+              <div *ngIf="!newRental.description">
+                残文字数 150
+              </div>
+              <div *ngIf="newRental.description">
+                残文字数 {{ 150 - newRental.description.length }}
+              </div>
+            </span></small></h5>
+          </div>
+          <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control border-input" placeholder="フォームからの連絡用アドレスを入力" [(ngModel)]="newRental.email" name="email" required>
+          </div>
+          <div class="form-group">
+              <label>HP（任意）</label>
+              <input type="text" class="form-control border-input" placeholder="HPのURLが入力できます" [(ngModel)]="newRental.homepage" name="homepage">
+          </div>
+          <div class="form-group">
+              <label>Facebook（任意）</label>
+              <input type="text" class="form-control border-input" placeholder="FacebookURLが入力できます" [(ngModel)]="newRental.facebook" name="facebook">
+          </div>
+          <div class="form-group">
+              <label>Instagram（任意）</label>
+              <input type="text" class="form-control border-input" placeholder="InstagramURLが入力できます" [(ngModel)]="newRental.instagram" name="instagram">
+          </div>
+          <div class="form-group">
+              <label>Twitter（任意）</label>
+              <input type="text" class="form-control border-input" placeholder="TwitterURLが入力できます" [(ngModel)]="newRental.twitter" name="twitter">
+          </div>
+
+          <div class="form-group">
+              <label>カテゴリ</label>
+              <angular2-multiselect [data]="dropdownCategoryList" 
+                                  [settings]="dropdownCategorySettings" 
+                                  [(ngModel)]="newRental.selectedCategory"
+                                  name="selectedCategory"
+                                  ></angular2-multiselect>
+          </div>
+
+          <div class="space-top"></div>
+          <!-- <label>Notifications</label> -->
+          <ul class="notifications">
+              <li class="notification-item">
+                  外部公開 / 非公開
+                  <bSwitch
+                      [switch-on-color]="'info'"
+                      [switch-off-color]="'info'"
+                      [(ngModel)]="newRental.shared"
+                      name="shared">
+                  </bSwitch>
+              </li>
+              <!-- <li class="notification-item">
+                  Updates regarding product changes
+                  <bSwitch
+                      [switch-on-color]="'info'"
+                      [switch-off-color]="'info'"
+                      [(ngModel)]="state_info1"
+                      name="second_switch">
+                  </bSwitch>
+              </li> -->
+          </ul>
+
+          <!-- <div class="form-group">
+            <label for="age">商品の年齢</label>
+            <input [(ngModel)]="newRental.age"
+                    name="age"
+                    type="number"
+                    class="form-control"
+                    id="age"
+                    required>
+          </div> -->
+
+          <!-- <div class="form-group">
+            <label for="height">商品の身長</label>
+            <input [(ngModel)]="newRental.height"
+                    name="height"
+                    type="number"
+                    class="form-control"
+                    id="height"
+                    required>
+          </div> -->
+
+          <!-- <div class="form-group">
+            <label for="bust">バストサイズ</label>
+
+            <select class="form-control"
+                    [(ngModel)]="newRental.bust"
+                    name="bust"
+                    id="bust">
+              <option> Aカップ </option>
+              <option> Bカップ </option>
+              <option> Cカップ </option>
+              <option> Dカップ </option>
+              <option> Eカップ </option>
+              <option> Fカップ </option>
+              <option> Gカップ </option>
+              <option> Hカップ </option>
+              <option> Iカップ以上 </option>
+            </select>
+          </div> -->
+
+          <!-- <div class="form-group">
+            <label for="weight">体型</label>
+
+            <select class="form-control"
+                    [(ngModel)]="newRental.weight"
+                    name="weight"
+                    id="weight">
+              <option> 標準的 </option>
+              <option> スリム </option>
+              <option> 少しポチャ </option>
+              <option> ポチャ </option>
+            </select>
+          </div> -->
+
+ <!--後で対応する
+          <div class="form-group">
+            <app-image-upload></app-image-upload>
+          </div>
+        -->
+
+          <!--
+          <div class="form-group">
+            <label for="video">プロモーションビデオ（任意）</label>
+            <input [(ngModel)]="newRental.image"
+                    name="video"
+                    type="file"
+                    class="form-control"
+                    id="video"
+                    placeholder="Upload file..."
+                    (change)="imageChange()">
+          </div>
+          -->
+
+          <!-- <div class="form-group">
+            <label for="province">活動エリア</label>
+            <input [(ngModel)]="newRental.province"
+                   name="province"
+                   type="text"
+                   class="form-control"
+                   id="province">
+          </div>
+
+          <div class="form-group">
+            <label for="nearStation">近くの駅</label>
+            <input [(ngModel)]="newRental.nearStation"
+                    name="nearStation"
+                    type="text"
+                    class="form-control"
+                    id="nearStation">
+          </div>
+
+          <div class="form-group">
+            <label for="hourlyPrice">時間あたりの値段</label>
+            <div class="input-group">
+              <input [(ngModel)]="newRental.hourlyPrice"
+                      name="hourlyPrice"
+                      type="number"
+                      class="form-control"
+                      id="hourlyPrice"
+                      required>
+              <div class="input-group-append">
+                <div class="input-group-text">円</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">自己紹介</label>
+            <textarea [(ngModel)]="newRental.description"
+                      name="description"
+                      rows="3"
+                      type="text"
+                      class="form-control"
+                      id="description">
+            </textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="weight">公開/非公開</label>
+
+            <select class="form-control"
+                    name="weight"
+                    id="weight">
+              <option> 非公開 </option>
+              <option> 公開 </option>
+            </select>
+          </div> -->
+
+          <button [disabled]="!rentalForm.form.valid" type="submit" class="btn btn-wd btn-danger">商品登録</button>
+
+        </form>
+        <div *ngIf="errors.length > 0" class="alert alert-danger">
+          <p *ngFor="let error of errors">
+            {{error.detail}}
+          </p>
+        </div>
+      </div>
+      <!-- <div class="col-md-6 ml-auto">
+        <div class="image-container">
+          <h2 class="catchphrase">Hundreds of awesome places in reach of few clicks.</h2>
+          <img src="assets/img/airbridal-login2.jpg" alt="">
+        </div>
+      </div> -->
+      <div class="col-md-6 ml-auto">
+        <div class="card-image text-center space-top">
+          <img src="assets/img/create-rental-bg.jpg" alt="Rounded Image" class="img-rounded img-responsive">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

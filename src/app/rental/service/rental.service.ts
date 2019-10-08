@@ -16,10 +16,6 @@ export class RentalService {
         return this.http.get('/api/v1/rentals')
     }
 
-    public getOwnerRentals(): Observable<any> {
-        return this.http.get('/api/v1/rentals/manage')
-    }
-
     public createRental(rentalData: Rental): Observable<any> {
         return this.http.post('/api/v1/rentals', rentalData)
     }
@@ -31,4 +27,18 @@ export class RentalService {
     public updateRental(rentalId: string, rentalData: Rental): Observable<any> {
         return this.http.patch('/api/v1/rentals/' + rentalId, rentalData)
     }
+
+
+    public getOwnerRentals(): Observable<any> {
+        return this.http.get('/api/v1/rentals/manage')
+    }
+
+    public getUserFavouriteRentals(): Observable<any> {
+        return this.http.get('/api/v1/rentals/favourite')
+    }
+
+    public toggleFavourite(rentalId: string): Observable<any> {
+        return this.http.get('/api/v1/rentals/favourite/' + rentalId)
+    }
+
 }

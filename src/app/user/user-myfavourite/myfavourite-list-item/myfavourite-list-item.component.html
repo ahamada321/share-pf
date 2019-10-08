@@ -1,0 +1,27 @@
+<div class="card">
+    <a routerLink="{{rental._id}}">
+      <div class="card-image">
+        <img class="img" src="{{rental.image}}">
+      </div>
+      <div class="card-body">
+        <label class="label label-warning">{{ rental.province }}</label>
+        <h5 class="card-title">{{ rental.rentalname }} Trainer</h5>
+        <div class="card-description">{{ rental.cardDescription }}</div>
+      </div>
+    </a>
+    <div class="card-footer">
+      <hr>
+      <div class="author">
+        <!-- <img src="assets/img/rihanna.jpg" alt="..." class="avatar img-raised"> -->
+        <span>{{ rental.hourlyPrice }}JPY/HOUR</span>
+      </div>
+      <div class="stats clickable">
+        <a (click)=toggleFavourite()>
+          <i *ngIf="isFavourite" class="fa fa-heart" aria-hidden="true"></i>
+          <i *ngIf="!isFavourite" class="fa fa-heart-o" aria-hidden="true"></i>
+          5.3k
+        </a>
+      </div>
+    </div>
+  </div>
+  

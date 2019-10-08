@@ -47,6 +47,19 @@ exports.getOwnerRentals = function(req,res) {
             })
 }
 
+exports.getUserFavouriteRentals = function(req,res) {
+    const user = res.locals.user
+
+    Rental.where({favouritesFrom: user})
+            // .populate('bookings')
+            .exec(function(err, foundRentals) {
+                if(err) {
+                    return res.status(422).send({errors: normalizeErrors(err.errors)})
+                }
+                return res.json(foundRentals)
+            })
+}
+
 
 exports.deleteRental = function(req, res) {
     const user = res.locals.user
@@ -110,13 +123,58 @@ exports.updateRental = function(req, res) {
             })
 }
 
+exports.toggleFavourite = function(req, res) {
+    const user = res.locals.user
+    const rentalId = req.params.id
+
+    Rental.findById(rentalId)
+            // .populate('favouritesFrom', '_id')
+            .exec(function(err, foundRental) {
+                if(err) {
+                    return res.status(422).send({errors: normalizeErrors(err.errors)})
+                }
+
+                // const index = foundRental.favouritesFrom.findIndex((x) => x.id === user.id)
+                const index = foundRental.favouritesFrom.indexOf(user.id)
+
+                if(index >= 0) {
+                    foundRental.favouritesFrom.splice(index, 1) // Dlete user from array.
+                } else {
+                    foundRental.favouritesFrom.push(user)
+                }
+
+                try {
+                    Rental.updateOne({ _id: foundRental.id}, foundRental, () => {})
+                    return res.json(index)
+                } catch(err) {
+                    return res.json(err)
+                }
+            })
+}
+
+
 exports.createRental = function(req, res) {
-    const { rentalname, age, height, bust, weight, image, video, province, nearStation, hourlyPrice, description, shared } = req.body
+    const { 
+        rentalname, 
+        selectedCategory,
+        age, 
+        height, 
+        bust, 
+        weight, 
+        image, 
+        video, 
+        province, 
+        nearStation, 
+        hourlyPrice, 
+        description, 
+        shared 
+    } = req.body
     const user = res.locals.user
 
     //referring from ../models/rental.js
     const rental = new Rental({
         rentalname,
+        selectedCategory,
         age,
         height,
         bust,
