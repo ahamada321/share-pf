@@ -22,9 +22,9 @@ export class RentalEditComponent implements OnInit {
     // Select category
     dropdownCategoryList = [
       {"id":1,"itemName":"ウエディング"},
-      {"id":2,"itemName":"２次会"},
-      {"id":3,"itemName":"フラワー"},
-      {"id":4,"itemName":"あああ"}
+      {"id":2,"itemName":"フラワー"},
+      {"id":3,"itemName":"２次会"},
+      {"id":4,"itemName":"その他"}
     ]
     dropdownCategorySettings = { 
       singleSelection: true, 
