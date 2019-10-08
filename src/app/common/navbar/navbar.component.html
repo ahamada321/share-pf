@@ -67,10 +67,10 @@
                     <div ngbDropdown class="nav-item dropdown clickable">
                         <div ngbDropdownToggle class="nav-link dropdown-toggle"><i class="nc-icon nc-single-02"></i>&nbsp; {{auth.getUsername()}}さん</div>
                         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-danger">
-                            <!-- <a class="dropdown-item" [routerLink]="['/user/favourite']"><i class="nc-icon nc-favourite-28"></i>&nbsp; お気に入り管理</a> -->
-                            <!-- <a class="dropdown-item" [routerLink]="['/user/pending']"><i class="nc-icon nc-bell-55"></i>&nbsp; 日時調整中の予約</a> -->
-                            <!-- <a class="dropdown-item" [routerLink]="['/user/mybookings']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 日時確定した予約</a> -->
-                            <!-- <a class="dropdown-item" [routerLink]="['/user/settings']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; 設定</a> -->
+                            <a class="dropdown-item" [routerLink]="['/user/myfavourite']"><i class="nc-icon nc-favourite-28"></i>&nbsp; お気に入り管理</a>
+                            <a class="dropdown-item" [routerLink]="['/user/pending']"><i class="nc-icon nc-bell-55"></i>&nbsp; 日時調整中の予約</a>
+                            <a class="dropdown-item" [routerLink]="['/user/mybookings']"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; 日時確定した予約</a>
+                            <a class="dropdown-item" [routerLink]="['/user/settings']"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; 設定</a>
                         </div>
                     </div>
                     <li class="nav-item clickable">

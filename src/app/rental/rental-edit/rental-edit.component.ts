@@ -19,11 +19,25 @@ export class RentalEditComponent implements OnInit {
 
     data : Date = new Date();
 
+    // Select category
+    dropdownCategoryList = [
+      {"id":1,"itemName":"ウエディング"},
+      {"id":2,"itemName":"２次会"},
+      {"id":3,"itemName":"フラワー"},
+      {"id":4,"itemName":"あああ"}
+    ]
+    dropdownCategorySettings = { 
+      singleSelection: true, 
+      text:"カテゴリを選択",
+      enableSearchFilter: false,
+      classes:""
+    }
+
     constructor(
       private router: Router,
       private route: ActivatedRoute,
-      private rentalService: RentalService,
-      ) { }
+      private rentalService: RentalService
+    ) { }
 
     ngOnInit() {
         this.route.params.subscribe(

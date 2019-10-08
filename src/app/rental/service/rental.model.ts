@@ -13,6 +13,7 @@ export class Rental {
     facebook: string;
     instagram: string;
     twitter: string;
+    selectedCategory: any[];
 
     rentalname: string;
     email: string;
@@ -71,5 +72,6 @@ export class Rental {
     rating: number;
     user: any;
     brand: any;
+    favouritesFrom: any[];
     bookings: Booking[];
 }

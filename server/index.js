@@ -19,7 +19,8 @@ mongoose.connect(
     config.DB_URI, 
     { 
         useCreateIndex: true,
-        useNewUrlParser: true 
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     }).then(
     () => {
         if(process.env.NODE_ENV !== 'production') {

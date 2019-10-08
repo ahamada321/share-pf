@@ -17,19 +17,23 @@ import { FormatDatePipe } from '../common/pipes/format-date.pipe';
 import { FormatTimePipe } from '../common/pipes/format-time.pipe';
 import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 import { ReviewModule } from '../common/components/review/review.module';
+
 import { MaterialModule } from '../common/modules/matmodule/matmodule';
 import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
+import { UserMyFavouriteComponent } from './user-myfavourite/user-myfavourite.component';
 import { UserMyBookingsListComponent } from './user-mybookings/user-mybookings-list/user-mybookings-list.component';
+import { MyfavouriteListItemComponent } from './user-myfavourite/myfavourite-list-item/myfavourite-list-item.component';
 
 
 const routes: Routes = [{
   path: 'user',
   component: UserComponent,
   children: [
+    { path: 'myfavourite', component: UserMyFavouriteComponent, canActivate: [AuthGuard] },
+    { path: 'mybookings', component: UserMyBookingsComponent, canActivate: [AuthGuard] },
     { path: 'settings', component: UserSettingsComponent, canActivate: [AuthGuard] },
   // { path: ':rentalId/edit', component: RentalDetailUpdateComponent }
     { path: 'pending', component: UserPendingComponent, canActivate: [AuthGuard] },
-    { path: 'mybookings', component: UserMyBookingsComponent, canActivate: [AuthGuard] },
     { path: '', redirectTo: 'profile', pathMatch: 'full' }
   ]
 }]
@@ -37,6 +41,8 @@ const routes: Routes = [{
 @NgModule({
   declarations: [
     UserComponent,
+    MyfavouriteListItemComponent,
+    UserMyFavouriteComponent,
     UserMyBookingsComponent, 
     UserMyBookingsListComponent,
     UserPendingComponent,

@@ -1,4 +1,5 @@
 <section id="newRental">
+  <div class="space-70"></div>
   <div class="container">
     <div class="row">
       <div class="col-md-5">
@@ -140,6 +141,15 @@
           <div class="form-group">
               <label>Twitter（任意）</label>
               <input type="text" class="form-control border-input" placeholder="TwitterURLが入力できます" [(ngModel)]="newRental.twitter" name="twitter">
+          </div>
+
+          <div class="form-group">
+              <label>カテゴリ</label>
+              <angular2-multiselect [data]="dropdownCategoryList" 
+                                  [settings]="dropdownCategorySettings" 
+                                  [(ngModel)]="newRental.selectedCategory"
+                                  name="selectedCategory"
+                                  ></angular2-multiselect>
           </div>
 
           <div class="space-top"></div>

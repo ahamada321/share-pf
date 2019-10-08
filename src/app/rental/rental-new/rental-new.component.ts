@@ -6,22 +6,41 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-rental-create',
-  templateUrl: './rental-create.component.html',
-  styleUrls: ['./rental-create.component.scss']
+  selector: 'app-rental-new',
+  templateUrl: './rental-new.component.html',
+  styleUrls: ['./rental-new.component.scss']
 })
-export class RentalCreateComponent implements OnInit {
+export class RentalNewComponent implements OnInit {
 
   newRental: Rental
   rentalCategories = Rental.CATEGORIES
   errors: any[] = []
 
-  constructor(private rentalService: RentalService, private router: Router) { }
+  // Select category
+  dropdownCategoryList = [
+    {"id":1,"itemName":"ウエディング"},
+    {"id":2,"itemName":"２次会"},
+    {"id":3,"itemName":"フラワー"},
+    {"id":4,"itemName":"あああ"}
+  ]
+  dropdownCategorySettings = { 
+    singleSelection: true, 
+    text:"カテゴリを選択",
+    enableSearchFilter: false,
+    classes:""
+  }
+
+  constructor(
+    private rentalService: RentalService, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.newRental = new Rental()
     this.newRental.image = "assets/images/image_placeholder.jpg"
 
+    let navbar = document.getElementsByTagName('nav')[0];
+    navbar.classList.remove('navbar-transparent');
   }
 
   createRental(rentalForm: NgForm) {
