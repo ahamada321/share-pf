@@ -177,7 +177,7 @@ exports.createRental = function(req, res) {
         province, 
         nearStation, 
         hourlyPrice, 
-        
+        selectedCategory,
         shared 
     } = req.body
     const user = res.locals.user
@@ -206,6 +206,7 @@ exports.createRental = function(req, res) {
         province,
         nearStation,
         hourlyPrice,
+        selectedCategory,
         shared
     })
 
