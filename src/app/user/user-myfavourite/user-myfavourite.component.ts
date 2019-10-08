@@ -18,15 +18,15 @@ export class UserMyFavouriteComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.add('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    // navbar.classList.add('navbar-transparent');
 
     this.getUserFavouriteRentals()
   }
 
   ngOnDestroy() {
-    let navbar = document.getElementsByTagName('nav')[0];
-    navbar.classList.remove('navbar-transparent');
+    // let navbar = document.getElementsByTagName('nav')[0];
+    // navbar.classList.remove('navbar-transparent');
   }
 
   private getUserFavouriteRentals() {
