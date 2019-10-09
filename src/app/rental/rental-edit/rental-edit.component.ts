@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2'
 import { RentalService } from '../service/rental.service';
 import { Rental } from '../service/rental.model';
+import Swal from 'sweetalert2'
 
 
 @Component({
