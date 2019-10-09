@@ -4,6 +4,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { RentalService } from '../service/rental.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-rental-new',
@@ -46,12 +48,25 @@ export class RentalNewComponent implements OnInit {
   createRental(rentalForm: NgForm) {
     this.rentalService.createRental(this.newRental).subscribe(
       (rental: Rental) => {
-        this.router.navigate(['/rentals/manage'])
+        this.showSwalSuccess()
       },
       (errorResponse: HttpErrorResponse) => {
         this.errors = errorResponse.error.errors
       }
   )}
+
+  private showSwalSuccess() {
+    Swal.fire({
+        // title: 'User infomation has been updated!',
+        text: '商品を新規登録しました！',
+        type: 'success',
+        confirmButtonClass: "btn btn-primary btn-round btn-lg",
+        buttonsStyling: false,
+        timer: 5000
+    }).then(() => {
+      this.router.navigate(['/rentals/manage'])
+    })
+}
 
   imageChange() {
     this.newRental.image = "assets/images/room1.jpg"
