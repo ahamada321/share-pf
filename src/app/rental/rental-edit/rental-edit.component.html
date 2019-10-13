@@ -134,10 +134,19 @@
                             <input type="text" class="form-control border-input" placeholder="ベネフィット文章３" [(ngModel)]="rental.appeal3" name="appeal3" required>
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label>YoutubeURL</label>
-                            <input type="text" class="form-control border-input" placeholder="Email Address" [ngModel]="rental.videourl" name="email" required>
-                        </div> -->
+                        <div class="form-group">
+                            <label>60min image</label>
+                            <div class="row">
+                                <div class="col-md-10 ml-auto mr-auto">
+                                    <!-- <app-image-upload></app-image-upload> -->
+                                    <app-image-upload-myver 
+                                        [inputImage]="rental.course60img"
+                                        (imageUploaded)="rental.course60img=$event;isTouched=true"
+                                        >
+                                    </app-image-upload-myver>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label>Course 60 description（必須）</label>
