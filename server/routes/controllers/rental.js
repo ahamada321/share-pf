@@ -156,30 +156,45 @@ exports.toggleFavourite = function(req, res) {
 exports.createRental = function(req, res) {
     const { 
         rentalname, 
+        cardDescription,
         selectedCategory,
         age, 
         height, 
         bust, 
         weight, 
         image, 
+        course90img,
+        gallery,
+        gallery2,
+        gallery3,
+        gallery4,
+        gallery5,
         video, 
         province, 
         nearStation, 
         hourlyPrice, 
         description, 
         shared 
+
     } = req.body
     const user = res.locals.user
 
     //referring from ../models/rental.js
     const rental = new Rental({
         rentalname,
+        cardDescription,
         selectedCategory,
         age,
         height,
         bust,
         weight,
         image,
+        course90img,
+        gallery,
+        gallery2,
+        gallery3,
+        gallery4,
+        gallery5,
         video,
         province,
         nearStation,
