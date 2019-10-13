@@ -13,6 +13,8 @@ import Swal from 'sweetalert2'
 })
 export class RentalEditComponent implements OnInit {
     rental: Rental
+    isTouched: boolean = false
+
     state_info = true;
     state_info1 = true;
     third_switch = true;
