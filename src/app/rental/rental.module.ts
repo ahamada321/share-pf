@@ -32,6 +32,7 @@ import { BottomNavbarComponent } from '../common/bottom-navbar/bottom-navbar.com
 import { GoogleMapsModule } from '../common/components/googlemaps/googlemaps.module';
 import { PaymentModule } from '../common/components/payment/payment.module';
 import { ReviewModule } from '../common/components/review/review.module';
+import { ContactformModule } from '../common/components/form/form.module';
 import { EditableModule } from '../common/components/editable/editable.module';
 import { BookingSelecterModule } from '../common/components/booking-selecter/booking-selecter.module';
 
@@ -94,6 +95,7 @@ const routes: Routes = [{
         GoogleMapsModule,
         PaymentModule,
         ReviewModule,
+        ContactformModule,
         BarRatingModule,
         BookingSelecterModule,
         // ImageUploadModule
