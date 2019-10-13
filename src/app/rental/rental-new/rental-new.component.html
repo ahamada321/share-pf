@@ -129,15 +129,15 @@
 
           <div class="form-group">
             <label>60min image</label>
-            <div class="row">
-                <div class="col-md-10 ml-auto mr-auto">
-                    <!-- <app-image-upload></app-image-upload> -->
-                    <app-image-upload-myver 
-                        (imageUploaded)="newRental.course60img=$event"
-                        >
-                    </app-image-upload-myver>
-                </div>
-            </div>
+            <input [(ngModel)]="newRental.course60img"
+                   name="course60img"
+                   id="course60img"
+                   type="text"
+                   class="form-control"
+                   placeholder="Youtube embeded URLをペーストしてください" 
+                   maxlength="20" 
+                   required
+                   />
           </div>
           <div class="form-group">
               <label>Course 60 description（必須）</label>
