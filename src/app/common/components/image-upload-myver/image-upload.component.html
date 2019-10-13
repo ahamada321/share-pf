@@ -1,16 +1,39 @@
-<label class="image-upload-container btn btn-bwm">
-    <input #imageInput
+<label *ngIf="!imageChangedEvent" class="image-upload-container btn btn-warning">
+    画像を選択
+    <input 
         type="file"
         accept="image/*"
-        (change)="processFile(imageInput)">
-
-    <div class="picture-container">
-    <div class="picture">
-        <img src="/assets/image/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
-        <input type="file" id="wizard-picture">
-    </div>
-    <h6 class="description">Choose Picture</h6>
-    </div>
-    
-    <img *ngIf="selectedFile" [src]="selectedFile.src" alt="">
+        (change)="fileChangeEvent($event)">
 </label>
+<button *ngIf="imageChangedEvent"
+        type="button"
+        (click)="uploadImage()"
+        class="btn btn-danger"
+        >切り抜いた画像をアップロード
+</button>
+
+<div class="space-top"></div>
+<div *ngIf="selectedFile && selectedFile.src" class="img-preview-container">
+    <div class="img-preview"
+        [ngStyle]="{'background-image': 'url(' + selectedFile.src + ')'}"
+    ></div>
+
+    <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+        <div class="img-spinning-circle"></div>
+    </div>
+
+    <div *ngIf="selectedFile.status === 'OK'" class="alert alert-success">この画像で登録します</div>
+    <div *ngIf="selectedFile.status === 'FAIL'" class="alert alert-danger">画像アップロードに失敗しました</div>
+</div>
+
+<div *ngIf="!(selectedFile && selectedFile.src)">
+    <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [aspectRatio]="900 / 600"
+        [resizeToWidth]="600"
+        format="jpeg"
+        (imageCropped)="imageCropped($event)"
+        >
+    </image-cropper>
+</div>
+

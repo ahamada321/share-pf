@@ -38,7 +38,7 @@ import { BookingSelecterModule } from '../common/components/booking-selecter/boo
 import { RentalService } from './service/rental.service';
 import { BookingService } from './rental-detail/rental-detail-booking/services/booking.service';
 import { BookingHelperService } from './rental-detail/rental-detail-booking/services/booking.helper.service';
-import { ContactformModule } from '../common/components/form/form.module';
+import { ImageUploadMyverModule } from '../common/components/image-upload-myver/image-upload-myver.module';
 // import { ImageUploadModule } from '../common/components/image-upload/image-upload.module';
 
 
@@ -82,24 +82,24 @@ const routes: Routes = [{
         TimePickerModal
       ],
       imports: [
-          CommonModule,
-          RouterModule.forChild(routes),
-          FormsModule,
-          ReactiveFormsModule,
-          AngularMultiSelectModule,
-          NgbModule,
-          MaterialModule,
-          EditableModule,
-          ChartsModule,
-          GoogleMapsModule,
-          PaymentModule,
-          ReviewModule,
-          ContactformModule,
-          BarRatingModule,
-          BookingSelecterModule,
-          // ImageUploadModule
-          FullCalendarModule,
-          JwBootstrapSwitchNg2Module
+        CommonModule,
+        RouterModule.forChild(routes),
+        FormsModule,
+        ReactiveFormsModule,
+        AngularMultiSelectModule,
+        NgbModule,
+        MaterialModule,
+        EditableModule,
+        ChartsModule,
+        GoogleMapsModule,
+        PaymentModule,
+        ReviewModule,
+        BarRatingModule,
+        BookingSelecterModule,
+        // ImageUploadModule
+        ImageUploadMyverModule,
+        FullCalendarModule,
+        JwBootstrapSwitchNg2Module
       ],
       entryComponents: [
         RentalIncomingDialog,
@@ -107,9 +107,9 @@ const routes: Routes = [{
         TimePickerModal
       ],
       providers: [
-          RentalService,
-          BookingService,
-          BookingHelperService,
+        RentalService,
+        BookingService,
+        BookingHelperService
       ],
       bootstrap: []
 })

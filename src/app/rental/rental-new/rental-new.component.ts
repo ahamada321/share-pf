@@ -14,7 +14,7 @@ import Swal from 'sweetalert2'
 })
 export class RentalNewComponent implements OnInit {
 
-  newRental: Rental
+  newRental: Rental = new Rental()
   rentalCategories = Rental.CATEGORIES
   errors: any[] = []
 
@@ -38,9 +38,6 @@ export class RentalNewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.newRental = new Rental()
-    this.newRental.image = "assets/images/image_placeholder.jpg"
-
     let navbar = document.getElementsByTagName('nav')[0];
     navbar.classList.remove('navbar-transparent');
   }
@@ -66,9 +63,14 @@ export class RentalNewComponent implements OnInit {
     }).then(() => {
       this.router.navigate(['/rentals/manage'])
     })
-}
+  }
 
   imageChange() {
     this.newRental.image = "assets/images/room1.jpg"
   }
+
+  onImageUploaded(imageUrl: string) {
+    // this.newReport.receiptImageUrl = imageUrl
+  }
+
 }
