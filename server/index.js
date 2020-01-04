@@ -18,17 +18,19 @@ const imageUploadRoutes = require('./routes/image-upload')
 mongoose.connect(
     config.DB_URI, 
     { 
-        useCreateIndex: true,
+        // useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true
-    }).then(
+    }
+).then(
     () => {
         if(process.env.NODE_ENV !== 'production') {
             const fakeDb = new FakeDb()
             // fakeDb.seeDb()
         }
     }
-);
+).catch(err => console.error(err))
+
 
 const app = express()
 app.use(compression()) // compress middleware
